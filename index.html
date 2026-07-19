@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>什么是电？ — 费曼式漫游</title>
+<style>
+/* ── Reset & Base ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;background:#0a0a12;color:#e0e0ee;line-height:1.7;overflow-x:hidden}
+::selection{background:#6c5ce7;color:#fff}
+
+/* ── Textures & Decor ── */
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,#1a1a3e 0%,transparent 70%),radial-gradient(ellipse at 80% 20%,#1a0a2e 0%,transparent 50%);pointer-events:none;z-index:-1}
+.grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(108,92,231,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(108,92,231,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:-1}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0a12}
+::-webkit-scrollbar-thumb{background:#6c5ce7;border-radius:3px}
+
+/* ── Nav ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,18,.85);backdrop-filter:blur(12px);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(108,92,231,.2)}
+nav .logo{font-weight:700;font-size:1.1rem;color:#a29bfe;letter-spacing:2px}
+nav .logo span{color:#6c5ce7}
+nav a{color:#8888bb;text-decoration:none;font-size:.85rem;transition:color .3s;margin-left:20px}
+nav a:hover{color:#a29bfe}
+
+/* ── Hero ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(3rem,10vw,6rem);font-weight:900;background:linear-gradient(135deg,#6c5ce7,#fd79a8,#6c5ce7);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 4s ease infinite;margin-bottom:16px}
+@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero .sub{font-size:clamp(1rem,2.5vw,1.6rem);color:#8888bb;max-width:600px;margin-bottom:40px;line-height:1.5}
+.hero .sub strong{color:#a29bfe;font-weight:600}
+.hero .scroll-hint{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);color:#6c5ce7;font-size:.8rem;animation:bounce 2s infinite;display:flex;flex-direction:column;align-items:center;gap:8px}
+@keyframes bounce{0%,20%,50%,80%,100%{transform:translateX(-50%) translateY(0)}40%{transform:translateX(-50%) translateY(-8px)}60%{transform:translateX(-50%) translateY(-4px)}}
+
+/* ── Lightning SVG ── */
+.lightning{width:80px;height:120px;margin-bottom:24px}
+.lightning path{fill:none;stroke:#6c5ce7;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:lightningFlicker 3s infinite}
+@keyframes lightningFlicker{0%,100%{opacity:1;stroke:#6c5ce7}50%{opacity:.3;stroke:#a29bfe}75%{opacity:.8;stroke:#fd79a8}}
+
+/* ── Section ── */
+section{padding:80px 24px;max-width:900px;margin:0 auto;position:relative}
+section .tag{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.75rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;border:1px solid}
+section h2{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;margin-bottom:12px;line-height:1.3}
+section h2 .highlight{background:linear-gradient(135deg,#6c5ce7,#a29bfe);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+section p,section li{color:#b0b0cc;font-size:1.05rem;margin-bottom:16px}
+section p strong,section li strong{color:#ddddee;font-weight:600}
+
+/* ── Section: intro ── */
+#intro .tag{color:#6c5ce7;border-color:#6c5ce7}
+#intro .intro-card{background:rgba(108,92,231,.08);border:1px solid rgba(108,92,231,.2);border-radius:16px;padding:32px;margin:24px 0}
+#intro .intro-card .quote{font-size:1.1rem;color:#a29bfe;font-style:italic;border-left:3px solid #6c5ce7;padding-left:20px;margin:16px 0}
+
+/* ── Section: Water Circuit ── */
+#water-circuit .tag{color:#fd79a8;border-color:#fd79a8}
+#water-circuit{scroll-margin-top:60px}
+
+.circuit-diagram{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:32px;margin:24px 0;position:relative;overflow:hidden}
+.circuit-diagram svg{width:100%;max-width:600px;height:auto;display:block;margin:0 auto}
+.circuit-label{position:absolute;font-size:.75rem;color:#6666aa;top:12px;right:16px}
+
+/* ── Toggle Section ── */
+.toggle-section{background:rgba(108,92,231,.06);border:1px solid rgba(108,92,231,.15);border-radius:16px;padding:24px;margin:24px 0}
+.toggle-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.toggle-tab{padding:8px 20px;border-radius:20px;border:1px solid rgba(108,92,231,.3);background:transparent;color:#8888bb;cursor:pointer;font-size:.85rem;transition:all .3s;font-family:inherit}
+.toggle-tab:hover{border-color:#6c5ce7;color:#a29bfe}
+.toggle-tab.active{background:#6c5ce7;color:#fff;border-color:#6c5ce7}
+.toggle-content{display:none;animation:fadeIn .4s}
+.toggle-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Alike / Not Alike ── */
+#alike .tag{color:#00b894;border-color:#00b894}
+#not-alike .tag{color:#e17055;border-color:#e17055}
+#alike{scroll-margin-top:60px}
+#not-alike{scroll-margin-top:60px}
+
+.insight-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:28px;margin:16px 0;transition:border-color .3s,background .3s}
+.insight-card:hover{border-color:rgba(108,92,231,.3);background:rgba(108,92,231,.04)}
+.insight-card .num{display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;border-radius:50%;font-size:.8rem;font-weight:700;margin-right:8px}
+.insight-card h3{font-size:1.15rem;margin-bottom:8px;display:flex;align-items:center}
+.insight-card .key{background:rgba(108,92,231,.12);border-radius:8px;padding:12px 16px;margin:8px 0 12px;color:#a29bfe;font-size:.9rem;border-left:3px solid #6c5ce7}
+.insight-card ul{padding-left:20px}
+.insight-card ul li{margin-bottom:6px;font-size:.95rem}
+
+/* ── Section: FAQ ── */
+#faq .tag{color:#fdcb6e;border-color:#fdcb6e}
+#faq{scroll-margin-top:60px}
+
+.faq-item{border-bottom:1px solid rgba(255,255,255,.06);padding:16px 0}
+.faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:16px;user-select:none}
+.faq-q h3{font-size:1.05rem;font-weight:600;color:#ddddee;margin:0}
+.faq-q .arrow{color:#6c5ce7;font-size:.8rem;transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-q .arrow{transform:rotate(180deg)}
+.faq-a{padding-top:12px;display:none;color:#b0b0cc;font-size:.95rem;line-height:1.7}
+.faq-item.open .faq-a{display:block;animation:fadeIn .3s}
+.faq-a .spark{display:inline-block;padding:2px 10px;border-radius:12px;background:rgba(253,203,110,.1);color:#fdcb6e;font-size:.8rem;margin:0 4px}
+
+/* ── Table ── */
+.comparison-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:.9rem}
+.comparison-table th{text-align:left;padding:12px 16px;background:rgba(108,92,231,.15);color:#a29bfe;font-weight:600;border-bottom:2px solid rgba(108,92,231,.2)}
+.comparison-table th:first-child{border-radius:10px 0 0 0}
+.comparison-table th:last-child{border-radius:0 10px 0 0}
+.comparison-table td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05);color:#b0b0cc}
+.comparison-table tr:hover td{background:rgba(108,92,231,.04)}
+.comparison-table .highlight-cell{color:#a29bfe;font-weight:500}
+
+/* ── Hands-on ── */
+#hands-on .tag{color:#00cec9;border-color:#00cec9}
+#hands-on{scroll-margin-top:60px}
+.tip-card{background:rgba(0,206,201,.06);border:1px solid rgba(0,206,201,.15);border-radius:14px;padding:24px;margin:12px 0;display:flex;gap:16px;align-items:flex-start}
+.tip-card .icon{font-size:1.5rem;flex-shrink:0}
+.tip-card p{margin:0;font-size:.95rem}
+
+/* ── Footer ── */
+footer{text-align:center;padding:60px 24px;color:#5555aa;font-size:.8rem;border-top:1px solid rgba(108,92,231,.1)}
+footer a{color:#6c5ce7;text-decoration:none}
+
+/* ── Responsive ── */
+@media(max-width:640px){
+  section{padding:60px 16px}
+  .insight-card{padding:20px}
+  .circuit-diagram{padding:16px}
+  nav{padding:10px 16px}
+  nav a{font-size:.75rem;margin-left:12px}
+  .comparison-table{font-size:.8rem}
+  .comparison-table td,.comparison-table th{padding:8px 10px}
+}
+
+/* ── Divider ── */
+.divider{text-align:center;padding:0 24px;color:rgba(108,92,231,.3);font-size:1.2rem;letter-spacing:8px;max-width:900px;margin:0 auto}
+
+/* ── SVG animation helpers ── */
+.water-flow{animation:waterPulse 3s ease-in-out infinite}
+@keyframes waterPulse{0%,100%{opacity:.6}50%{opacity:1}}
+.electron-flow{animation:electronMove 2s ease-in-out infinite}
+@keyframes electronMove{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- Nav -->
+<nav>
+  <div class="logo">⚡ <span>电</span> · 费曼漫游</div>
+  <div>
+    <a href="#water-circuit">水回路</a>
+    <a href="#alike">像</a>
+    <a href="#not-alike">不像</a>
+    <a href="#faq">Q&A</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <svg class="lightning" viewBox="0 0 80 120">
+    <path d="M50 10 L25 55 L40 55 L20 110 L60 50 L42 50 L65 10 Z">
+      <animate attributeName="opacity" values="1;0.3;0.8;0.2;1" dur="3s" repeatCount="indefinite"/>
+    </path>
+  </svg>
+  <h1>什么是电？</h1>
+  <p class="sub">
+    从水到电，从直觉到真理解。<br>
+    一场 <strong>14 分钟的费曼式漫游</strong>，给喜欢拆因果链的你。
+  </p>
+  <div class="scroll-hint">
+    <span>向下卷动</span>
+    <svg width="16" height="24" viewBox="0 0 16 24"><path d="M8 0v20M2 14l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </div>
+</section>
+
+<!-- Intro -->
+<section id="intro">
+  <div class="tag">🔌 开场</div>
+  <h2>电 <span class="highlight">和水一样</span>，都是流动的东西</h2>
+  <p>但在"像"之前，得先知道<strong>到底在流动什么</strong>。</p>
+  <div class="intro-card">
+    <p style="color:#a29bfe;font-size:.85rem;font-weight:600;letter-spacing:1px;margin-bottom:8px">核心前提</p>
+    <p style="font-size:1rem">电是<strong>电子在导体中的定向流动</strong>。电子不是被"推"进电线的——<br>是<strong>电场</strong>在推它，就像重力在推你从山坡上滑下来。</p>
+    <div class="quote">
+      "你从山顶滑下是因为你感觉到了重力。<br>
+      电子从电池正极往负极跑，是因为它感觉到了电场力。<br>
+      没有这个力，它就瘫在那儿一动不动。"
+    </div>
+  </div>
+</section>
+
+<div class="divider">···</div>
+
+<!-- Water Circuit -->
+<section id="water-circuit">
+  <div class="tag">💧 第一步</div>
+  <h2>水回路 = 电回路的 <span class="highlight">直觉底盘</span></h2>
+  <p>先别想电——想一根水管。这是你身体已经<strong>亲身理解</strong>的物理系统。</p>
+
+  <div class="circuit-diagram">
+    <div class="circuit-label">回路示意图</div>
+    <svg viewBox="0 0 600 280">
+      <!-- Pump -->
+      <circle cx="100" cy="140" r="30" fill="none" stroke="#6c5ce7" stroke-width="2.5"/>
+      <text x="100" y="145" text-anchor="middle" fill="#a29bfe" font-size="13" font-weight="600">泵</text>
+      <text x="40" y="125" fill="#6666aa" font-size="10">电池</text>
+
+      <!-- Pipe top -->
+      <line x1="130" y1="115" x2="470" y2="115" stroke="#fd79a8" stroke-width="6" stroke-linecap="round" opacity=".7"/>
+      <!-- Water in top pipe -->
+      <line x1="140" y1="115" x2="460" y2="115" stroke="#74b9ff" stroke-width="4" stroke-linecap="round" class="water-flow" opacity=".5"/>
+
+      <!-- Turbine -->
+      <circle cx="500" cy="140" r="28" fill="none" stroke="#fd79a8" stroke-width="2"/>
+      <text x="500" y="145" text-anchor="middle" fill="#fd79a8" font-size="12" font-weight="600">水轮机</text>
+      <text x="540" y="125" fill="#6666aa" font-size="10">灯泡</text>
+
+      <!-- Pipe bottom -->
+      <line x1="470" y1="165" x2="130" y2="165" stroke="#fd79a8" stroke-width="6" stroke-linecap="round" opacity=".7"/>
+      <!-- Water in bottom pipe -->
+      <line x1="460" y1="165" x2="140" y2="165" stroke="#74b9ff" stroke-width="4" stroke-linecap="round" class="water-flow" opacity=".5"/>
+
+      <!-- Arrows -->
+      <polygon points="180,112 180,118 195,115" fill="#74b9ff" opacity=".5"/>
+      <polygon points="420,162 420,168 435,165" fill="#74b9ff" opacity=".5"/>
+      <text x="300" y="105" text-anchor="middle" fill="#74b9ff" font-size="11" opacity=".7">水流方向 →</text>
+      <text x="300" y="185" text-anchor="middle" fill="#74b9ff" font-size="11" opacity=".7">→ 水流返回</text>
+    </svg>
+  </div>
+
+  <div class="toggle-section">
+    <div class="toggle-tabs">
+      <button class="toggle-tab active" data-tab="water">💧 水回路</button>
+      <button class="toggle-tab" data-tab="electric">⚡ 电回路</button>
+    </div>
+    <div class="toggle-content active" id="tab-water">
+      <table class="comparison-table">
+        <tr><th>水系统</th><th>→ 什么意思</th></tr>
+        <tr><td>水泵</td><td>提供压力，让水循环起来</td></tr>
+        <tr><td>水位差（高度差）</td><td>水从高的地方流向低的地方</td></tr>
+        <tr><td>水流速</td><td>每秒钟流过多少升水</td></tr>
+        <tr><td>水管粗细</td><td>粗管阻力小流得快，细管阻力大流得慢</td></tr>
+        <tr><td>水轮机</td><td>水流过它，它转了——水流在做功</td></tr>
+        <tr><td>回路</td><td>水必须走完一整圈回到泵，否则断流</td></tr>
+      </table>
+    </div>
+    <div class="toggle-content" id="tab-electric">
+      <table class="comparison-table">
+        <tr><th>电系统</th><th>→ 什么意思</th></tr>
+        <tr><td>电池</td><td>提供电压（电势差），让电子流动</td></tr>
+        <tr><td>电压</td><td>电子从高电势流向低电势</td></tr>
+        <tr><td>电流</td><td>每秒钟流过多少电荷（安培）</td></tr>
+        <tr><td>电阻</td><td>电阻小电流大，电阻大电流小</td></tr>
+        <tr><td>灯泡</td><td>电子流过灯丝发热发光——电子在做功</td></tr>
+        <tr><td>回路</td><td>必须走完一整圈回到电池负极</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <p style="margin-top:16px">
+    ⚡ <strong>关键一问：</strong>水从高往低流，低处的水怎么被泵回高处？谁在推？
+  </p>
+</section>
+
+<div class="divider">···</div>
+
+<!-- Alike -->
+<section id="alike">
+  <div class="tag">✅ 像</div>
+  <h2>水回路 ⊂ 电回路</h2>
+  <p>所有你关于水的直觉，<strong>80% 可以直接搬过来用</strong>。</p>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#00b894;color:#fff">1</span> 压差驱动</h3>
+    <p>水从高水位到低水位，电子从高电势到低电势。<strong>没压差，就不动。</strong></p>
+  </div>
+  <div class="insight-card">
+    <h3><span class="num" style="background:#00b894;color:#fff">2</span> 阻力决定流量</h3>
+    <p>管子越细水越少；电阻越大电流越小。本质上是同一个数学关系。</p>
+    <div class="key">🔑 欧姆定律（直觉版）：压力 ÷ 阻力 = 流量</div>
+  </div>
+  <div class="insight-card">
+    <h3><span class="num" style="background:#00b894;color:#fff">3</span> 回路是前提</h3>
+    <p>水管断了水停转，电线断了灯灭。没有回路，什么都没有。</p>
+  </div>
+  <div class="insight-card">
+    <h3><span class="num" style="background:#00b894;color:#fff">4</span> 守恒</h3>
+    <p>流进来的水必须流出去（没地方藏水）。流进来的电荷必须流出去——<strong>电荷守恒</strong>。</p>
+  </div>
+</section>
+
+<div class="divider">···</div>
+
+<!-- NOT Alike -->
+<section id="not-alike">
+  <div class="tag">❌ 不像</div>
+  <h2>这才是 <span class="highlight">真正的理解</span></h2>
+  <p>类比能帮你跑起来，但跑多远取决于你知道它<strong>在哪个弯道会翻车</strong>。</p>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#e17055;color:#fff">①</span> 流动的"东西"不一样</h3>
+    <p>水是水分子一整颗在跑。电是电子在原子之间<strong>接力跳</strong>。</p>
+    <div class="key">
+      🔑 <strong>关键图景：</strong>金属原子像一排人站成队，电子像你口袋里最后一个硬币。<br>
+      前面的人被抽走硬币，你口袋里的硬币往前补。<strong>每个电子只挪一小步，但"移动的信号"瞬间传到底。</strong>
+    </div>
+    <ul>
+      <li><strong>电场传播速度 ≈ 光速</strong>（开关一按，灯泡立即亮）</li>
+      <li><strong>电子本身移动速度 ≈ 蚂蚁爬</strong>（只有毫米每秒）</li>
+    </ul>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#e17055;color:#fff">②</span> 水会用完，电子不会</h3>
+    <p>水轮机消耗了水的势能。灯泡没有"吃掉"电子——</p>
+    <p>电子流过灯丝时自己<strong>摩擦发热</strong>，把<strong>自己携带的能量给了灯丝</strong>，然后从另一头原样出去。</p>
+    <div class="key">
+      ⚡ 牧之式追问："那电子怎么补充能量？"<br>
+      → 电池内部化学反应给电子加满能量（回到高电势），再出发
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#e17055;color:#fff">③</span> 水走一条路，电走所有路</h3>
+    <p>水管分叉，水选最容易走的。电不那么诚实——</p>
+    <div class="key">
+      🔑 <strong>电流在所有可能的路径上同时分配</strong>，阻力越小的分配越多。
+    </div>
+    <ul>
+      <li>两个灯泡并联，电阻大的那个反而电流小</li>
+      <li>短路时电流几乎都走导线不走过灯泡（因为导线电阻接近 0）</li>
+    </ul>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#e17055;color:#fff">④</span> 水靠重力，电靠场</h3>
+    <p>水依赖重力——有方向，不能反转。电场可以<strong>按需反转</strong>，这就是交流电（AC）。</p>
+    <div class="key">
+      🔑 类比：你在坡上不需要人推就往下滑——是<strong>重力场</strong>在"帮你"，不是有人在背后推你。<br>
+      电也一样：电子在电场中自然感受到力，不需要"被踢一脚"。
+    </div>
+  </div>
+</section>
+
+<div class="divider">···</div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="tag">❓ 牧之式追问</div>
+  <h2>知道你会问 <span class="highlight">这些</span></h2>
+
+  <div class="faq-item open">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>什么是电？</h3>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">
+      <p>电是<strong>电子在导体中的定向流动</strong>，背后是电场在做功。</p>
+      <p><span class="spark">费曼版</span> 你玩过弹珠轨道吗？坡越高弹珠滚得越快。电也一样——电子站在电压高的地方，就有一股"场"推着它往低处跑。跑起来就是电流，推的力度就是电压。</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>为什么会流动？</h3>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">
+      <p>因为有<strong>电势差</strong>。两端电压不同，电子就感受到电场力往低处走。</p>
+      <p><span class="spark">费曼版</span> 你从山顶滑下是因为你感觉到了重力。电子从电池正极往负极跑，是因为它感觉到了电场力。没有这个力，它就瘫在那儿一动不动。</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>需要什么介质传输？</h3>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">
+      <p>需要<strong>导体</strong>。金属是最好的导体，因为金属原子外围的电子是"自由电子"——它们不像绝缘体里的电子被锁死在原子上，而是可以在原子之间流浪。铜、铝、金都是好导体。</p>
+      <p><span class="spark">费曼版</span> 想象一个房间，里面坐满了人。有些房间里每个人都被绳子绑在椅子上，动弹不得——这是绝缘体。有些房间里的人虽然坐着，但可以站起来走动——这就是金属的自由电子。电线就是一排能自由走动的人。</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>有阻力和压力吗？</h3>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">
+      <p><strong>压力 = 电压（Voltage）</strong>。电压越高，越能"压"过更大的电阻让电流流动。</p>
+      <p><strong>阻力 = 电阻（Resistance）</strong>。电阻来自电子在流动中和金属原子碰撞摩擦。</p>
+      <p>⚡ <strong>那电阻可不可以为零？</strong><br>
+      → 可以！这叫做<strong>超导</strong>。某些材料在极低温下（比如 -269°C）电阻完全消失，电流一旦开始流就永远流下去，不衰减。</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>流动路径遵循什么最优路线？</h3>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">
+      <p><strong>不是"最优"，而是"所有"——同时走所有路径，按阻力分配比例。</strong></p>
+      <p><span class="spark">费曼版</span> 想象一条河遇到多个出口——水不会只走最宽的出口，而是每个出口都流一些，宽的多流、窄的少流。电也一样，过所有的路各自分流。但如果有一条路阻力为零（超导或短路），所有电流都会从那条走。</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">
+      <h3>和水流动到底有什么不同？</h3>
+      <span class="arrow">▼</span>
+    </div>
+    <div class="faq-a">
+      <table class="comparison-table">
+        <tr><th></th><th>💧 水</th><th>⚡ 电</th></tr>
+        <tr><td><strong>流速</strong></td><td>你肉眼能看到</td><td class="highlight-cell">电子漂移速度 ≈ 0.1 mm/s</td></tr>
+        <tr><td><strong>信号传播</strong></td><td>跟水流速度一致</td><td class="highlight-cell">电场传播 ≈ 3×10⁸ m/s（光速）</td></tr>
+        <tr><td><strong>载体</strong></td><td>水分子（用掉就没了）</td><td class="highlight-cell">电子（不消耗，只传递能量）</td></tr>
+        <tr><td><strong>路径选择</strong></td><td>主要往阻力最小的方向</td><td class="highlight-cell">所有方向同时走，按比例分配</td></tr>
+        <tr><td><strong>场</strong></td><td>依赖重力（有方向）</td><td class="highlight-cell">电场可以任意方向、交流反转</td></tr>
+        <tr><td><strong>回路</strong></td><td>需要有回水管</td><td class="highlight-cell">必须有完整回路（没有回路电流为零）</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider">···</div>
+
+<!-- Hands-on -->
+<section id="hands-on">
+  <div class="tag">🛠️ 动手</div>
+  <h2>去 <span class="highlight">亲手</span> 试试</h2>
+
+  <div class="tip-card">
+    <div class="icon">✏️</div>
+    <div><p><strong>画图第一</strong> — 每讲一个概念，随手画一个图。水回路→电回路→并联分流→电子在原子间跳动的小人图。</p></div>
+  </div>
+
+  <div class="tip-card">
+    <div class="icon">💡</div>
+    <div><p><strong>动手验证</strong> — 拿一个电池、一个小灯泡、两根导线。自己搭一次回路：断了铜丝→灯泡灭，换粗铜丝→一样亮（铜丝电阻本就很低）。</p></div>
+  </div>
+
+  <div class="tip-card">
+    <div class="icon">🔍</div>
+    <div><p><strong>生活中的电</strong> — 水管关了水龙头就不流水（开关断开电路灯灭）。太细的管子水流小（灯丝电阻大灯泡暗）。插座比电池猛——因为家庭电压 220V，而一节电池只有 1.5V。</p></div>
+  </div>
+
+  <div class="tip-card">
+    <div class="icon">🤔</div>
+    <div><p><strong>如果又卡住了</strong> — "电流到底有多快？""电子是不是耗光了？""为什么插座的电比电池猛？""交流电到底怎么回事？" —— 回来找我。</p></div>
+  </div>
+</section>
+
+<footer>
+  <p>⚡ 费曼式漫游 · 为牧之而作</p>
+  <p style="margin-top:8px"><a href="https://jasoneip01-pixel.github.io/">jasoneip01-pixel</a> — Per Aspera Ad Astra</p>
+</footer>
+
+<script>
+// FAQ toggle
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('open');
+}
+
+// Water/Electric tabs
+document.querySelectorAll('.toggle-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    const section = this.closest('.toggle-section');
+    section.querySelectorAll('.toggle-tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    const target = this.dataset.tab;
+    section.querySelectorAll('.toggle-content').forEach(c => c.classList.remove('active'));
+    section.querySelector('#tab-' + target).classList.add('active');
+  });
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.insight-card, .faq-item, .tip-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity .6s ease, transform .6s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
