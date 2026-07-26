@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Fields Medal &amp; Abacus Medal — 菲尔兹奖·阿巴克斯奖</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;background:#0a0a12;color:#e0e0ee;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,#1a0a2e 0%,transparent 60%),radial-gradient(ellipse at 75% 85%,#0a1a3e 0%,transparent 50%),radial-gradient(ellipse at 50% 50%,#0a0a1e 0%,transparent 80%);pointer-events:none;z-index:-1}
+::selection{background:#6c5ce7;color:#fff}
+
+/* Hero */
+.hero{min-height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 24px 40px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#6c5ce7,transparent)}
+.hero h1{font-size:clamp(2.2rem,6vw,4.5rem);font-weight:900;margin-bottom:12px;background:linear-gradient(135deg,#fd79a8,#6c5ce7,#a29bfe,#fd79a8);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shift 6s ease infinite;letter-spacing:2px}
+@keyframes shift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero .sub{font-size:clamp(1rem,2.2vw,1.4rem);color:#8888bb;max-width:700px;margin:8px 0;line-height:1.5}
+.hero .meta{color:#5555aa;font-size:.82rem;margin-top:8px}
+.hero .tagline{display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:10px 28px;border-radius:24px;background:rgba(253,121,168,.08);border:1px solid rgba(253,121,168,.2);color:#fd79a8;font-size:.9rem;font-weight:500}
+
+/* Stats row */
+.stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;padding:32px 24px 24px;max-width:900px;margin:0 auto}
+.stat-item{text-align:center}
+.stat-num{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#a29bfe,#6c5ce7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.stat-label{color:#8888bb;font-size:.8rem;margin-top:4px}
+.stat-sub{color:#5555aa;font-size:.7rem}
+
+/* Section headers */
+.section-header{max-width:1100px;margin:40px auto 0;padding:0 24px}
+.section-header h2{font-size:1.6rem;font-weight:700;margin-bottom:8px;color:#ddddee}
+.section-header p{color:#8888bb;font-size:.9rem;max-width:600px}
+
+/* Intro */
+.intro-section{max-width:800px;margin:0 auto;padding:20px 24px 10px}
+.intro-section p{color:#b0b0cc;font-size:1rem;margin-bottom:12px}
+.intro-section .chinese-highlight{background:rgba(253,121,168,.08);border-left:3px solid #fd79a8;border-radius:0 12px 12px 0;padding:16px 20px;margin:16px 0;color:#fd79a8;font-size:.95rem}
+
+/* Winner cards */
+.winners-grid{max-width:1100px;margin:0 auto;padding:24px 24px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(480px,1fr));gap:24px}
+.winner-card{border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);transition:transform .3s,border-color .3s;position:relative}
+.winner-card.fields{border-top:3px solid #6c5ce7}
+.winner-card.abacus{border-top:3px solid #fd79a8}
+.winner-card:hover{transform:translateY(-3px);border-color:rgba(108,92,231,.25)}
+
+.winner-card .card-img{height:260px;background-size:cover;background-position:center 30%;position:relative;overflow:hidden}
+.winner-card .card-img .img-overlay{position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,rgba(10,10,18,.95))}
+
+.winner-card .card-body{padding:24px}
+.winner-card .card-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px}
+.winner-card .card-avatar{width:56px;height:56px;border-radius:50%;background-size:cover;background-position:center;border:2px solid rgba(108,92,231,.3);flex-shrink:0}
+.winner-card .card-meta{flex:1}
+.winner-card .card-meta h3{font-size:1.2rem;font-weight:700;color:#ddddee;margin-bottom:2px}
+.winner-card .card-meta .zh{font-size:.8rem;color:#6666aa;font-weight:400}
+.winner-card .prize-badge{display:inline-block;padding:3px 12px;border-radius:12px;font-size:.7rem;font-weight:600;letter-spacing:1px;margin-top:4px}
+.fields .prize-badge{background:rgba(108,92,231,.15);color:#a29bfe}
+.abacus .prize-badge{background:rgba(253,121,168,.15);color:#fd79a8}
+.winner-card .citation{color:#6c5ce7;font-size:.82rem;padding:6px 12px;background:rgba(108,92,231,.05);border-radius:8px;display:inline-block;margin-bottom:10px}
+.winner-card .card-desc{color:#9999bb;font-size:.88rem;line-height:1.6;margin-bottom:10px}
+.winner-card .card-sources{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.winner-card .source-link{color:#6c5ce7;text-decoration:none;font-size:.78rem;padding:4px 10px;border-radius:6px;border:1px solid rgba(108,92,231,.2);transition:all .3s}
+.winner-card .source-link:hover{background:rgba(108,92,231,.1);border-color:#6c5ce7}
+
+/* Timeline */
+.timeline-wrap{max-width:800px;margin:0 auto;padding:20px 24px 40px}
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:2px;background:linear-gradient(#6c5ce7,#fd79a8)}
+.timeline-item{position:relative;padding:12px 0 12px 20px;border-bottom:1px solid rgba(255,255,255,.04)}
+.timeline-item::before{content:'';position:absolute;left:-24px;top:18px;width:10px;height:10px;border-radius:50%;background:#6c5ce7;border:2px solid #0a0a12}
+.timeline-item.highlight::before{background:#fd79a8}
+.timeline-year{font-size:.82rem;font-weight:700;color:#6c5ce7;margin-bottom:2px}
+.timeline-text{font-size:.9rem;color:#b0b0cc}
+.timeline-text .highlight{color:#fd79a8;font-weight:600}
+
+/* Data cards */
+.info-grid{max-width:1100px;margin:0 auto;padding:20px 24px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.info-card{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:24px;transition:border-color .3s}
+.info-card:hover{border-color:rgba(108,92,231,.2)}
+.info-card .icon{font-size:1.6rem;margin-bottom:8px}
+.info-card h4{font-size:.95rem;font-weight:600;margin-bottom:6px;color:#ddddee}
+.info-card p{font-size:.82rem;color:#8888bb;line-height:1.5}
+
+/* Significance */
+.significance{max-width:800px;margin:0 auto;padding:20px 24px 50px}
+.significance .big-card{background:linear-gradient(135deg,rgba(108,92,231,.08),rgba(253,121,168,.04));border:1px solid rgba(108,92,231,.2);border-radius:16px;padding:32px}
+.significance .big-card p{color:#ccccee;font-size:.95rem;margin-bottom:12px}
+.significance .big-card .key-box{background:rgba(253,121,168,.08);border-radius:8px;padding:14px 18px;margin:14px 0;color:#fd79a8;font-size:.9rem;border-left:3px solid #fd79a8}
+
+/* Source archive */
+.source-archive{max-width:800px;margin:0 auto;padding:20px 24px 50px}
+.source-archive table{width:100%;border-collapse:collapse;font-size:.82rem}
+.source-archive th{padding:10px 14px;background:rgba(108,92,231,.12);color:#a29bfe;font-weight:600;text-align:left;border-bottom:2px solid rgba(108,92,231,.2)}
+.source-archive td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);color:#9999bb}
+.source-archive td a{color:#6c5ce7;text-decoration:none}
+.source-archive td a:hover{color:#a29bfe}
+
+/* Footer */
+footer{text-align:center;padding:48px 24px;color:#5555aa;font-size:.8rem;border-top:1px solid rgba(108,92,231,.06)}
+footer a{color:#6c5ce7;text-decoration:none}
+footer .credit{margin-top:8px;color:#444477;font-size:.75rem}
+
+/* Responsive */
+@media(max-width:768px){
+  .winners-grid{grid-template-columns:1fr;padding:16px 12px;gap:16px}
+  .winner-card .card-img{height:200px}
+  .stats{gap:24px;padding:24px 12px}
+  .stat-num{font-size:2.2rem}
+  .hero{min-height:60vh;padding:80px 16px 30px}
+  .hero h1{font-size:clamp(1.8rem,5vw,2.8rem)}
+  .info-grid{grid-template-columns:1fr;padding:16px 12px}
+  .section-header{padding:0 12px}
+  .intro-section{padding:12px 12px}
+  .timeline-wrap{padding:12px 12px 30px}
+  .significance{padding:12px 12px 30px}
+  .significance .big-card{padding:20px}
+  .source-archive{padding:12px 12px 30px;overflow-x:auto}
+  .source-archive table{font-size:.75rem}
+}
+
+@media(max-width:480px){
+  .winner-card .card-img{height:160px}
+  .winner-card .card-body{padding:16px}
+  .winner-card .card-avatar{width:44px;height:44px}
+  .winner-card .card-meta h3{font-size:1.05rem}
+  .winner-card .card-top{gap:10px}
+  .hero{padding:60px 12px 24px}
+  .hero .tagline{font-size:.8rem;padding:8px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <h1>2026 Fields &amp; Abacus Medals</h1>
+  <p class="sub">菲尔兹奖 · 阿巴克斯奖 — 四名 Fields 得主、一名 Abacus 得主</p>
+  <p class="meta">2026年7月23日 · ICM Philadelphia · 来源: Quanta Magazine / 各大学官方</p>
+  <div class="tagline">
+    <span>🏆</span>
+    <span>两位中国籍数学家同届获奖</span>
+    <span>·</span>
+    <span>Fields 奖 90 年首次</span>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Fields Medalists</div><div class="stat-sub">菲尔兹奖得主</div></div>
+  <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Chinese Nationals</div><div class="stat-sub">中国籍</div></div>
+  <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Abacus Medalist</div><div class="stat-sub">阿巴克斯奖</div></div>
+  <div class="stat-item"><div class="stat-num">90</div><div class="stat-label">Years of Fields</div><div class="stat-sub">菲尔兹奖 90 周年</div></div>
+  <div class="stat-item"><div class="stat-num">40</div><div class="stat-label">Max Age Limit</div><div class="stat-sub">未满 40 岁</div></div>
+</div>
+
+<!-- Intro -->
+<div class="section-header"><h2>🏅 2026 ICM 颁奖</h2></div>
+<div class="intro-section">
+  <p><strong>2026 年国际数学家大会（ICM）</strong>于 2026 年 7 月 23 日在费城开幕，共颁发 4 枚 Fields Medal 和 1 枚 Abacus Medal（原 IMU 阿巴克斯奖，前身为 Nevanlinna 奖）。</p>
+  <p>本届最具历史意义的是：<strong>王虹（Hong Wang）和邓煜（Yu Deng）两位中国籍数学家同时获奖</strong>，这是 Fields 奖 90 年历史上首次有两位中国籍同届获奖。王虹更是第一位中国籍女性 Fields 奖得主、历史上第三位女性得主。</p>
+  <div class="chinese-highlight">
+    🇨🇳 Fields Medal 中国籍得主时间线：丘成桐（1982，美国籍）—— 陶哲轩（2006，澳大利亚籍）—— <strong>王虹（2026）· 邓煜（2026）</strong><br>
+    <small style="color:#8888bb">（注：丘成桐、陶哲轩为华裔，王虹、邓煜为中国籍）</small>
+  </div>
+</div>
+
+<!-- Winners -->
+<div class="section-header"><h2>🎖️ 获奖者全览</h2><p>每位含人物照片、研究领域、获奖理由与一手信源</p></div>
+<div class="winners-grid">
+
+<!-- Hong Wang -->
+<div class="winner-card fields">
+  <div class="card-img" style="background-image:url('assets/images/wang-hong-lede.webp')"><div class="img-overlay"></div></div>
+  <div class="card-body">
+    <div class="card-top">
+      <div class="card-avatar" style="background-image:url('assets/images/wang-hong-portrait.webp')"></div>
+      <div class="card-meta">
+        <h3>Hong Wang <span class="zh">王虹</span></h3>
+        <div class="prize-badge">FIELDS MEDAL</div>
+      </div>
+    </div>
+    <div class="citation">三维 Kakeya 猜想 · 调和分析 / 几何测度论</div>
+    <p class="card-desc">与 Joshua Zahl 合作完成 127 页证明，被 Quanta 称为"一个世纪一次"的突破。获得三维 Kakeya 猜想（Kakeya 问题中最核心的情况）的完整解答。获奖前已获 Salem 奖、Ostrowski 奖、Clay 研究奖、New Horizons 数学奖等。</p>
+    <p class="card-desc" style="font-size:.82rem;color:#7777aa">桂林人 · 北京大学地球科学 → 转数学 · IHES 法国高等科学研究所 · 第三位女性 Fields 得主</p>
+    <div class="card-sources">
+      <a href="https://www.quantamagazine.org/hong-wang-wins-2026-fields-medal-the-third-woman-ever-20260723/" class="source-link" target="_blank">📰 Quanta Magazine</a>
+      <a href="https://en.wikipedia.org/wiki/Hong_Wang_(mathematician)" class="source-link" target="_blank">📖 Wikipedia</a>
+    </div>
+  </div>
+</div>
+
+<!-- Yu Deng -->
+<div class="winner-card fields">
+  <div class="card-img" style="background-image:url('assets/images/yu-deng-lede.webp')"><div class="img-overlay"></div></div>
+  <div class="card-body">
+    <div class="card-top">
+      <div class="card-avatar" style="background-image:url('assets/images/yu-deng-portrait.webp')"></div>
+      <div class="card-meta">
+        <h3>Yu Deng <span class="zh">邓煜</span></h3>
+        <div class="prize-badge">FIELDS MEDAL</div>
+      </div>
+    </div>
+    <div class="citation">随机数据偏微分方程 · Gibbs 测度理论</div>
+    <p class="card-desc">证明了在极端粗糙的随机初始条件下偏微分方程的可解性，突破被认为"起码还需要十年"。邓煜将概率论的灵活性注入 PDE 的刚性结构中，开辟了随机数据 PDE 的新方向。</p>
+    <p class="card-desc" style="font-size:.82rem;color:#7777aa">1989 年生 · 深圳人 · IMO 金牌 → 北京大学 → Princeton 博士 → UChicago 教授 · 曾是职业围棋选手候选人</p>
+    <div class="card-sources">
+      <a href="https://www.quantamagazine.org/yu-deng-wins-the-fields-medal-2026-for-his-work-on-the-random-data-problem-20260723/" class="source-link" target="_blank">📰 Quanta Magazine</a>
+      <a href="https://en.wikipedia.org/wiki/Yu_Deng" class="source-link" target="_blank">📖 Wikipedia</a>
+    </div>
+  </div>
+</div>
+
+<!-- Jacob Tsimerman -->
+<div class="winner-card fields">
+  <div class="card-img" style="background-image:url('assets/images/tsimerman-lede.webp')"><div class="img-overlay"></div></div>
+  <div class="card-body">
+    <div class="card-top">
+      <div class="card-avatar" style="background-image:url('assets/images/tsimerman-portrait.webp')"></div>
+      <div class="card-meta">
+        <h3>Jacob Tsimerman</h3>
+        <div class="prize-badge">FIELDS MEDAL</div>
+      </div>
+    </div>
+    <div class="citation">André-Oort 猜想 · 数论 / 代数几何</div>
+    <p class="card-desc">Tsimerman 证明了 André-Oort 猜想——数论与代数几何交叉领域的核心难题。该猜想预测了复乘法子簇的分布规律，是朗兰兹纲领的重要组成。Tsimerman 的突破颠覆了业界对"什么程度的猜想可以证明"的认知。</p>
+    <p class="card-desc" style="font-size:.82rem;color:#7777aa">1988 年生于俄罗斯喀山 · 3 岁移居以色列 · UToronto 教授 · 2025-2026 在 IAS Princeton</p>
+    <div class="card-sources">
+      <a href="https://www.quantamagazine.org/jacob-tsimerman-wins-2026-fields-medal-for-andre-oort-conjecture-proof-20260723/" class="source-link" target="_blank">📰 Quanta Magazine</a>
+      <a href="https://en.wikipedia.org/wiki/Jacob_Tsimerman" class="source-link" target="_blank">📖 Wikipedia</a>
+    </div>
+  </div>
+</div>
+
+<!-- John Pardon -->
+<div class="winner-card fields">
+  <div class="card-img" style="background-image:url('assets/images/pardon-lede.webp')"><div class="img-overlay"></div></div>
+  <div class="card-body">
+    <div class="card-top">
+      <div class="card-avatar" style="background-image:url('assets/images/pardon-portrait.webp')"></div>
+      <div class="card-meta">
+        <h3>John Pardon</h3>
+        <div class="prize-badge">FIELDS MEDAL</div>
+      </div>
+    </div>
+    <div class="citation">辛几何 · 拓扑学</div>
+    <p class="card-desc">Pardon 在多个不同的数学领域证明了重大定理——虽然不算高产，但他的每个工作都改变了该领域的图景。他的研究横跨辛几何、三维流形拓扑和代数几何。Quanta 说他有"别人看不到的数学之间的联系"。</p>
+    <p class="card-desc" style="font-size:.82rem;color:#7777aa">Duke 大学 · Stony Brook 博士 · 与前几位不同，Pardon 以跨领域"四处开花"著称</p>
+    <div class="card-sources">
+      <a href="https://www.quantamagazine.org/john-pardon-wins-the-2026-fields-medal-for-work-in-symplectic-geometry-20260723/" class="source-link" target="_blank">📰 Quanta Magazine</a>
+      <a href="https://en.wikipedia.org/wiki/John_Pardon" class="source-link" target="_blank">📖 Wikipedia</a>
+    </div>
+  </div>
+</div>
+
+<!-- Shayan Oveis Gharan -->
+<div class="winner-card abacus">
+  <div class="card-img" style="background-image:url('assets/images/gharan-lede.webp')"><div class="img-overlay"></div></div>
+  <div class="card-body">
+    <div class="card-top">
+      <div class="card-avatar" style="background-image:url('assets/images/gharan-portrait.webp')"></div>
+      <div class="card-meta">
+        <h3>Shayan Oveis Gharan</h3>
+        <div class="prize-badge">ABACUS MEDAL</div>
+      </div>
+    </div>
+    <div class="citation" style="color:#fd79a8">旅行商问题算法 · 理论计算机科学</div>
+    <p class="card-desc">Oveis Gharan 通过引入来自代数组合和概率论的跨学科工具，大幅改进了旅行商问题（TSP）的近似算法，这是计算机科学最经典的问题之一。Abacus 奖表彰他在数学与计算机科学交叉领域的贡献。</p>
+    <p class="card-desc" style="font-size:.82rem;color:#7777aa">1986 年生于伊朗伊斯法罕 · University of Washington 教授 · 跨学科工具驱动</p>
+    <div class="card-sources">
+      <a href="https://www.quantamagazine.org/shayan-oveis-gharan-wins-2026-imu-abacus-medal-20260723/" class="source-link" target="_blank">📰 Quanta Magazine</a>
+      <a href="https://en.wikipedia.org/wiki/Shayan_Oveis_Gharan" class="source-link" target="_blank">📖 Wikipedia</a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- Timeline -->
+<div class="section-header"><h2>📜 中国数学家 Fields Medal 时间线</h2></div>
+<div class="timeline-wrap">
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-year">1982</div>
+      <div class="timeline-text"><strong>丘成桐（Shing-Tung Yau）</strong> — 华裔美国籍，他解决了卡拉比猜想，证明了正质量猜想 <span style="color:#5555aa;font-size:.8rem">（Fields 奖第二届华人得主，首位是 1983 年的丘成桐）</span></div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-year">2006</div>
+      <div class="timeline-text"><strong>陶哲轩（Terence Tao）</strong> — 华裔澳大利亚籍，调和分析与偏微分方程，被誉为"在世最聪明的数学家之一"</div>
+    </div>
+    <div class="timeline-item highlight">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-text"><strong>王虹（Hong Wang）</strong> — <span class="highlight">中国籍</span>，第一位中国籍女性 Fields 得主，三维 Kakeya 猜想</div>
+    </div>
+    <div class="timeline-item highlight">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-text"><strong>邓煜（Yu Deng）</strong> — <span class="highlight">中国籍</span>，IMO 金牌→北大→Princeton→UChicago，随机数据 PDE</div>
+    </div>
+    <div class="timeline-item" style="border:none;padding-bottom:0">
+      <div class="timeline-year">🏁</div>
+      <div class="timeline-text" style="color:#5555aa;font-size:.8rem;font-style:italic">Fields Medal 90 年历史上，中国籍得主不足一手之数。2026 年一届两人，前所未有</div>
+    </div>
+  </div>
+</div>
+
+<!-- Rules -->
+<div class="section-header"><h2>📋 Fields Medal 规则</h2></div>
+<div class="info-grid">
+  <div class="info-card"><div class="icon">🎂</div><h4>年龄限制</h4><p>获奖者必须在颁奖年份的 1 月 1 日前未满 40 岁。该限制源于 Fields 本人的遗愿。2026 年邓煜 37 岁，王虹约 35 岁。</p></div>
+  <div class="info-card"><div class="icon">⏱️</div><h4>四年一届</h4><p>每四年在 ICM 上颁发。因 Covid 推迟的 ICM 2022（实际在 2023 年）后，这是又一次正常周期的 ICM。</p></div>
+  <div class="info-card"><div class="icon">💰</div><h4>奖金</h4><p>约 15,000 加元。荣誉远大于金额——相比之下诺贝尔奖约 1000 万瑞典克朗。但 Fields 在数学界影响力不亚于诺贝尔。</p></div>
+  <div class="info-card"><div class="icon">🎓</div><h4>每人一生一次</h4><p>Fields Medal 每人只能获得一次。这激励了评审机制聚焦在"最好的突破"而非"终生成就"。</p></div>
+  <div class="info-card"><div class="icon">🌐</div><h4>IMU 评选</h4><p>颁奖机构为国际数学联盟（IMU）。评审委员会由世界顶尖数学家组成，提名和投票过程严格保密。</p></div>
+  <div class="info-card"><div class="icon">🎖️</div><h4>阿巴克斯奖</h4><p>Abacus Medal（前 Nevanlinna 奖）表彰数学与计算机科学的交叉贡献，每四年颁发一枚，规则与 Fields 类似。</p></div>
+</div>
+
+<!-- Significance -->
+<div class="section-header"><h2>⚡ 为何 2026 年是历史性的</h2></div>
+<div class="significance">
+  <div class="big-card">
+    <p><strong>Fields 奖 90 年历史中：</strong></p>
+    <p>🔹 女性得主仅 3 位：Maryam Mirzakhani（2014）、王虹（2026）、以及另一位暂未公开确认者。王虹是首位中国籍女性得主。</p>
+    <p>🔹 中国籍得主历史上仅 2 位（丘成桐和陶哲轩均为华裔，非中国国籍）。2026 年一届贡献了 2 位，超过此前所有年份之和。</p>
+    <p>🔹 同期 Abacus Medal 授予 Oveis Gharan，表彰他用跨学科工具突破计算机科学经典难题。</p>
+    <div class="key-box">
+      🔑 <strong>给牧之的核心信息：</strong>Fields Medal 不奖励"聪明"——它奖励"在公认的硬核难题上做出了让全世界无法忽视的突破"。王虹选了别人不敢碰的 Kakeya 猜想，邓煜选了被认为"还需要十年"的随机 PDE。他们都用了十年以上的时间。这不是天才一夜之间的故事，是"选了最难的路然后一步一步走完"的故事。
+    </div>
+  </div>
+</div>
+
+<!-- Sources -->
+<div class="section-header"><h2>📰 一手信源</h2><p>Quanta Magazine 为 ICM 2026 官方合作媒体。以下为全部专题报道。</p></div>
+<div class="source-archive">
+<table>
+<tr><th>获奖者</th><th>信源</th><th>作者</th><th>发布日期</th></tr>
+<tr><td>Hong Wang (王虹)</td><td><a href="https://www.quantamagazine.org/hong-wang-wins-2026-fields-medal-the-third-woman-ever-20260723/" target="_blank">Living Fully in the Math World Means Threading the Needle</a></td><td>Natalie Wolchover</td><td>2026-07-23</td></tr>
+<tr><td>Yu Deng (邓煜)</td><td><a href="https://www.quantamagazine.org/yu-deng-wins-the-fields-medal-2026-for-his-work-on-the-random-data-problem-20260723/" target="_blank">Amid Life's Chaos, a Meticulous Mathematician Finds Stability</a></td><td>Jordana Cepelewicz</td><td>2026-07-23</td></tr>
+<tr><td>Jacob Tsimerman</td><td><a href="https://www.quantamagazine.org/jacob-tsimerman-wins-2026-fields-medal-for-andre-oort-conjecture-proof-20260723/" target="_blank">Sometimes Being First Means Seeing the End Before Anyone Else</a></td><td>Kevin Hartnett</td><td>2026-07-23</td></tr>
+<tr><td>John Pardon</td><td><a href="https://www.quantamagazine.org/john-pardon-wins-the-2026-fields-medal-for-work-in-symplectic-geometry-20260723/" target="_blank">The Quietest Mathematician Has Always Been Worth Listening To</a></td><td>Konstantin Kakaes</td><td>2026-07-23</td></tr>
+<tr><td>Shayan Oveis Gharan</td><td><a href="https://www.quantamagazine.org/shayan-oveis-gharan-wins-2026-imu-abacus-medal-20260723/" target="_blank">A Master of the Traveling Salesperson Problem Finds His Own Path</a></td><td>Ben Brubaker</td><td>2026-07-23</td></tr>
+</table>
+<p style="margin-top:16px;font-size:.78rem;color:#5555aa">📌 注：IMU 官方公告（mathunion.org）目前因网络限制无法直接访问。Quanta Magazine 基于 Simons Foundation 支持，为 ICM 2026 官方合作媒体。</p>
+</div>
+
+<footer>
+  <p>📰 全部一手信源：Quanta Magazine · Simons Foundation</p>
+  <p class="credit">专题系列：<a href="https://www.quantamagazine.org/series/fields-and-abacus-medals-2026/">2026 Fields and Abacus Medals</a></p>
+  <p class="credit">为牧之整理 · Per Aspera Ad Astra 🦞</p>
+</footer>
+
+</body>
+</html>
