@@ -277,6 +277,7 @@ footer a{color:#6c5ce7;text-decoration:none}
     <a href="#not-alike">不像</a>
     <a href="#field">电场</a>
     <a href="#potential">电势</a>
+    <a href="#ohms">欧姆定律</a>
     <a href="#faq">Q&A</a>
   </div>
 </nav>
@@ -581,6 +582,114 @@ footer a{color:#6c5ce7;text-decoration:none}
     电场是那个"看不见的手"在推电子，电压只是告诉你"这只手在两点之间能推得多用力"。<br>
     没有电场就没有电压（因为电压就是电场沿路径的积分）；但有了电压你就知道电场做了多少功。<br>
     <strong>场是因，电压是果，电流是结果。</strong>
+  </p>
+</section>
+
+<div class="divider">···</div>
+
+<!-- Ohm's Law -->
+<section id="ohms">
+  <div class="tag">📐 欧姆定律</div>
+  <h2>V = I·R：<span class="highlight">电学最重要的公式</span></h2>
+  <p>现在我们知道什么是电流、什么是电压、什么是电阻。欧姆（Georg Ohm，德国物理学家）在 1827 年发现了一件极其简单的事：<strong>电压、电流和电阻之间的关系是成比例的</strong>——写成公式就是：</p>
+
+  <div style="text-align:center;padding:24px 0;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:900;color:#a29bfe;letter-spacing:4px">
+    V = I × R
+  </div>
+
+  <p style="text-align:center;color:#8888bb;font-size:.9rem">电压（伏特）= 电流（安培）× 电阻（欧姆）</p>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#6c5ce7;color:#fff">1</span> 直觉版：水管回路里的三段论</h3>
+    <p>用我们熟悉的水管类比：</p>
+    <table class="comparison-table" style="font-size:.85rem">
+      <tr><th></th><th>🏔️ 水管世界</th><th>⚡ 电路世界</th></tr>
+      <tr><td><strong>推的力气</strong></td><td>水泵压力（帕斯卡）</td><td class="highlight-cell">电压 V（伏特）</td></tr>
+      <tr><td><strong>实际流速</strong></td><td>水流（升/秒）</td><td class="highlight-cell">电流 I（安培）</td></tr>
+      <tr><td><strong>阻碍程度</strong></td><td>水管粗细 + 弯头</td><td class="highlight-cell">电阻 R（欧姆 Ω）</td></tr>
+      <tr><td><strong>公式</strong></td><td>压力 = 流速 × 阻力</td><td class="highlight-cell">V = I × R</td></tr>
+    </table>
+    <div class="key" style="margin-top:12px">
+      🔑 <strong>直觉：</strong>同样一台水泵（固定电压），你换一根更细的水管（更大电阻），水流就变小（电流变小）。<br>
+      反过来，固定水管不变（电阻不变），你换一台更有力的水泵（更大电压），水流就变大（电流变大）。<br>
+      电压、电流、电阻是<strong>三个绑在一起的变量</strong>——知道任意两个，第三个就自动确定了。
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#6c5ce7;color:#fff">2</span> 欧姆定律可以怎么算</h3>
+    <p>实际中你会遇到三种情况，对应三个公式的形状：</p>
+    <table class="comparison-table" style="font-size:.85rem">
+      <tr><th>你想知道</th><th>已知条件</th><th>公式</th><th>例子：灯泡 10Ω，电池 5V</th></tr>
+      <tr><td><strong>电流有多大</strong></td><td>电压 + 电阻</td><td>I = V ÷ R</td><td>5V ÷ 10Ω = <strong>0.5A</strong></td></tr>
+      <tr><td><strong>电阻是多大</strong></td><td>电压 + 电流</td><td>R = V ÷ I</td><td>5V ÷ 0.5A = <strong>10Ω</strong></td></tr>
+      <tr><td><strong>需要多大电压</strong></td><td>电流 + 电阻</td><td>V = I × R</td><td>0.5A × 10Ω = <strong>5V</strong></td></tr>
+    </table>
+    <div class="key" style="margin-top:12px">
+      🔑 <strong>记忆秘诀：</strong>V = I·R 就像一个三角形：把 V 放在最上面，下面并排 I 和 R。用手遮住你要找的那个——露出来的就是算法。
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#6c5ce7;color:#fff">3</span> 欧姆定律</h3>
+    <p>这是最关键的一步，也是费曼最在意的地方——<strong>欧姆定律不是什么永恒真理，它是一个实验结果</strong>。它只在某些材料中成立（这些材料叫<strong>欧姆导体</strong>）。</p>
+    <div class="key" style="background:rgba(253,121,168,.06);border-left-color:#fd79a8;color:#fd79a8">
+      ⚠️ <strong>欧姆定律不是物理学的基本定律。</strong>
+      它是对某些材料的<strong>观测事实</strong>——这些材料的电压和电流呈线性关系。
+      它和 F = ma 不是一个级别的定律。F = ma 告诉你力的本质，V = IR 告诉你铜导线的行为。
+    </div>
+    <p>这就像说："我每天 7 点起床"——这不是宇宙法则，只是对我这个人的观测。有的人 7 点起，有的人 3 点起，有的人根本不起。</p>
+    <p>现实中的材料分成两类：</p>
+    <table class="comparison-table" style="font-size:.85rem">
+      <tr><th></th><th>欧姆材料（听话的）</th><th>非欧姆材料（不听话的）</th></tr>
+      <tr><td><strong>例子</strong></td><td>铜、铝、铁、水</td><td>LED、二极管、三极管</td></tr>
+      <tr><td><strong>关系</strong></td><td>V 增加 → I 线性增加</td><td>V 增加 → I 可能突然暴增或几乎不动</td></tr>
+      <tr><td><strong>特性</strong></td><td>电阻不变（温度不变时）</td><td>电阻会随电压变化</td></tr>
+      <tr><td><strong>为什么</strong></td><td>内部电子排列整齐、稳定</td><td>内部有"结"（PN 结），像一道需要一定推力才能推开的大门</td></tr>
+    </table>
+    <div class="key" style="margin-top:12px">
+      🔑 <strong>欧姆定律不是错的——它只是有适用范围。</strong>就像"水往低处流"是对的，但加一个泵就能让水往上走。物理学不叫这些"例外"——物理学叫它们"更完整的模型"。欧姆定律是第一个模型，二极管是更完整的模型。
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#6c5ce7;color:#fff">4</span> 欧姆定律为什么<em>真的</em>重要</h3>
+    <p>尽管欧姆定律不是基本定律，它仍然是整个电子工程的<strong>地基</strong>。没有它，根本没法设计电路。</p>
+    <p>想象你要设计一个 LED 灯电路。LED 本身是非欧姆的——它的电压和电流不成正比。但如果你在 LED 前面串一颗电阻（欧姆材料），那<strong>电阻+LED 整体</strong>就成了一个可预测的系统。你可以用欧姆定律算出该串多大电阻才能让 LED 不会烧掉。</p>
+    <div class="key">
+      🔑 <strong>牧之的试错机会：</strong>弄一个 9V 电池、一个 LED、一个 220Ω 电阻、一个面包板。<br>
+      先不串电阻直接连 LED → 亮了但烧了（或快烧了）。串上 220Ω 电阻 → LED 稳稳亮着。<br>
+      用万用表量电阻两端的电压，再用欧姆定律算电流——你自己就把公式背下来了。
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#6c5ce7;color:#fff">5</span> 一个隐藏的问题：电阻为什么叫"电阻"</h3>
+    <p>我们一直在说"电阻"，但电阻在微观上到底<strong>是什么</strong>？为什么电子在导体里会遇到阻力？</p>
+    <p>在金属晶体里，原子按整齐的格子排列。自由电子可以在其中流动——但<strong>晶格原子不是静止的</strong>，它们在一个平衡位置周围振动。温度越高，振动越剧烈。</p>
+    <p>电子撞到这些振动的原子上就会<strong>被散射</strong>，失去一部分能量。损失的能量去哪了？变成了<strong>热量</strong>——这就是为什么导线会发热、灯泡会发光（白炽灯是加热灯丝到白炽化）。</p>
+    <div class="key">
+      🔑 <strong>费曼版：</strong>你在挤满人的人群中穿行（电子流），每个人都闭着眼在晃来晃去（晶格振动）。你撞到一个人就要"绕路"——这就延长了你从一头到另一头的时间。撞得越多（振动越剧烈），你走得越慢。<br>
+      温度升高 → 振动加剧 → 电阻增大。这就是为什么超导体要降温到接近绝对零度——冷到原子几乎不振动了，电子畅通无阻。
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#6c5ce7;color:#fff">6</span> 一张图总结欧姆定律</h3>
+    <table class="comparison-table" style="font-size:.82rem">
+      <tr><th>变量</th><th>符号</th><th>单位</th><th>水管类比</th><th>直觉</th></tr>
+      <tr><td><strong>电压</strong></td><td>V</td><td>伏特（V）</td><td>水泵压力</td><td>"推的劲有多大"</td></tr>
+      <tr><td><strong>电流</strong></td><td>I</td><td>安培（A）</td><td>水流量</td><td>"实际流动了多少"</td></tr>
+      <tr><td><strong>电阻</strong></td><td>R</td><td>欧姆（Ω）</td><td>水管粗细</td><td>"被挡了多少"</td></tr>
+      <tr><td style="background:rgba(108,92,231,.1);color:#a29bfe"><strong>V = I × R</strong></td><td style="background:rgba(108,92,231,.1);color:#a29bfe" colspan="4">知道任意两个，第三个自动确定</td></tr>
+    </table>
+  </div>
+
+  <p style="margin-top:20px;padding:16px 20px;background:rgba(108,92,231,.08);border-radius:12px;border-left:3px solid #6c5ce7;font-size:.9rem;color:#a29bfe">
+    💡 <strong>欧姆定律最重要的不是它的公式——而是它教会你一件事：</strong><br>
+    电压、电流和电阻不是三个独立的东西，它们是<strong>同一件事的三个侧面</strong>。改变其中一个，另外两个就跟着变。
+    学会这个思维方式——"三个变量，一个关系"——你就在很多地方用得上它：热力学（P·V = n·R·T）、经济学（产出 × 成本 = 利润）、甚至你打游戏时的帧率 × 渲染精度 = GPU 负载。<br>
+    <strong>数学就是把世界上的"三个东西一个关系"变成可计算的工具。</strong>
   </p>
 </section>
 
