@@ -22,10 +22,33 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 /* ── Nav ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,18,.85);backdrop-filter:blur(12px);padding:12px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(108,92,231,.2)}
-nav .logo{font-weight:700;font-size:1.1rem;color:#a29bfe;letter-spacing:2px}
-nav .logo span{color:#6c5ce7}
-nav a{color:#8888bb;text-decoration:none;font-size:.85rem;transition:color .3s;margin-left:16px}
-nav a:hover{color:#a29bfe}
+nav .logo{font-weight:700;font-size:1.1rem;color:#a29bfe;letter-spacing:2px;white-space:nowrap}
+nav .nav-links a{color:#8888bb;text-decoration:none;font-size:.85rem;transition:color .3s;margin-left:16px}
+nav .nav-links a:hover{color:#a29bfe}
+nav .nav-links a.active{color:#a29bfe;font-weight:500}
+nav .menu-btn{display:none;background:none;border:1px solid rgba(255,255,255,.1);color:#8888bb;padding:4px 12px;border-radius:6px;cursor:pointer;font-size:.85rem;font-family:inherit}
+@media(max-width:768px){
+  nav .nav-links{display:none}
+  nav .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(10,10,18,.96);padding:12px 20px;gap:8px;border-bottom:1px solid rgba(108,92,231,.15)}
+  nav .nav-links.open a{margin-left:0;font-size:.9rem}
+  nav .menu-btn{display:inline-block}
+}
+
+/* ── Progress Bar ── */
+.progress-bar{position:fixed;top:0;left:0;height:3px;z-index:200;background:linear-gradient(90deg,#6c5ce7,#fd79a8);width:0%;transition:width .15s ease;pointer-events:none}
+
+/* ── Bottom Tabs ── */
+.bottom-tabs{display:none;position:fixed;bottom:0;left:0;right:0;z-index:150;background:rgba(10,10,18,.92);backdrop-filter:blur(12px);border-top:1px solid rgba(108,92,231,.15);padding:6px 4px 10px;justify-content:space-around;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+.bottom-tab{display:flex;flex-direction:column;align-items:center;gap:1px;color:#8888bb;text-decoration:none;font-size:.6rem;padding:4px 6px;border-radius:6px;transition:all .2s;flex:1;text-align:center;max-width:70px}
+.bottom-tab:hover,.bottom-tab.active{color:#a29bfe;background:rgba(108,92,231,.06)}
+.bottom-tab .icon{font-size:1.1rem;line-height:1;margin-bottom:1px}
+@media(max-width:768px){.bottom-tabs{display:flex}}
+
+/* ── Back to Top ── */
+.back-top{position:fixed;bottom:100px;right:24px;z-index:149;width:40px;height:40px;border-radius:50%;background:rgba(108,92,231,.2);border:1px solid rgba(108,92,231,.3);color:#a29bfe;font-size:1.2rem;cursor:pointer;display:none;align-items:center;justify-content:center;transition:all .3s}
+.back-top:hover{background:rgba(108,92,231,.4)}
+.back-top.show{display:flex}
+@media(max-width:768px){.back-top{bottom:80px;right:16px;width:36px;height:36px;font-size:1rem}}
 
 /* ── Hero ── */
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
@@ -112,6 +135,31 @@ section p strong,section li strong{color:#ddddee;font-weight:600}
 .comparison-table td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.05);color:#b0b0cc}
 .comparison-table tr:hover td{background:rgba(108,92,231,.04)}
 .comparison-table .highlight-cell{color:#a29bfe;font-weight:500}
+
+/* ── Section divider ── */
+.section-divider{display:flex;align-items:center;gap:12px;max-width:900px;margin:0 auto;padding:0 24px}
+.sd-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(108,92,231,.3),transparent)}
+.sd-dot{color:rgba(108,92,231,.3);font-size:.8rem}
+
+/* ── Interlude ── */
+.interlude{padding:60px 24px;max-width:900px;margin:0 auto;text-align:center}
+.interlude-quote{font-size:1.2rem;color:#a29bfe;font-style:italic;line-height:1.6;margin-bottom:8px}
+.interlude-author{font-size:.85rem;color:#5555aa}
+
+/* ── Section reveal ── */
+.section{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.section.visible{opacity:1;transform:translateY(0)}
+
+/* ── SVG diagram wrapper ── */
+.diagram-wrap{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px;margin:20px 0}
+.diagram-wrap svg{width:100%;height:auto;display:block}
+.diagram-wrap .cap{font-size:.72rem;color:#5555aa;text-align:center;margin-top:8px}
+
+/* ── Ohm centerpiece ── */
+.ohm-hero{text-align:center;padding:32px 0;margin:20px 0;position:relative}
+.ohm-hero::before{content:'';position:absolute;inset:-4px;border-radius:16px;background:linear-gradient(135deg,rgba(108,92,231,.15),rgba(253,121,168,.08),rgba(108,92,231,.15));filter:blur(12px);z-index:-1}
+.ohm-hero .formula{font-size:clamp(2rem,5vw,3rem);font-weight:900;color:#a29bfe;letter-spacing:4px}
+.ohm-hero .desc{color:#8888bb;font-size:.95rem;margin-top:8px}
 
 /* ── Hands-on ── */
 #hands-on .tag{color:#00cec9;border-color:#00cec9}
@@ -271,10 +319,10 @@ footer a{color:#6c5ce7;text-decoration:none}
 <!-- Nav -->
 <nav>
   <div class="logo">⚡ <span>电</span> · 费曼漫游</div>
+  <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
   <div class="nav-links">
+    <a href="#intro">引言</a>
     <a href="#water-circuit">水回路</a>
-    <a href="#alike">像</a>
-    <a href="#not-alike">不像</a>
     <a href="#field">电场</a>
     <a href="#potential">电势</a>
     <a href="#ohms">欧姆定律</a>
@@ -282,8 +330,23 @@ footer a{color:#6c5ce7;text-decoration:none}
   </div>
 </nav>
 
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Bottom Tabs (mobile) -->
+<div class="bottom-tabs" id="bottomTabs">
+  <a class="bottom-tab" href="#intro"><span class="icon">🏠</span>引言</a>
+  <a class="bottom-tab" href="#water-circuit"><span class="icon">💧</span>水回路</a>
+  <a class="bottom-tab" href="#potential"><span class="icon">⚡</span>电压</a>
+  <a class="bottom-tab" href="#ohms"><span class="icon">📐</span>欧姆</a>
+  <a class="bottom-tab" href="#faq"><span class="icon">❓</span>Q&A</a>
+</div>
+
+<!-- Back to Top -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
 <!-- Hero -->
-<section class="hero">
+<section class="hero section">
   <svg class="lightning" viewBox="0 0 80 120">
     <path d="M50 10 L25 55 L40 55 L20 110 L60 50 L42 50 L65 10 Z">
       <animate attributeName="opacity" values="1;0.3;0.8;0.2;1" dur="3s" repeatCount="indefinite"/>
@@ -301,7 +364,7 @@ footer a{color:#6c5ce7;text-decoration:none}
 </section>
 
 <!-- Intro -->
-<section id="intro">
+<section id="intro" class="section">
   <div class="tag">🔌 开场</div>
   <h2>电 <span class="highlight">和水一样</span>，都是流动的东西</h2>
   <p>但在"像"之前，得先知道<strong>到底在流动什么</strong>。</p>
@@ -316,10 +379,14 @@ footer a{color:#6c5ce7;text-decoration:none}
   </div>
 </section>
 
-<div class="divider">···</div>
+<div class="section-divider">
+  <div class="sd-line"></div>
+  <div class="sd-dot">✦</div>
+  <div class="sd-line"></div>
+</div>
 
 <!-- Water Circuit -->
-<section id="water-circuit">
+<section id="water-circuit" class="section">
   <div class="tag">💧 第一步</div>
   <h2>水回路 = 电回路的 <span class="highlight">直觉底盘</span></h2>
   <p>先别想电——想一根水管。这是你身体已经<strong>亲身理解</strong>的物理系统。</p>
@@ -389,10 +456,14 @@ footer a{color:#6c5ce7;text-decoration:none}
   </p>
 </section>
 
-<div class="divider">···</div>
+<div class="section-divider">
+  <div class="sd-line"></div>
+  <div class="sd-dot">✦</div>
+  <div class="sd-line"></div>
+</div>
 
 <!-- Alike -->
-<section id="alike">
+<section id="alike" class="section">
   <div class="tag">✅ 像</div>
   <h2>水回路 ⊂ 电回路</h2>
   <p>所有你关于水的直觉，<strong>80% 可以直接搬过来用</strong>。</p>
@@ -416,10 +487,14 @@ footer a{color:#6c5ce7;text-decoration:none}
   </div>
 </section>
 
-<div class="divider">···</div>
+<div class="section-divider">
+  <div class="sd-line"></div>
+  <div class="sd-dot">✦</div>
+  <div class="sd-line"></div>
+</div>
 
 <!-- NOT Alike -->
-<section id="not-alike">
+<section id="not-alike" class="section">
   <div class="tag">❌ 不像</div>
   <h2>这才是 <span class="highlight">真正的理解</span></h2>
   <p>类比能帮你跑起来，但跑多远取决于你知道它<strong>在哪个弯道会翻车</strong>。</p>
@@ -469,11 +544,15 @@ footer a{color:#6c5ce7;text-decoration:none}
   </div>
 </section>
 
-<div class="divider">···</div>
+<div class="section-divider">
+  <div class="sd-line"></div>
+  <div class="sd-dot">✦</div>
+  <div class="sd-line"></div>
+</div>
 
 <!-- Field -->
 <!-- Field -->
-<section id="field">
+<section id="field" class="section">
   <div class="tag" style="color:#6c5ce7;border-color:#6c5ce7">🧲 深入</div>
   <h2>真正的答案：<span class="highlight">电场</span> — 那个看不见的手</h2>
   <p>水回路类比给了你 80% 的直觉，但那 20% 的差距恰恰是最关键的部分。<br>
@@ -519,7 +598,7 @@ footer a{color:#6c5ce7;text-decoration:none}
     </div>
   </div>
 
-  <p style="margin-top:20px;padding:16px 20px;background:rgba(108,92,231,.08);border-radius:12px;border-left:3px solid #6c5ce7;font-size:.9rem;color:#a29bfe">
+  <p style="margin-top:24px;padding:20px 24px;background:rgba(108,92,231,.1);border-radius:14px;border:1px solid rgba(108,92,231,.2);font-size:.9rem;color:#a29bfe;box-shadow:0 0 20px rgba(108,92,231,.1)">
     💡 <strong>所以，给牧之的最简版本：</strong><br>
     电场的概念回答了水类比回答不了的终极问题——<strong>"到底是谁在推电子？"</strong><br>
     答案不是电池，不是电压，而是<strong>电场</strong>。电池只是"制造"了电场，电场才是那个真正干活的东西。
@@ -527,7 +606,7 @@ footer a{color:#6c5ce7;text-decoration:none}
 </section>
 
 <!-- Potential -->
-<section id="potential">
+<section id="potential" class="section">
   <div class="tag">⚡ 电压</div>
   <h2>电势 · 电压：<span class="highlight">到底在量什么</span></h2>
   <p>电场回答了"到底是谁在推电子"，但日常生活中我们几乎不谈电场——我们谈的是<strong>电压</strong>。电压是什么？</p>
@@ -585,19 +664,22 @@ footer a{color:#6c5ce7;text-decoration:none}
   </p>
 </section>
 
-<div class="divider">···</div>
+<div class="section-divider">
+  <div class="sd-line"></div>
+  <div class="sd-dot">✦</div>
+  <div class="sd-line"></div>
+</div>
 
 <!-- Ohm's Law -->
-<section id="ohms">
+<section id="ohms" class="section">
   <div class="tag">📐 欧姆定律</div>
   <h2>V = I·R：<span class="highlight">电学最重要的公式</span></h2>
   <p>现在我们知道什么是电流、什么是电压、什么是电阻。欧姆（Georg Ohm，德国物理学家）在 1827 年发现了一件极其简单的事：<strong>电压、电流和电阻之间的关系是成比例的</strong>——写成公式就是：</p>
 
-  <div style="text-align:center;padding:24px 0;font-size:clamp(1.8rem,5vw,2.8rem);font-weight:900;color:#a29bfe;letter-spacing:4px">
+  <div class="ohm-hero" style="text-align:center;padding:32px 0">
     V = I × R
   </div>
-
-  <p style="text-align:center;color:#8888bb;font-size:.9rem">电压（伏特）= 电流（安培）× 电阻（欧姆）</p>
+  <div class="desc">电压（伏特）= 电流（安培）× 电阻（欧姆）</div>
 
   <div class="insight-card">
     <h3><span class="num" style="background:#6c5ce7;color:#fff">1</span> 直觉版：水管回路里的三段论</h3>
@@ -639,6 +721,22 @@ footer a{color:#6c5ce7;text-decoration:none}
       它和 F = ma 不是一个级别的定律。F = ma 告诉你力的本质，V = IR 告诉你铜导线的行为。
     </div>
     <p>这就像说："我每天 7 点起床"——这不是宇宙法则，只是对我这个人的观测。有的人 7 点起，有的人 3 点起，有的人根本不起。</p>
+    
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- Atom lattice -->
+      <g opacity=".7"><circle cx="45" cy="45" r="10" fill="#5555aa" opacity=".5"/><circle cx="45" cy="45" r="6" fill="#444477"/><circle cx="100" cy="45" r="10" fill="#5555aa" opacity=".5"/><circle cx="100" cy="45" r="6" fill="#444477"/><circle cx="155" cy="45" r="10" fill="#5555aa" opacity=".5"/><circle cx="155" cy="45" r="6" fill="#444477"/><circle cx="210" cy="45" r="10" fill="#5555aa" opacity=".5"/><circle cx="210" cy="45" r="6" fill="#444477"/><circle cx="265" cy="45" r="10" fill="#5555aa" opacity=".5"/><circle cx="265" cy="45" r="6" fill="#444477"/><circle cx="320" cy="45" r="10" fill="#5555aa" opacity=".5"/><circle cx="320" cy="45" r="6" fill="#444477"/><circle cx="375" cy="45" r="10" fill="#5555aa" opacity=".5"/><circle cx="375" cy="45" r="6" fill="#444477"/><circle cx="430" cy="45" r="10" fill="#5555aa" opacity=".5"/><circle cx="430" cy="45" r="6" fill="#444477"/><circle cx="45" cy="100" r="10" fill="#5555aa" opacity=".5"/><circle cx="45" cy="100" r="6" fill="#444477"/><circle cx="100" cy="100" r="10" fill="#5555aa" opacity=".5"/><circle cx="100" cy="100" r="6" fill="#444477"/><circle cx="155" cy="100" r="10" fill="#5555aa" opacity=".5"/><circle cx="155" cy="100" r="6" fill="#444477"/><circle cx="210" cy="100" r="10" fill="#5555aa" opacity=".5"/><circle cx="210" cy="100" r="6" fill="#444477"/><circle cx="265" cy="100" r="10" fill="#5555aa" opacity=".5"/><circle cx="265" cy="100" r="6" fill="#444477"/><circle cx="320" cy="100" r="10" fill="#5555aa" opacity=".5"/><circle cx="320" cy="100" r="6" fill="#444477"/><circle cx="375" cy="100" r="10" fill="#5555aa" opacity=".5"/><circle cx="375" cy="100" r="6" fill="#444477"/><circle cx="430" cy="100" r="10" fill="#5555aa" opacity=".5"/><circle cx="430" cy="100" r="6" fill="#444477"/><circle cx="45" cy="155" r="10" fill="#5555aa" opacity=".5"/><circle cx="45" cy="155" r="6" fill="#444477"/><circle cx="100" cy="155" r="10" fill="#5555aa" opacity=".5"/><circle cx="100" cy="155" r="6" fill="#444477"/><circle cx="155" cy="155" r="10" fill="#5555aa" opacity=".5"/><circle cx="155" cy="155" r="6" fill="#444477"/><circle cx="210" cy="155" r="10" fill="#5555aa" opacity=".5"/><circle cx="210" cy="155" r="6" fill="#444477"/><circle cx="265" cy="155" r="10" fill="#5555aa" opacity=".5"/><circle cx="265" cy="155" r="6" fill="#444477"/><circle cx="320" cy="155" r="10" fill="#5555aa" opacity=".5"/><circle cx="320" cy="155" r="6" fill="#444477"/><circle cx="375" cy="155" r="10" fill="#5555aa" opacity=".5"/><circle cx="375" cy="155" r="6" fill="#444477"/><circle cx="430" cy="155" r="10" fill="#5555aa" opacity=".5"/><circle cx="430" cy="155" r="6" fill="#444477"/></g>
+      <!-- Free electrons moving -->
+      <g><circle cx="45" cy="50" r="4" fill="#a29bfe"><animate attributeName="cx" from="45" to="95" dur="2s" repeatCount="indefinite"/></circle><circle cx="55" cy="80" r="4" fill="#a29bfe"><animate attributeName="cx" from="55" to="105" dur="2.3s" repeatCount="indefinite"/></circle><circle cx="115" cy="105" r="4" fill="#a29bfe"><animate attributeName="cx" from="115" to="165" dur="2s" repeatCount="indefinite"/></circle><circle cx="125" cy="135" r="4" fill="#a29bfe"><animate attributeName="cx" from="125" to="175" dur="2.3s" repeatCount="indefinite"/></circle><circle cx="185" cy="50" r="4" fill="#a29bfe"><animate attributeName="cx" from="185" to="235" dur="2s" repeatCount="indefinite"/></circle><circle cx="195" cy="80" r="4" fill="#a29bfe"><animate attributeName="cx" from="195" to="245" dur="2.3s" repeatCount="indefinite"/></circle><circle cx="255" cy="105" r="4" fill="#a29bfe"><animate attributeName="cx" from="255" to="305" dur="2s" repeatCount="indefinite"/></circle><circle cx="265" cy="135" r="4" fill="#a29bfe"><animate attributeName="cx" from="265" to="315" dur="2.3s" repeatCount="indefinite"/></circle><circle cx="325" cy="50" r="4" fill="#a29bfe"><animate attributeName="cx" from="325" to="375" dur="2s" repeatCount="indefinite"/></circle><circle cx="335" cy="80" r="4" fill="#a29bfe"><animate attributeName="cx" from="335" to="385" dur="2.3s" repeatCount="indefinite"/></circle><circle cx="395" cy="105" r="4" fill="#a29bfe"><animate attributeName="cx" from="395" to="445" dur="2s" repeatCount="indefinite"/></circle><circle cx="405" cy="135" r="4" fill="#a29bfe"><animate attributeName="cx" from="405" to="455" dur="2.3s" repeatCount="indefinite"/></circle></g>
+      <!-- Field arrow -->
+      <line x1="25" y1="165" x2="475" y2="165" stroke="#fd79a8" stroke-width="2" marker-end="url(#carw)" opacity=".6"/>
+      <text x="250" y="190" text-anchor="middle" fill="#fd79a8" font-size="10" opacity=".6">电场方向 →</text>
+      <!-- Legend -->
+      <circle cx="25" cy="12" r="4" fill="#5555aa"/><text x="34" y="15" fill="#8888bb" font-size="8">金属原子</text>
+      <circle cx="120" cy="12" r="4" fill="#a29bfe"/><text x="129" y="15" fill="#8888bb" font-size="8">自由电子（流动中）</text>
+    </svg>
+    <div class="cap">金属晶格中的原子（固定）+ 自由电子（流动）</div>
+  </div>
     <p>现实中的材料分成两类：</p>
     <table class="comparison-table" style="font-size:.85rem">
       <tr><th></th><th>欧姆材料（听话的）</th><th>非欧姆材料（不听话的）</th></tr>
@@ -685,7 +783,7 @@ footer a{color:#6c5ce7;text-decoration:none}
     </table>
   </div>
 
-  <p style="margin-top:20px;padding:16px 20px;background:rgba(108,92,231,.08);border-radius:12px;border-left:3px solid #6c5ce7;font-size:.9rem;color:#a29bfe">
+  <p style="margin-top:24px;padding:20px 24px;background:rgba(108,92,231,.1);border-radius:14px;border:1px solid rgba(108,92,231,.2);font-size:.9rem;color:#a29bfe;box-shadow:0 0 20px rgba(108,92,231,.1)">
     💡 <strong>欧姆定律最重要的不是它的公式——而是它教会你一件事：</strong><br>
     电压、电流和电阻不是三个独立的东西，它们是<strong>同一件事的三个侧面</strong>。改变其中一个，另外两个就跟着变。
     学会这个思维方式——"三个变量，一个关系"——你就在很多地方用得上它：热力学（P·V = n·R·T）、经济学（产出 × 成本 = 利润）、甚至你打游戏时的帧率 × 渲染精度 = GPU 负载。<br>
@@ -693,10 +791,19 @@ footer a{color:#6c5ce7;text-decoration:none}
   </p>
 </section>
 
-<div class="divider">···</div>
+<div class="interlude">
+  <div class="interlude-quote">"电不是从导线里跑的。<br>是从导线外面的电磁场跑的。"</div>
+  <div class="interlude-author">— 费曼物理学讲义</div>
+</div>
+
+<div class="section-divider">
+  <div class="sd-line"></div>
+  <div class="sd-dot">✦</div>
+  <div class="sd-line"></div>
+</div>
 
 <!-- FAQ -->
-<section id="faq">
+<section id="faq" class="section">
   <div class="tag">❓ 牧之式追问</div>
   <h2>知道你会问 <span class="highlight">这些</span></h2>
 
@@ -776,10 +883,14 @@ footer a{color:#6c5ce7;text-decoration:none}
   </div>
 </section>
 
-<div class="divider">···</div>
+<div class="section-divider">
+  <div class="sd-line"></div>
+  <div class="sd-dot">✦</div>
+  <div class="sd-line"></div>
+</div>
 
 <!-- Hands-on -->
-<section id="hands-on">
+<section id="hands-on" class="section">
   <div class="tag">🛠️ 动手</div>
   <h2>去 <span class="highlight">亲手</span> 试试</h2>
 
@@ -843,6 +954,67 @@ document.querySelectorAll('.insight-card, .faq-item, .tip-card').forEach(el => {
   el.style.transition = 'opacity .6s ease, transform .6s ease';
   observer.observe(el);
 });
+</script>
+
+<script>
+// ── Reading progress bar ──
+const pb = document.getElementById('progressBar');
+window.addEventListener('scroll', function(){
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  pb.style.width = (window.scrollY / h * 100) + '%';
+}, {passive:true});
+
+// ── Active nav link highlighting ──
+const navSections = ['intro','water-circuit','field','potential','ohms','faq'];
+const navLinks = document.querySelectorAll('.nav-links a');
+const bottomTabs = document.querySelectorAll('.bottom-tab');
+window.addEventListener('scroll', function(){
+  let current = '';
+  navSections.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el){
+      var rect = el.getBoundingClientRect();
+      if(rect.top <= 200) current = id;
+    }
+  });
+  navLinks.forEach(function(a){
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+  bottomTabs.forEach(function(t){
+    t.classList.toggle('active', t.getAttribute('href') === '#' + current);
+  });
+}, {passive:true});
+
+// ── Back to top button ──
+const bt = document.getElementById('backTop');
+window.addEventListener('scroll', function(){
+  bt.classList.toggle('show', window.scrollY > 300);
+}, {passive:true});
+
+// ── Section reveal animation ──
+if('IntersectionObserver' in window){
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, {threshold:0.1});
+  document.querySelectorAll('.section').forEach(function(s){observer.observe(s)});
+}
+
+// ── FAQ toggle ──
+function toggleFaq(el){
+  var item = el.parentElement;
+  item.classList.toggle('open');
+}
+
+// ── Toggle tabs ──
+function switchTab(btn, contentClass){
+  var parent = btn.closest('.toggle-section');
+  parent.querySelectorAll('.toggle-tab').forEach(function(t){t.classList.remove('active')});
+  parent.querySelectorAll('.toggle-content').forEach(function(c){c.classList.remove('active')});
+  btn.classList.add('active');
+  parent.querySelector('.' + contentClass).classList.add('active');
+}
 </script>
 </body>
 </html>
