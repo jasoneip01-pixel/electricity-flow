@@ -100,6 +100,10 @@ section p strong,section li strong{color:#ddddee;font-weight:600}
 .faq-item.open .faq-a{display:block;animation:fadeIn .3s}
 .faq-a .spark{display:inline-block;padding:2px 10px;border-radius:12px;background:rgba(253,203,110,.1);color:#fdcb6e;font-size:.8rem;margin:0 4px}
 
+/* ── Section: Potential ── */
+#potential{scroll-margin-top:60px}
+#potential .tag{color:#00cec9;border-color:#00cec9}
+
 /* ── Table ── */
 .comparison-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:.9rem}
 .comparison-table th{text-align:left;padding:12px 16px;background:rgba(108,92,231,.15);color:#a29bfe;font-weight:600;border-bottom:2px solid rgba(108,92,231,.2)}
@@ -272,6 +276,7 @@ footer a{color:#6c5ce7;text-decoration:none}
     <a href="#alike">像</a>
     <a href="#not-alike">不像</a>
     <a href="#field">电场</a>
+    <a href="#potential">电势</a>
     <a href="#faq">Q&A</a>
   </div>
 </nav>
@@ -517,6 +522,65 @@ footer a{color:#6c5ce7;text-decoration:none}
     💡 <strong>所以，给牧之的最简版本：</strong><br>
     电场的概念回答了水类比回答不了的终极问题——<strong>"到底是谁在推电子？"</strong><br>
     答案不是电池，不是电压，而是<strong>电场</strong>。电池只是"制造"了电场，电场才是那个真正干活的东西。
+  </p>
+</section>
+
+<!-- Potential -->
+<section id="potential">
+  <div class="tag">⚡ 电压</div>
+  <h2>电势 · 电压：<span class="highlight">到底在量什么</span></h2>
+  <p>电场回答了"到底是谁在推电子"，但日常生活中我们几乎不谈电场——我们谈的是<strong>电压</strong>。电压是什么？</p>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#00cec9;color:#fff">1</span> 电势 = 电荷的"高度"</h3>
+    <p>想象一座山。山顶的石头比山脚的石头<strong>拥有更多的势能</strong>——不是因为石头本身变了，而是因为它<strong>所在的位置</strong>更高。</p>
+    <p>电势一模一样：一个电子在高电势的地方，就"站得高"，<strong>随时准备往下滚</strong>。它拥有的不是"电"，而是<strong>势能</strong>——电场给它的势能。</p>
+    <div class="key">
+      🔑 <strong>牧之版：</strong>你站在 5 楼阳台和站在 1 楼地面，你的身体没变，但你的"坠落势能"不一样。<br>
+      电势就是电荷的"楼层号"。电压（电势差）就是两层楼之间的高度差。
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#00cec9;color:#fff">2</span> 电压永远是"差"</h3>
+    <p>这是整个电学里最容易搞错的概念：<strong>没有"某一点的电压"这种东西。</strong></p>
+    <p>就像你不能说"这座山的高度是 500 米"——500 米是相对于海平面的。同样，电压是说"A 点相对于 B 点的电势差"。</p>
+    <p>所以万用表需要<strong>两根表笔</strong>——一根接被测点，一根接参考点（通常是"地"）。你测的不是"这里的电压"，而是"这里和那里之间的电压差"。</p>
+    <div class="key">
+      🔑 <strong>费曼版：</strong>如果你说"我有 100 块钱"，你得先清楚——跟谁比？跟你昨天？跟乞丐？跟比尔盖茨？<br>
+      "这点的电压是 5V" 其实是个省略句，完整版本是："这点相对于参考地之间的电势差是 5V"。
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#00cec9;color:#fff">3</span> 电压 × 电流 = 功率</h3>
+    <p>电压真正的"用途"不在电压本身——在于电压和电流的<strong>组合</strong>。</p>
+    <p><strong>P = V × I</strong>（功率 = 电压 × 电流）。一个 220V、10A 的电路能传送 2200W 的功率；一节 1.5V 电池，即使短路电流也没多少。</p>
+    <div class="key">
+      🔑 <strong>直觉：</strong>电压是"推的力气"，电流是"有多少东西被推"，功率是"推了多少东西做了多少事"。<br>
+      同样大的水流（电流），从 100 米高冲下来（高电压）比从 1 米高冲下来能量大得多。
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h3><span class="num" style="background:#00cec9;color:#fff">4</span> 电场 vs 电压：一张表</h3>
+    <table class="comparison-table" style="font-size:.85rem">
+      <tr><th></th><th>🏔️ 重力世界</th><th>⚡ 电世界</th></tr>
+      <tr><td><strong>"场"（驱动力）</strong></td><td>重力场（让你感觉"往下拉"）</td><td class="highlight-cell">电场（推电荷的力）</td></tr>
+      <tr><td><strong>"高度"（势能位置）</strong></td><td>海拔高度</td><td class="highlight-cell">电势</td></tr>
+      <tr><td><strong>"高度差"（可做功的量）</strong></td><td>落差（米）</td><td class="highlight-cell">电压 / 电势差（伏特 V）</td></tr>
+      <tr><td><strong>"多少东西"</strong></td><td>水的质量（千克）</td><td class="highlight-cell">电荷量（库仑）</td></tr>
+      <tr><td><strong>"流量"</strong></td><td>水流速（升/秒）</td><td class="highlight-cell">电流（安培 A）</td></tr>
+      <tr><td><strong>"阻力"</strong></td><td>水管粗细、弯头</td><td class="highlight-cell">电阻（欧姆 Ω）</td></tr>
+      <tr><td><strong>"做功"</strong></td><td>水轮机发电</td><td class="highlight-cell">灯泡发光发热</td></tr>
+    </table>
+  </div>
+
+  <p style="margin-top:20px;padding:16px 20px;background:rgba(0,206,201,.08);border-radius:12px;border-left:3px solid #00cec9;font-size:.9rem;color:#81ecec">
+    💡 <strong>给牧之的收尾：</strong><br>
+    电场是那个"看不见的手"在推电子，电压只是告诉你"这只手在两点之间能推得多用力"。<br>
+    没有电场就没有电压（因为电压就是电场沿路径的积分）；但有了电压你就知道电场做了多少功。<br>
+    <strong>场是因，电压是果，电流是结果。</strong>
   </p>
 </section>
 
