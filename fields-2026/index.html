@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 Fields Medal — 王虹 & 邓煜 · 成长启示录</title>
+<title>2026 菲尔兹奖 — 五名得主全览 + 王虹邓煜成长启示录</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -11,24 +11,68 @@ body{font-family:-apple-system,'PingFang SC','Noto Sans SC',sans-serif;backgroun
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,#1a0a2e 0%,transparent 60%),radial-gradient(ellipse at 75% 85%,#0a1a3e 0%,transparent 50%);pointer-events:none;z-index:-1}
 ::selection{background:#6c5ce7;color:#fff}
 
+/* ── Nav ── */
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,18,.88);backdrop-filter:blur(12px);padding:10px 24px;display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid rgba(108,92,231,.15);align-items:center}
+.nav .logo{font-weight:700;font-size:.85rem;color:#a29bfe;margin-right:12px;white-space:nowrap}
+.nav a{color:#8888bb;text-decoration:none;font-size:.72rem;padding:3px 8px;border-radius:6px;transition:all .3s;white-space:nowrap}
+.nav a:hover{color:#a29bfe;background:rgba(108,92,231,.08)}
+
 /* ── Hero ── */
 .hero{min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px 24px 40px}
 .hero h1{font-size:clamp(2rem,5vw,3.8rem);font-weight:900;background:linear-gradient(135deg,#fd79a8,#6c5ce7,#a29bfe);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shift 6s ease infinite}
 @keyframes shift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 .hero .sub{font-size:clamp(.9rem,2vw,1.3rem);color:#8888bb;max-width:650px;margin:12px 0}
+.hero .meta{color:#5555aa;font-size:.82rem}
 .hero .tagline{display:inline-block;margin-top:20px;padding:8px 24px;border-radius:20px;background:rgba(253,121,168,.08);border:1px solid rgba(253,121,168,.2);color:#fd79a8;font-size:.85rem}
+
+/* ── Stats ── */
+.stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;padding:30px 24px;max-width:900px;margin:0 auto}
+.stat-item{text-align:center}
+.stat-num{font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#a29bfe,#6c5ce7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{color:#8888bb;font-size:.8rem;margin-top:2px}
 
 /* ── Section ── */
 .section{max-width:880px;margin:0 auto;padding:48px 24px}
 .section .tag{display:inline-block;padding:4px 14px;border-radius:20px;font-size:.72rem;font-weight:600;letter-spacing:1px;margin-bottom:14px;border:1px solid}
 .section h2{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:800;margin-bottom:16px;color:#ddddee}
 .section p{color:#b0b0cc;font-size:.95rem;margin-bottom:12px;line-height:1.8}
+.highlight{color:#a29bfe;font-weight:600}
 
-/* ── Nav ── */
-.nav{position:sticky;top:0;z-index:100;background:rgba(10,10,18,.88);backdrop-filter:blur(12px);padding:10px 24px;display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid rgba(108,92,231,.15);align-items:center}
-.nav .logo{font-weight:700;font-size:.9rem;color:#a29bfe;margin-right:16px;white-space:nowrap}
-.nav a{color:#8888bb;text-decoration:none;font-size:.78rem;padding:4px 10px;border-radius:6px;transition:all .3s}
-.nav a:hover{color:#a29bfe;background:rgba(108,92,231,.08)}
+/* ── Winners grid ── */
+.winners-grid{max-width:1100px;margin:0 auto;padding:30px 24px 50px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.winner-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;transition:transform .3s,border-color .3s}
+.winner-card:hover{transform:translateY(-4px);border-color:rgba(108,92,231,.3)}
+.winner-card.fields{border-top:3px solid #6c5ce7}
+.winner-card.abacus{border-top:3px solid #fd79a8}
+.winner-img{height:200px;background-size:cover;background-position:center 30%}
+.winner-info{padding:20px}
+.prize-badge{display:inline-block;padding:3px 12px;border-radius:12px;font-size:.72rem;font-weight:600;letter-spacing:1px;margin-bottom:8px}
+.fields .prize-badge{background:rgba(108,92,231,.15);color:#a29bfe}
+.abacus .prize-badge{background:rgba(253,121,168,.15);color:#fd79a8}
+.winner-info h3{font-size:1.1rem;font-weight:700;margin-bottom:4px;color:#dddee}
+.zh-name{font-size:.85rem;color:#6666aa;font-weight:400;margin-left:6px}
+.citation{color:#6c5ce7;font-size:.85rem;margin-bottom:10px;padding:6px 12px;background:rgba(108,92,231,.06);border-radius:8px;display:inline-block}
+.winner-desc{color:#9999bb;font-size:.85rem;line-height:1.6;margin-bottom:12px}
+.read-more{color:#6c5ce7;text-decoration:none;font-size:.8rem;font-weight:500}
+.read-more:hover{color:#a29bfe}
+
+/* ── Rules grid ── */
+.rules-grid{max-width:800px;margin:0 auto;padding:20px 24px 40px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.rule-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:18px;text-align:center}
+.rule-card .icon{font-size:1.8rem;margin-bottom:6px}
+.rule-card h4{font-size:.85rem;font-weight:600;margin-bottom:4px;color:#ddddee}
+.rule-card p{font-size:.78rem;color:#8888bb}
+
+/* ── Timeline ── */
+.history{max-width:800px;margin:0 auto;padding:20px 24px 40px}
+.timeline-item{display:flex;gap:16px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.timeline-year{font-weight:800;color:#6c5ce7;font-size:.9rem;min-width:60px}
+.timeline-text{color:#b0b0cc;font-size:.88rem}
+
+/* ── Significance ── */
+.big-card{background:linear-gradient(135deg,rgba(108,92,231,.1),rgba(253,121,168,.06));border:1px solid rgba(108,92,231,.2);border-radius:16px;padding:32px;margin:0 24px 40px;max-width:800px}
+.big-card p{color:#ccccee;font-size:.95rem;margin-bottom:10px}
+.big-card .key{background:rgba(253,121,168,.08);border-radius:8px;padding:12px 16px;margin:12px 0;color:#fd79a8;font-size:.88rem;border-left:3px solid #fd79a8}
 
 /* ── Bio Card ── */
 .bio-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;margin:20px 0}
@@ -50,16 +94,13 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .story-card .quote{background:rgba(108,92,231,.06);border-left:3px solid #6c5ce7;padding:12px 16px;margin:10px 0;border-radius:0 8px 8px 0;color:#a29bfe;font-size:.85rem;font-style:italic}
 .story-card .fact{background:rgba(253,121,168,.06);border-left:3px solid #fd79a8;padding:10px 14px;margin:8px 0;border-radius:0 8px 8px 0;color:#fd79a8;font-size:.82rem}
 
-/* ── Insight section ── */
+/* ── Insight box ── */
 .insight-box{background:linear-gradient(135deg,rgba(108,92,231,.06),rgba(253,121,168,.03));border:1px solid rgba(108,92,231,.15);border-radius:16px;padding:32px;margin:20px 0}
 .insight-box h3{font-size:1.1rem;font-weight:700;color:#ddddee;margin-bottom:12px}
 .insight-box .point{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
 .insight-box .point-icon{font-size:1.2rem;flex-shrink:0;width:28px;text-align:center}
 .insight-box .point-text{font-size:.9rem;color:#b0b0cc;line-height:1.7}
 .insight-box .point-text strong{color:#ddddee}
-
-/* ── Divider ── */
-.divider{text-align:center;padding:0 24px;color:rgba(108,92,231,.3);font-size:1.1rem;letter-spacing:8px;max-width:880px;margin:0 auto}
 
 /* ── Comparison table ── */
 .cmp-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.85rem}
@@ -77,23 +118,34 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 footer{text-align:center;padding:48px 24px;color:#5555aa;font-size:.8rem;border-top:1px solid rgba(108,92,231,.06)}
 footer a{color:#6c5ce7;text-decoration:none}
 
+/* ── Divider ── */
+.divider{text-align:center;padding:0 24px;color:rgba(108,92,231,.3);font-size:1.1rem;letter-spacing:8px;max-width:880px;margin:0 auto}
+
 /* ── Responsive ── */
 @media(max-width:768px){
   .section{padding:32px 16px}
+  .winners-grid{grid-template-columns:1fr;padding:24px 12px}
+  .stats{gap:20px;padding:20px 12px}
+  .stat-num{font-size:2rem}
+  .winner-info{padding:14px}
   .bio-card .bio-img{height:200px}
   .bio-card .bio-body{padding:20px}
   .story-card{padding:18px 20px}
   .insight-box{padding:24px}
   .nav{padding:8px 12px;gap:3px}
   .nav .logo{font-size:.78rem;margin-right:8px}
-  .nav a{font-size:.7rem;padding:3px 7px}
+  .nav a{font-size:.65rem;padding:3px 6px}
+  .big-card{padding:24px;margin:0 12px}
   .cmp-table{font-size:.78rem}
 }
 @media(max-width:480px){
   .section{padding:24px 12px}
+  .hero{padding:60px 12px 24px}
+  .hero h1{font-size:1.6rem}
+  .winners-grid{gap:14px}
+  .winner-img{height:160px}
   .bio-card .bio-img{height:160px}
   .bio-card .bio-body{padding:14px}
-  .bio-card .bio-header{gap:10px}
   .bio-card .bio-avatar{width:48px;height:48px}
   .bio-card .bio-meta h3{font-size:1.05rem}
   .story-card{padding:14px 16px}
@@ -101,10 +153,7 @@ footer a{color:#6c5ce7;text-decoration:none}
   .story-card p{font-size:.85rem}
   .story-card .quote,.story-card .fact{font-size:.8rem;padding:8px 12px}
   .insight-box{padding:18px}
-  .insight-box .point-text{font-size:.85rem}
-  .hero{padding:60px 12px 24px}
-  .hero h1{font-size:1.6rem}
-  .hero .tagline{font-size:.78rem;padding:6px 14px}
+  .rules-grid{grid-template-columns:1fr}
   .cmp-table{font-size:.7rem}
   .cmp-table td,.cmp-table th{padding:6px 8px}
 }
@@ -114,25 +163,129 @@ footer a{color:#6c5ce7;text-decoration:none}
 
 <div class="nav">
   <span class="logo">🏆 Fields 2026</span>
+  <a href="#winners">获奖者</a>
+  <a href="#rules">规则</a>
+  <a href="#timeline">时间线</a>
   <a href="#wang">王虹</a>
   <a href="#deng">邓煜</a>
+  <a href="#math">数学</a>
   <a href="#inspiring">启发</a>
-  <a href="#freedom">自由·选择</a>
   <a href="#sources">信源</a>
 </div>
 
-<!-- ── HERO ── -->
+<!-- ═══════ HERO ═══════ -->
 <div class="hero">
-  <h1>2026 Fields Medal<br>成长的轨迹</h1>
-  <p class="sub">王虹与邓煜——两位中国籍菲尔兹奖得主的成长、求学与科研之路<br>以及它们带给一个 14 岁少年的启发</p>
-  <div class="tagline">🇨🇳 Fields 奖 90 年历史上首次两位中国籍同届获奖</div>
+  <h1>2026 Fields & Abacus Medals</h1>
+  <p class="sub">菲尔兹奖·阿巴克斯奖 — 四名 Fields、一名 Abacus<br>来自 Quanta Magazine 的 ICM 2026 专题报道</p>
+  <p class="meta">July 23, 2026 · Philadelphia · Quanta Magazine (Simons Foundation)</p>
+  <div class="tagline">🇨🇳 两位中国籍数学家同届获奖 — 90 年首次</div>
+</div>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">Fields Medalists</div></div>
+  <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Chinese Nationals</div></div>
+  <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Abacus Medalist</div></div>
+  <div class="stat-item"><div class="stat-num">90</div><div class="stat-label">Years of Fields</div></div>
+</div>
+
+<!-- ═══════ WINNERS ═══════ -->
+<section class="section" id="winners">
+<div class="tag" style="color:#a29bfe;border-color:#a29bfe">🏅 获奖者全览</div>
+<h2>四名 Fields + 一名 Abacus</h2>
+<p><span class="highlight">2026 年国际数学家大会（ICM）</span>在费城开幕。最引人注目的是：<strong>中国籍数学家王虹和邓煜同时获奖</strong>，这是 Fields 奖 90 年历史上首次有两位中国籍同届获奖。王虹更是第一位中国籍女性 Fields 奖得主、历史上第三位女性得主。</p>
+</section>
+
+<div class="winners-grid">
+  <div class="winner-card fields">
+    <div class="winner-img" style="background-image:url('assets/images/wang-hong-lede.webp')"></div>
+    <div class="winner-info">
+      <div class="prize-badge">Fields Medal</div>
+      <h3>Hong Wang <span class="zh-name">王虹</span></h3>
+      <div class="citation">三维 Kakeya 猜想（127页证明）</div>
+      <p class="winner-desc">中国桂林人 · 调和分析与几何测度论 · IHES / NYU · 35岁 · 第三位女性得主</p>
+      <a class="read-more" href="#wang">📖 阅读成长历程 →</a>
+    </div>
+  </div>
+  <div class="winner-card fields">
+    <div class="winner-img" style="background-image:url('assets/images/yu-deng-lede.webp')"></div>
+    <div class="winner-info">
+      <div class="prize-badge">Fields Medal</div>
+      <h3>Yu Deng <span class="zh-name">邓煜</span></h3>
+      <div class="citation">随机数据偏微分方程的可解性</div>
+      <p class="winner-desc">中国深圳人 · 随机数据 PDE · UChicago · 37岁 · 前围棋少年 / IMO 金牌</p>
+      <a class="read-more" href="#deng">📖 阅读成长历程 →</a>
+    </div>
+  </div>
+  <div class="winner-card fields">
+    <div class="winner-img" style="background-image:url('assets/images/tsimerman-portrait.webp')"></div>
+    <div class="winner-info">
+      <div class="prize-badge">Fields Medal</div>
+      <h3>Jacob Tsimerman</h3>
+      <div class="citation">André-Oort 猜想证明</div>
+      <p class="winner-desc">多伦多大学 · 数论与代数几何 · André-Oort 猜想完整证明</p>
+      <a class="read-more" href="https://www.quantamagazine.org/jacob-tsimerman-wins-2026-fields-medal-for-andre-oort-conjecture-proof-20260723/" target="_blank">Read full article →</a>
+    </div>
+  </div>
+  <div class="winner-card fields">
+    <div class="winner-img" style="background-image:url('assets/images/pardon-portrait.webp')"></div>
+    <div class="winner-info">
+      <div class="prize-badge">Fields Medal</div>
+      <h3>John Pardon</h3>
+      <div class="citation">辛几何中的重大突破</div>
+      <p class="winner-desc">Duke / Stony Brook · 辛几何与低维拓扑</p>
+      <a class="read-more" href="https://www.quantamagazine.org/john-pardon-wins-the-2026-fields-medal-for-work-in-symplectic-geometry-20260723/" target="_blank">Read full article →</a>
+    </div>
+  </div>
+  <div class="winner-card abacus">
+    <div class="winner-img" style="background-image:url('assets/images/oveis-gharan-portrait.webp')"></div>
+    <div class="winner-info">
+      <div class="prize-badge">Abacus Medal</div>
+      <h3>Shayan Oveis Gharan</h3>
+      <div class="citation">旅行商问题的算法突破</div>
+      <p class="winner-desc">UW · TSP 近似算法 · 理论计算机科学</p>
+      <a class="read-more" href="https://www.quantamagazine.org/shayan-oveis-gharan-wins-2026-imu-abacus-medal-20260723/" target="_blank">Read full article →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ RULES ═══════ -->
+<section class="section" id="rules">
+<div class="tag" style="color:#6c5ce7;border-color:#6c5ce7">📋 Fields Medal 规则</div>
+<h2>这是什么样的奖项</h2>
+</section>
+<div class="rules-grid">
+  <div class="rule-card"><div class="icon">🎂</div><h4>年龄限制</h4><p>获奖者必须在颁奖年 1 月 1 日前未满 40 岁</p></div>
+  <div class="rule-card"><div class="icon">⏱️</div><h4>四年一届</h4><p>每四年在 ICM 上颁发，每次 2-4 人</p></div>
+  <div class="rule-card"><div class="icon">💰</div><h4>奖金</h4><p>约 15,000 加元（荣誉远大于金额）</p></div>
+  <div class="rule-card"><div class="icon">🎓</div><h4>一生一次</h4><p>每人只能获得一次（与诺贝尔奖不同）</p></div>
+  <div class="rule-card"><div class="icon">🌐</div><h4>IMU 颁发</h4><p>国际数学联盟评选，无国籍限制</p></div>
+</div>
+
+<!-- ═══════ TIMELINE ═══════ -->
+<section class="section" id="timeline">
+<div class="tag" style="color:#fd79a8;border-color:#fd79a8">📜 时间线</div>
+<h2>中国籍 Fields 奖得主</h2>
+</section>
+<div class="history">
+  <div class="timeline-item"><div class="timeline-year">1982</div><div class="timeline-text"><strong>丘成桐</strong> — 华裔（美国籍），卡拉比猜想·微分几何</div></div>
+  <div class="timeline-item"><div class="timeline-year">2006</div><div class="timeline-text"><strong>陶哲轩</strong> — 华裔（澳大利亚籍），调和分析·素数序列</div></div>
+  <div class="timeline-item" style="background:rgba(108,92,231,.06);border-radius:8px;padding:10px 0"><div class="timeline-year">2026</div><div class="timeline-text"><span class="highlight">王虹 🎉</span> — <strong>中国籍，首位中国籍女性</strong>，三维 Kakeya 猜想</div></div>
+  <div class="timeline-item" style="background:rgba(108,92,231,.06);border-radius:8px;padding:10px 0"><div class="timeline-year">2026</div><div class="timeline-text"><span class="highlight">邓煜 🎉</span> — <strong>中国籍</strong>，随机数据偏微分方程</div></div>
+</div>
+
+<!-- Significance -->
+<div class="big-card">
+  <p><strong>⚡ 为什么 2026 年是历史性的？</strong></p>
+  <p>王虹是 Fields 奖 90 年历史中第三位女性得主（前两位：Maryam Mirzakhani 2014, 乌克兰数学家未提及）。两位中国籍同届获奖——不仅是数学实力的体现，也反映了中国数学教育体系（北京大学数学学院）的培养成果。</p>
+  <div class="key">
+    🔑 给牧之的核心信息：王虹和邓煜都从北大数学出发，在各自领域选择了"别人不敢碰的硬问题"，用十年时间啃下来。Fields Medal 不奖励"聪明"，奖励"在公认的难题上做出了无法忽视的突破"。
+  </div>
 </div>
 
 <div class="divider">✦ ✦ ✦</div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- 王虹 -->
-<!-- ══════════════════════════════════════ -->
+<!-- ═══════ 王虹 deep-dive ═══════ -->
 <section class="section" id="wang">
 <div class="tag" style="color:#a29bfe;border-color:#a29bfe">🧬 王虹 · Hong Wang</div>
 <h2>从桂林到菲尔兹：<span style="color:#a29bfe">敢选最难的题</span></h2>
@@ -148,83 +301,58 @@ footer a{color:#6c5ce7;text-decoration:none}
         <div class="prize-tag">FIELDS MEDAL 2026</div>
       </div>
     </div>
-    <p style="font-size:.88rem;color:#8888bb">三维 Kakeya 猜想 · 调和分析 / 几何测度论 · IHES / NYU · 桂林人 · 北京大学 → 法国巴黎综合理工 → MIT 博士</p>
+    <p style="font-size:.88rem;color:#8888bb">三维 Kakeya 猜想 · 调和分析 / 几何测度论 · IHES / NYU · 桂林人 · 北京大学 → École Polytechnique → MIT 博士</p>
   </div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#a29bfe">1</span> 童年：桂林山水间的自由</h3>
   <p>1990 年代，王虹在桂林长大。父母都是学校老师，对她的学业没有任何压力。</p>
-  <p>放学回家，她读希腊神话、哈利·波特和《指环王》，看电视，打乒乓球和羽毛球。一家三口会在桂林的傍晚散步——桂林被称为中国最美丽的城市，四周是陡峭的青翠山丘，漓江穿城而过。</p>
-  <div class="quote">
-    "数学只是众多爱好中的一个。"——王虹
-  </div>
+  <p>放学回家，她读希腊神话、哈利·波特和《指环王》，看电视，打乒乓球和羽毛球。一家三口会在桂林的傍晚散步。</p>
+  <div class="quote">"数学只是众多爱好中的一个。"——王虹</div>
   <p>但数学天赋很早就显露了。每次拿到新课本，她会在开学前把所有习题做完；做完后就去书店买更多数学书，继续做。</p>
-  <div class="fact">
-    💡 6 岁时，她解出了一道智力题："如何种 7 棵树，得到最多的三树成行？"答案是把树种成正等边三角形——每个角一棵、每条边中点一棵、中心一棵——得到 6 行。她比她当数学老师的父亲还快。后来她意识到，这道题本质上就是她毕生研究的核心问题——<strong>"物体如何重叠"</strong>（incidence geometry）的雏形。
-  </div>
+  <div class="fact">💡 6 岁时，她解出了一道智力题："如何种 7 棵树，得到最多的三树成行？"她用正等边三角形排出了 6 行，比她当数学老师的父亲还快。后来她意识到，这道题本质上就是她毕生研究的核心问题——<strong>"物体如何重叠"</strong>（incidence geometry）的雏形。</div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#a29bfe">2</span> 初中到高中：目标北大</h3>
-  <p>初中后期，成绩开始变得重要——关系到能否考上桂林最好的高中。王虹的目标是北京大学数学系。</p>
-  <p>但问题来了：据她说，北大在她们省只招<strong>一个</strong>数学系名额。她的标准化考试分数不是最高。</p>
-  <p>她以<strong>地球科学</strong>专业考入北大，计划转系到数学。地球物理学的教授鼓励了她，告诉她数学对科学的重要性——比如地震波用来探测地球内部，而那个数学正好跟 Kakeya 问题有关（虽然她当时不知道）。她拼命努力，最终转系成功。</p>
-  <div class="quote">
-    "她父亲随口说了一句：分析比代数简单。王虹偏不听，故意选了代数。"——Quanta Magazine
-  </div>
-  <p>她父亲的一句随口话让她叛逆地选了代数——后来才发现自己更适合分析。这段"故意选反"的经历，后来成为她职业生涯的一个注脚。她不是一个从小就清楚方向的人，她是通过试错找到的。</p>
+  <p>初中后期，成绩开始变得重要——关系到能否考上桂林最好的高中。王虹的目标是北京大学数学系。但北大在她们省只招<strong>一个</strong>数学系名额，她的标准化考试分数不是最高。</p>
+  <p>她以<strong>地球科学</strong>专业考入北大，计划转系到数学。地球物理学的教授鼓励了她，告诉她数学对科学的重要性。她拼命努力，最终转系成功。</p>
+  <div class="quote">"她父亲随口说了一句：分析比代数简单。王虹偏不听，故意选了代数。后来才发现自己更适合分析。"——Quanta Magazine</div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#a29bfe">3</span> 法国：语言不通 + 转去学建筑</h3>
-  <p>2011 年，王虹到法国巴黎综合理工学院（École Polytechnique）读研。她不会法语——所有课程都是法语授课。幸运的是，她第一学期的数学内容她基本都已经会了。她和法国同学一起吃饭，安静地听着他们聊天，慢慢学会更多。</p>
-  <p>她在分析课上找到了感觉——分析比代数对她来说更自然。</p>
-  <p>但她的成绩不够顶尖，她怀疑自己是否适合做数学研究。于是——她<strong>转去学建筑了</strong>。在巴黎的建筑事务所实习了一个学期。</p>
-  <div class="quote">
-    "学建筑时没有压力……但不知道目标是什么。于是我又回到了数学。我决定不再担心自己够不够好，只管去理解。"——王虹
-  </div>
-  <p>这个"先去学别的再回来"的选择，后来被她称为"一个重要的放松"。不是每个伟大的数学家从一开始就笃定不移。允许自己走弯路，也是一种自由。</p>
+  <p>2011 年，王虹到法国巴黎综合理工学院读研。她不会法语——所有课程都是法语授课。她跟法国同学吃饭，安静地听着他们聊天，慢慢地学会更多。</p>
+  <p>但她觉得自己的成绩不够好到做研究，于是——她<strong>转去学建筑了</strong>。在巴黎的建筑事务所实习了一个学期。</p>
+  <div class="quote">"学建筑时没有压力……但不知道目标是什么。于是我又回到了数学。我决定不再担心自己够不够好，只管去理解。"——王虹</div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#a29bfe">4</span> MIT：遇到对的问题</h3>
-  <p>2013 年，王虹在 MIT 做研究实习。她参加了一次讨论班，主讲人是赖斯大学的 Larry Guth。Guth 用极为清晰的方式讲解了一个关于"欧几里得距离问题"的证明。王虹感到自己能抓住证明中的一部分，这给了她巨大的动力。</p>
-  <p>她得知这类问题与"Kakeya 问题"紧密相连——这正是她后来花了十年解决的问题。她第二年申请了 MIT 的博士，选了 Guth 做导师。</p>
-  <div class="fact">
-    💡 在 MIT 读博期间，她与 Guth 和其他合作者一起攻克了 Kakeya 相关问题的多个变种。一年内，他们解决了 Falconer 距离问题的一个特殊情况。她还通过从几何测度论引入新工具，在傅里叶限制问题上取得了进展。一位教授评价说："一个博士生能在这个问题上说出新东西，太罕见了。"
-  </div>
+  <p>2013 年，王虹在 MIT 做研究实习。她参加了一次讨论班，赖斯大学的 Larry Guth 用极为清晰的方式讲解了一个数学证明。王虹感到自己能抓住证明中的一部分，这给了她巨大的动力。</p>
+  <p>她得知这类问题与 Kakeya 问题紧密相连。她第二年申请了 MIT 的博士，选了 Guth 做导师。一年内，他们一起解决了 Falconer 距离问题的一个特殊情况和多个 Kakeya 相关变种。一位教授评价说："一个博士生能在这个问题上说出新东西，太罕见了。"</p>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#a29bfe">5</span> 攻坚：三维 Kakeya 猜想的 127 页证明</h3>
-  <p>2020 年疫情期间，在普林斯顿高等研究院做博后的王虹决定转向攻克 Kakeya 猜想最核心的情况——<strong>三维 Kakeya 猜想</strong>。</p>
-  <p>这个猜想已经困扰了数学界几十年；有人声称证明过但后来发现是错的。连 Guth 自己都说："我曾经四五次以为自己能证明它，每次都发现了错误。"</p>
-  <div class="quote">
-    "我从来没觉得自己能解决 Kakeya 猜想。这是这么难的问题，我是谁？但也有一种感觉——这个论证是自然的。"——王虹
-  </div>
-  <p>她与 Joshua Zahl 合作，设计了一个精妙的策略：假设存在一个反例——一种能够将三维空间中指向所有方向的线段压缩到低于三维的排列方式——然后证明这个反例必须具备如此严格和高效的结构，以至于它会与"加法与乘法之间的交互关系"这个基础定理矛盾。</p>
-  <p>2025 年 2 月，他们公开发表了<strong>127 页的完整证明</strong>。在正式公开前，他们花了数月反复检查，并把稿件送给同行审阅。</p>
-  <p>王虹担心的不是论证有错——而是表达得不够清晰。结果：没有发现错误，逻辑被消化和简化，所有人都相信了它的正确性。</p>
-  <div class="fact">
-    💡 这个证明触发了一连串奖项：Salem 奖、Ostrowski 奖、ICCM 金奖（2025）、Ambrosetti 奖、Sadosky 奖、Clay 研究奖、New Horizons 数学奖——然后是 Fields Medal。
-  </div>
+  <p>2020 年疫情期间，在普林斯顿高等研究院做博后的王虹决定转向三维 Kakeya 猜想——这个猜想已经困扰了数学界几十年。</p>
+  <p>她与 Joshua Zahl 合作，设计了一个精妙的策略：假设存在一个反例，然后证明这个反例的结构会自相矛盾。</p>
+  <p>2025 年 2 月，他们公开发表了<strong>127 页的完整证明</strong>。在正式公开前，他们花了数月反复检查。没有发现错误——逻辑被消化和简化，所有人都相信了它的正确性。</p>
+  <div class="fact">💡 这个证明触发了一连串奖项：Salem 奖、Ostrowski 奖、ICCM 金奖（2025）、Ambrosetti 奖、Sadosky 奖、Clay 研究奖、New Horizons 数学奖——然后是 Fields Medal。</div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#a29bfe">6</span> 今天的王虹</h3>
-  <p>现在王虹是纽约大学的教授，同时在法国 IHES 高等科学研究所任职。她戴着玳瑁眼镜，两只食指上各有一枚戒指——左手银、右手金。</p>
-  <p>她不开车，因为怕在路上分心想数学。但她会早起散步——去华盛顿广场公园看狗。她做瑜伽，和朋友保持联系，但不养狗、不读书——她觉得自己不能有这些"耗时的奢侈"。</p>
-  <p>她仍然觉得自己不够好，总觉得要比别人花更多时间才能赶上。当别人告诉她"大家公认你极其才华横溢"时，她看起来真的又惊又喜。</p>
-  <p>她的下一步？三维 Kakeya 猜想解决了，但还有四维、五维——甚至一个通用的、适用于所有维度的证明，目前没有人知道那会是什么样子。她说她暂时不想太执着于解决某个特定问题。她希望有一天能找回小时候那种"有无限时间读书"的感觉。</p>
+  <p>现在王虹是纽约大学的教授，同时在法国 IHES 任职。她戴着玳瑁眼镜，两只食指上各有一枚戒指——左手银、右手金。</p>
+  <p>她做瑜伽，和朋友保持联系，早起去华盛顿广场公园看狗。但她不养狗、不读书——她觉得自己不能有这些"耗时的奢侈"。她仍然觉得自己不够好，总觉得要比别人花更多时间才能赶上。</p>
+  <p>三维 Kakeya 猜想解决了，但还有四维、五维——甚至通用的、适用于所有维度的证明。她说她暂时不想太执着于解决某个特定问题。她希望有一天能找回小时候那种"有无限时间读书"的感觉。</p>
 </div>
 </section>
 
 <div class="divider">✦ ✦ ✦</div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- 邓煜 -->
-<!-- ══════════════════════════════════════ -->
+<!-- ═══════ 邓煜 deep-dive ═══════ -->
 <section class="section" id="deng">
 <div class="tag" style="color:#fd79a8;border-color:#fd79a8">🎲 邓煜 · Yu Deng</div>
 <h2>从深圳到菲尔兹：<span style="color:#fd79a8">差一场的命运转折</span></h2>
@@ -240,231 +368,131 @@ footer a{color:#6c5ce7;text-decoration:none}
         <div class="prize-tag">FIELDS MEDAL 2026</div>
       </div>
     </div>
-    <p style="font-size:.88rem;color:#8888bb">随机数据 PDE · Gibbs 测度 · UChicago · 深圳人 · IMO 金牌 → 北⼤ → MIT → Princeton 博士</p>
+    <p style="font-size:.88rem;color:#8888bb">随机数据 PDE · Gibbs 测度 · UChicago · 深圳人 · IMO 金牌 → 北大 → MIT → Princeton 博士</p>
   </div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#fd79a8">1</span> 童年：深圳渔村里的读书娃</h3>
-  <p>邓煜出生那年，他全家搬到了深圳。那时的深圳——十年前还是一片渔村——正在疯狂生长。今天它是中国第三大城市、世界最大的科技中心之一。</p>
-  <p>他长大的蛇口工业区当年是"一个非常不发达的地区"，"街上能看到各种垃圾，有难闻的气味"。但几年之内，这里变了——干净的街道、地铁、公园、豪华公寓。海报和广告牌上大声宣告着城市的口号：<strong>时间就是金钱！效率就是生命！</strong></p>
-  <p>邓煜是个安静、爱沉思的孩子。他喜欢独自长时间待着，遇到什么读什么。</p>
-  <div class="quote">
-    "到五六岁时，他已经读了他妈妈的一些医学教科书，经常问关于解剖和结构的问题。我同事们觉得很有趣。"——邓煜妈妈，一名消化科医生
-  </div>
-  <p>他很快"把家里书房里的书基本上都读完了"。为了让他在户外多待会儿，父母带他去海边散步、远足——但条件是走完就可以去书店或读书。如果他表现不好，"最有效的惩罚就是不许他看书"。</p>
+  <p>邓煜出生那年全家搬到深圳——十年前还是渔村。他长大的蛇口工业区当年是"一个非常不发达的地区"。几年之内变成了干净的街道、地铁、公园。海报上喊着口号：<strong>时间就是金钱！效率就是生命！</strong></p>
+  <p>邓煜是个安静的孩子。他喜欢独自待着，遇到什么读什么。到五六岁时，他已经读了他妈妈的医学教科书。</p>
+  <div class="quote">"最有效的惩罚就是不许他看书。"——邓煜妈妈</div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#fd79a8">2</span> 围棋少年：差一场的职业梦</h3>
-  <p>父母担心他老是看书会搞坏眼睛，于是给他买了一副围棋。他立刻迷上了——不只是下棋本身，而是那种可以完全沉浸在一个问题里的感觉。</p>
-  <div class="quote">
-    "下围棋让你可以在一件事上专注两三个小时。我喜欢这种感觉。"——邓煜
-  </div>
-  <p>他进步极快，在本地围棋俱乐部下棋，参加区级和市级的比赛。"他不愿意认输，"他妈妈说，"跟朋友下棋如果输了，他会坚持再来一次，直到赢为止。"</p>
-  <p>2001 年，他上中学时，参加了全国职业围棋定段赛——进入职业围棋界的残酷选拔。到了比赛最后三盘，他只需要再赢一盘就能定段。他<strong>连输三盘</strong>。</p>
-  <p>第二年他又试了一次，但心思已经不在了。</p>
-  <div class="fact">
-    💡 <strong>差一场。一次失利改变了一个人的一生方向。如果那三盘棋中他赢了一盘，今天的菲尔兹奖得主名单上可能就没有邓煜了。</strong>
-  </div>
+  <p>父母担心他老是看书会搞坏眼睛，给他买了一副围棋。他立刻迷上了——不只是下棋本身，而是那种可以完全沉浸在一个问题里的感觉。</p>
+  <p>2001 年，他参加了全国职业围棋定段赛——进入职业围棋界的残酷选拔。到了最后三盘，他只需要再赢一盘就能定段。他<strong>连输三盘</strong>。第二年又试了一次，但心思已经不在了。</p>
+  <div class="fact">💡 <strong>差一场。如果那三盘棋中他赢了一盘，今天的菲尔兹奖得主名单上可能就没有邓煜了。</strong></div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#fd79a8">3</span> 从围棋到数学：IMO 金牌之路</h3>
   <p>定段失败后，邓煜做了一个冷静的评价："要么围棋，要么数学。既然输了，我就转向数学。"</p>
-  <p>他给自己设了一个目标：参加国际数学奥林匹克（IMO）——全球最顶尖的中学生数学竞赛。</p>
-  <p>他的数学老师也是中国最好的奥数教练之一。他们在晚上和周末一起训练。初三那年，他学完了整个高中数学课程，但没有通过第一轮选拔。</p>
-  <div class="quote">
-    "当时我感觉很糟糕。"——邓煜
-  </div>
-  <p>于是他更努力了。第二年他通过了三轮选拔，进入国家集训队——但没能在六人国家队中争取到一个名额。他仍然没有放弃。第三年，他终于代表中国参赛，<strong>拿了金牌</strong>。</p>
-  <div class="fact">
-    💡 两次失败后才成功——邓煜的 IMO 之路本身就是一个"连续失败两次、第三次成功"的叙事。这个模式在他后来的学术生涯中还会出现。
-  </div>
+  <p>他给自己设了一个目标：参加 IMO。他的数学老师也是中国最好的奥数教练之一。初三那年，他学完了整个高中数学课程，但没有通过第一轮选拔。第二年他进了国家集训队——但没选上六人国家队。第三年，他终于代表中国参赛，<strong>拿了金牌</strong>。</p>
 </div>
 
 <div class="story-card">
-  <h3><span class="num" style="background:#fd79a8">4</span> 北大 → MIT → Princeton：适应与迷失</h3>
-  <p>IMO 金牌让他保送北京大学。在北大读了两年数学本科后，他做了一个不寻常的决定——转到 MIT。中国数学学生一般去国外读研，但极少有人本科就转学。"反正你迟早要出国，"他想，"为什么不早走？"</p>
-  <p>在 MIT，他参加了一场改变他方向的讲座。一位访问教授 Andrea Nahmod 讲了"随机数据问题"——某些偏微分方程即使从极其粗糙的随机初始条件开始，是否仍然有解？邓煜被这个问题深深吸引了。</p>
-  <p>2011 年他从 MIT 毕业，去 Princeton 读博士，导师是 Alexandru Ionescu。</p>
-  <div class="quote">
-    "他从一开始就很出色。即使作为研究生，没有经验……他非常擅长抓住事情的本质，找出问题中真正关键的部分。"——Alexandru Ionescu，邓煜的博导
-  </div>
+  <h3><span class="num" style="background:#fd79a8">4</span> 北大 → MIT → Princeton</h3>
+  <p>IMO 金牌让他保送北京大学。在北大读了两年数学本科后，他转到了 MIT——中国数学学生极少有人本科就转学。"反正你迟早要出国，"他想，"为什么不早走？"</p>
+  <p>在 MIT，他参加了一场改变他方向的讲座——Andrea Nahmod 讲的"随机数据问题"。2011 年他从 MIT 毕业，去 Princeton 读博士，导师是 Alexandru Ionescu。</p>
+  <div class="quote">"他从一开始就很出色。即使作为研究生，他非常擅长抓住事情的本质。"——Alexandru Ionescu</div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#fd79a8">5</span> 低谷：焦虑、自我怀疑与救赎</h3>
-  <p>邓煜想在随机数据问题上取得突破——但当时的工具不够用。"我们能得到一些结果，但不令人满意。"他转向了其他问题，但这些没有像随机数据那样抓住他。他开始感到迷茫，有时"有点抑郁"。</p>
-  <p>毕业后他在 NYU 的 Courant 研究所做博后。2017 年博后快结束时，他没有拿到他想要学校的教职。他考虑过回国，或者去金融公司（一直有猎头在找他）。</p>
-  <div class="quote">
-    "我跟他们说我还想做数学，但如果我发现我达不到目标，或许我可以考虑这个方向。"——邓煜
-  </div>
-  <p>邓煜仍然喜欢独处——事实上他更喜欢独处——但第一次他感到了<strong>孤独</strong>。</p>
-  <p>那个冬天，他感到"非常紧张和焦虑"，坐火车去了长滩（长岛南岸），订了一个酒店房间。他在海岸线上徘徊，写诗——用李商隐式的格律诗，八行，严格的平仄和韵律。他写自己想逃跑，想放弃数学的梦想——但逃跑是一种背叛。写完后，他回到曼哈顿。一周没工作后，"自动感觉需要工作，需要做数学了"。</p>
-  <div class="fact">
-    💡 <strong>邓煜的法宝：格律诗。</strong>他不是通过心理医生或朋友走出低谷的——他是通过写诗。严格的形式（平仄、对仗、押韵）给了他一个框架来安放混乱的情绪，一个"规则下的自由"的出口。这跟他研究的数学如出一辙。
-  </div>
+  <p>邓煜想在随机数据问题上取得突破——但当时的工具不够用。他转向了其他问题，但这些问题没有像随机数据那样抓住他。2017 年博后快结束时，他没有拿到理想学校的教职，考虑过回国或去金融公司。</p>
+  <p>他仍然喜欢独处——但第一次感到了<strong>孤独</strong>。</p>
+  <div class="fact">💡 <strong>邓煜的法宝：格律诗。</strong>他不是通过心理医生或朋友走出低谷的——他是通过写诗。严格的形式（平仄、对仗、押韵）给了他在规则中安放混乱情绪的空间。他最喜欢的诗人是李商隐，尤其喜欢《锦瑟》。</div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#fd79a8">6</span> 突破：与概率握手</h3>
-  <p>2018 年，邓煜拿到南加州大学（USC）的教职。在那里，他遇到了另一位也感到迷茫的数学家 Yue。一次晚餐后，Yue 开车送他回家——大家都知道邓煜不开车——Yue 说到自己也遇到了困难，原来他博士做的正是随机数据问题。</p>
-  <p>邓煜觉得是时候回到这个问题了。他和 Yue、Nahmod 组成了团队，开始攻克二维薛定谔方程——核心是证明：即使从一个随机的、极其粗糙的初始波出发，这个方程仍然有良好定义的解，并且这个解保持了一种叫做"Gibbs 测度"的统计结构。</p>
-  <div class="quote">
-    "跟他合作让人振奋。他感兴趣的时候，聚焦得像个激光。"——Andrea Nahmod
-  </div>
-  <p>后来，邓煜又与美国密歇根大学的 Hani 合作，将微观的薛定谔方程与宏观的波动力学方程连接起来——这个连接在物理学中已经被接受了一个世纪，但数学上一直没被证明。他们不仅在短时间尺度上证明了它，还推进到了接近物理学家关心的长时间尺度。</p>
-  <p>其中一篇论文超过了 100 页。另一篇，他花了一周逐行阅读——每天 8 小时，连续 7 天。</p>
+  <p>2018 年邓煜拿到 USC 教职。他和 Yue、Nahmod 组队开始攻克二维薛定谔方程——证明即使从随机粗糙的初始波出发，方程仍有解并且 Gibbs 测度保持不变。后来他与密歇根大学的 Hani 合作，将微观薛定谔方程与宏观波动力学方程连接起来。</p>
+  <p>其中一篇论文超过 100 页。另一篇，他花了一周逐行阅读——每天 8 小时，连续 7 天。</p>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#fd79a8">7</span> 今天的邓煜</h3>
-  <p>邓煜现在是芝加哥大学的教授。他的客厅几乎是空的——一张桌子、一块白板、一个小书架、一把扶手椅。没有沙发、没有电视、没有墙上的画、没有地毯。"这是一种自由的感觉。我可以走着想问题。"</p>
-  <p>他不开车——连驾照都没考——因为他担心开车时脑子会飘回数学。他的专注力到了这样的程度：读一篇 75 页的论文，他逐行检查每个细节，一周读完。如果不做数学时没有进展，"我会非常失望，一直想着它"。</p>
-  <p>他最喜欢的诗人仍然是李商隐。在休息时，他读漫画——尤其是一种讲述女性之间深刻友谊和浪漫关系的类型。他说，这些故事帮助他对自己的生活更加温柔，"更舒服一些"。</p>
-  <div class="fact">
-    💡 邓煜的一句座右铭——来自他贴在墙上的李商隐《锦瑟》：
-    "此情可待成追忆，只是当时已惘然。" 
-    他喜欢的是那种"站在远处看自己"的感觉——星辰是遥远的，连思绪也是遥远的，你完全独自一人，世界在周围安静下来。
-  </div>
+  <p>邓煜现在是芝加哥大学的教授。他的客厅几乎是空的——一张桌子、一块白板、一个小书架、一把扶手椅。"这是一种自由的感觉。我可以走着想问题。"</p>
+  <p>他不开车——连驾照都没考——因为担心开车时脑子会飘回数学。读一篇 75 页的论文，他逐行检查每个细节，一周读完。</p>
+  <div class="fact">💡 他的座右铭来自贴在墙上的李商隐《锦瑟》："此情可待成追忆，只是当时已惘然。"他喜欢那种"站在远处看自己"的感觉——星辰遥远，思绪遥远，你完全独自一人，世界在周围安静下来。</div>
+</div>
 </section>
 
 <div class="divider">✦ ✦ ✦</div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- 研究成果简介 -->
-<!-- ══════════════════════════════════════ -->
-<section class="section">
+<!-- ═══════ MATH ═══════ -->
+<section class="section" id="math">
 <div class="tag" style="color:#6c5ce7;border-color:#6c5ce7">🔬 数学简史</div>
 <h2>他们到底证明了什么</h2>
 
 <div class="story-card">
   <h3><span class="num" style="background:#6c5ce7">1</span> 王虹：Kakeya 猜想——管子的重叠问题</h3>
-  <p>想象你在三维空间里放满了无限细的针，指向<strong>每一个可能的方向</strong>。现在把这些针放宽成很细的管子——它们会互相重叠多少？</p>
-  <p>Kakeya 猜想说：不管你怎么放，<strong>这些管子的重叠程度必然像一个三维物体那样</strong>——就像一个实心球那样充满空间。</p>
-  <p>听起来像常识，但数学上这个问题困扰了数学家一百年。因为从 1917 年 Kakeya 本人提出开始，数学家就发现二维的针可以"挤"到面积几乎为零的空间里，无限细但仍然指向所有方向。那三维呢？王虹和 Zahl 证明：不行。在三维里，你骗不了空间——不管怎么挤，它们该占多少地方还是占多少。</p>
-  <div class="fact">💡 <strong>为什么重要？</strong> Kakeya 猜想是调和分析（信号处理的基础）中最核心的"公理"之一。它连接了傅里叶分析、几何测度论、偏微分方程甚至数论。证明了它，等于给这些领域都打下了一个坚实的基础。它的应用延伸到：如何理解波在介质中传播、信号处理中的"信息能否集中"、甚至在 X 射线断层扫描中如何从投影重构物体。</div>
+  <p>想象你在三维空间里放满了无限细的针，指向<strong>每一个可能的方向</strong>。Kakeya 猜想说：不管你怎么放，<strong>这些针的分布密度必然像一个三维物体那样</strong>——你不能把它们压缩成更低的维度。</p>
+  <p>听起来像常识，但这个问题困扰了数学家一百年。因为二维的针可以"挤"到几乎零面积——那三维呢？王虹和 Zahl 证明：在三维里，你骗不了空间。</p>
+  <div class="fact">💡 <strong>为什么重要？</strong>Kakeya 猜想连接了傅里叶分析、信号处理、波传播甚至 X 射线断层扫描。证明了它，等于给这些领域都打下了一个坚实的基础。</div>
 </div>
 
 <div class="story-card">
   <h3><span class="num" style="background:#6c5ce7">2</span> 邓煜：随机数据 PDE——当方程遇上概率</h3>
-  <p>偏微分方程（PDE）描述了波如何传播——水波、光波、声波。它们通常被假设为"从平滑的初始状态开始"。</p>
-  <p>但物理学中的真实初始条件从来不是平滑的——它们是随机的、粗糙的、充满噪声的。邓煜证明了：<strong>即使初始条件极其混乱，某些 PDE 仍然有良好定义的解</strong>。并且，在统计意义上，这些解遵循一个隐藏的秩序——Gibbs 测度（描述系统平衡状态的概率分布）保持不变。</p>
-  <p>更进一步，他和 Hani 证明了微观的薛定谔方程在长时间下会收敛到宏观的波动力学方程——这个结论物理学家已经信了一个世纪，但数学上一直缺一个证明。</p>
-  <div class="fact">💡 <strong>为什么重要？</strong> 从天气预报到量子力学，从光纤通信到流体力学——几乎所有的科学和工程都依赖 PDE 来建模。邓煜的工作告诉我们，当这些方程面对真实的、充满噪声的世界时，它们仍然是可靠的。这不是修补一个技术漏洞，而是为整个"用数学理解物理世界"的框架打了一个补丁——证明了这个框架在真正的事故条件下依然站得住。</div>
+  <p>偏微分方程描述了波如何传播——但物理世界的初始条件从来不是平滑的，它们是随机的、充满噪声的。邓煜证明了：<strong>即使初始条件极其混乱，这些方程仍然有解</strong>，并且解的统计结构（Gibbs 测度）保持稳定。</p>
+  <p>他还证明了微观薛定谔方程在长时间下会收敛到宏观波动力学方程——物理学家已经信了一个世纪，但数学上一直在等这个证明。</p>
+  <div class="fact">💡 <strong>为什么重要？</strong>从天气预报到量子力学，几乎所有科学和工程都依赖 PDE。邓煜的工作证明：当这些方程面对真实的、充满噪声的世界时，它们依然是可靠的。</div>
 </div>
 </section>
 
 <div class="divider">✦ ✦ ✦</div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- 启发 -->
-<!-- ══════════════════════════════════════ -->
+<!-- ═══════ INSPIRATION ═══════ -->
 <section class="section" id="inspiring">
 <div class="tag" style="color:#00b894;border-color:#00b894">🌱 给牧之</div>
 <h2>两个故事，一个少年</h2>
 <p>王虹和邓煜的成长轨迹有惊人的相似之处——也有很多关键的<strong>不同</strong>。对于 14 岁的你来说，这些故事不是在教你怎么当数学家，而是在展示：<strong>一个人怎么一步一步变成他自己</strong>。</p>
 
-<div class="cmp-table">
-<table style="width:100%">
-<tr><th>维度</th><th>王虹</th><th>邓煜</th></tr>
-<tr><td><strong>出身</strong></td><td>桂林，父母都是老师，宽松自由</td><td>深圳渔村起步，母亲是医生，父亲是工程师</td></tr>
-<tr><td><strong>童年最爱</strong></td><td>读书、做数学题当娱乐</td><td>读书(连妈妈的医书都读)、下围棋</td></tr>
-<tr><td><strong>人生第一次"不行"</strong></td><td>没考上北大数学系（只好转系）</td><td>围棋定段赛最后三盘全输</td></tr>
-<tr><td><strong>如何应对失败</strong></td><td>先以地球科学进北大，再转系，再转到建筑，再回到数学</td><td>转向数学，IMO 首次选拔失败→再失败→再成功</td></tr>
-<tr><td><strong>博士导师</strong></td><td>Larry Guth（MIT）</td><td>Alexandru Ionescu（Princeton）</td></tr>
-<tr><td><strong>博士后的低谷</strong></td><td>觉得自己不够好，怕不能独立做研究</td><td>拿不到想去的教职，考虑过去金融公司</td></tr>
-<tr><td><strong>走出低谷的方式</strong></td><td>"只管去理解，别担心够不够好"</td><td>写格律诗，读漫画，独自去海边</td></tr>
-<tr><td><strong>核心成果</strong></td><td>三维 Kakeya 猜想（单人首发+合作证明）</td><td>随机数据 PDE 的可解性 + 波动力学方程收敛</td></tr>
-<tr><td><strong>生活方式</strong></td><td>早起散步看狗，做瑜伽，不读书不养狗</td><td>空客厅，不开车，读漫画，写诗，一行一行读论文</td></tr>
+<table class="cmp-table">
+  <tr><th>维度</th><th>王虹</th><th>邓煜</th></tr>
+  <tr><td><strong>出身</strong></td><td>桂林，父母都是老师，宽松自由</td><td>深圳渔村起步，母亲是医生，父亲是工程师</td></tr>
+  <tr><td><strong>童年最爱</strong></td><td>读书、做数学题当娱乐</td><td>读书（连妈妈的医书都读）、下围棋</td></tr>
+  <tr><td><strong>人生第一次"不行"</strong></td><td>没考上北大数学系（只好转系）</td><td>围棋定段赛最后三盘全输</td></tr>
+  <tr><td><strong>如何应对失败</strong></td><td>先以地球科学进北大、再转系、再转到建筑、再回来</td><td>转向数学，IMO 首次失败→再失败→再成功</td></tr>
+  <tr><td><strong>博士后的低谷</strong></td><td>觉得自己不够好，怕不能独立做研究</td><td>拿不到想去的教职，考虑过去金融公司</td></tr>
+  <tr><td><strong>走出低谷</strong></td><td>"只管去理解，别担心够不够好"</td><td>写格律诗，读漫画，独自去海边</td></tr>
+  <tr><td><strong>核心成果</strong></td><td>三维 Kakeya 猜想（127 页证明）</td><td>随机数据 PDE 可解性 + 波动力学收敛</td></tr>
+  <tr><td><strong>生活方式</strong></td><td>早起散步看狗，做瑜伽，不读书不养狗</td><td>空客厅，不开车，读漫画，逐行读论文</td></tr>
 </table>
-</div>
 
 <div class="insight-box">
   <h3>🔑 比"努力"更重要的东西</h3>
-  <div class="point"><span class="point-icon">1️⃣</span><div class="point-text"><strong>都在"不行"之后做出了选择。</strong>王虹没考上北大数学系，她没有放弃数学——她换了一条路进去。邓煜围棋差一盘，他没有死磕——他换到了数学。关键不是"失败了还坚持原来的路"，而是"失败了之后，知道转换方向"。</div></div>
-  <div class="point"><span class="point-icon">2️⃣</span><div class="point-text"><strong>都经历了自我怀疑，而且没把它当成终点。</strong>王虹转去学建筑是因为"觉得自己够不上做研究"；邓煜的博后低谷让他写诗逃到海边。两个人都在最低谷的时候做了看起来"不务正业"的事——转系、写诗。但恰恰是在那个远离数学的间隙里，他们重新找到了回到数学的理由。</div></div>
-  <div class="point"><span class="point-icon">3️⃣</span><div class="point-text"><strong>都选择了别人不太敢碰的问题。</strong>王虹选了 Kakeya 猜想——"谁都知道它难，大家绕着走"。邓煜在大家都做光滑的 PDE 时选了"随机数据的 PDE"——"当时的工具不够用"。不是因为他们更聪明，而是因为他们不太在乎"别人在做什么"。</div></div>
-  <div class="point"><span class="point-icon">4️⃣</span><div class="point-text"><strong>都在被认可之后继续自我怀疑。</strong>王虹在今天依然觉得自己"要多花时间才能赶上别人"；邓煜说"如果不做出进展，我会非常失望"。Fields Medal 没有治好他们的不安——但他们不需要被治好。不安本身就是推动力的一部分。</div></div>
-</div>
-</section>
-
-<div class="divider">✦ ✦ ✦</div>
-
-<!-- ══════════════════════════════════════ -->
-<!-- 自由的精神和独立的选择 -->
-<!-- ══════════════════════════════════════ -->
-<section class="section" id="freedom">
-<div class="tag" style="color:#fdcb6e;border-color:#fdcb6e">🕊️ 给牧之的特别版</div>
-<h2>如何保留自由的精神和独立的选择</h2>
-<p>王虹和邓煜的故事放在一起，揭示了一个所有"成功故事"都有的隐藏信息：<strong>独立的选择不是一次决定的，而是一连串的维护</strong>。没有一个瞬间你说"从现在开始我要独立了"——你是在每一次可以被别人推着走的时刻，选择了自己走。</p>
-
-<div class="story-card">
-  <h3><span class="num" style="background:#fdcb6e">1</span> 自由藏在"第二次选择"里</h3>
-  <p>王虹第一次选数学是跟着课本走。她真正的自由选择是什么时候？<strong>是转到建筑又回到数学的时候</strong>。去建筑是一个"我不确定我是不是真想做数学"的诚实信号；回来是她确认了"这就是我想做的"。如果她没有去建筑那半年，她永远会有一个"万一建筑更好呢"的怀疑。</p>
-  <div class="quote">
-    "你没有试过你不知道。试了然后回来，才是真正的选择。从来没有离开过的选择，不叫选择，叫惯性。"——王虹的路给我们的启示
-  </div>
+  <div class="point"><span class="point-icon">1️⃣</span><div class="point-text"><strong>都在"不行"之后做出了选择。</strong>王虹没考上北大数学系，她换了一条路进去。邓煜围棋差一盘，他换到了数学。关键不是"失败了还坚持原来的路"，而是"失败了之后，知道转换方向"。</div></div>
+  <div class="point"><span class="point-icon">2️⃣</span><div class="point-text"><strong>都经历了自我怀疑，而且没把它当成终点。</strong>王虹转去学建筑是因为"觉得自己够不上做研究"；邓煜的低谷让他写诗逃到海边。两人都在最低谷时做了看起来"不务正业"的事——但恰恰是在那个间隙里，他们重新找到了回到数学的理由。</div></div>
+  <div class="point"><span class="point-icon">3️⃣</span><div class="point-text"><strong>都选了别人不太敢碰的问题。</strong>王虹选了 Kakeya 猜想——谁都知道难，大家绕着走。邓煜选了随机数据 PDE——当时工具不够用。不是因为他们更聪明，而是因为他们不太在乎"别人在做什么"。</div></div>
+  <div class="point"><span class="point-icon">4️⃣</span><div class="point-text"><strong>都在被认可之后继续自我怀疑。</strong>Fields Medal 没有治好他们的不安——但他们不需要被治好。不安本身就是推动力的一部分。</div></div>
 </div>
 
-<div class="story-card">
-  <h3><span class="num" style="background:#fdcb6e">2</span> 自由需要"不做什么"的勇气</h3>
-  <p>邓煜不开车——因为他知道自己的脑子会飘到数学。这不是一个便利的决策，但这是一个自由的决定：<strong>他知道自己是什么样的人，他按这个认知来安排生活</strong>。</p>
-  <p>他的客厅空空的——没有沙发、电视、装饰。不是因为穷，而是因为"更多的空间 = 更多的走动能想问题"。</p>
-  <div class="fact">
-    💡 <strong>如果一个决定让你未来有更多选择权，那就是一个自由的决定。如果一个决定只是让你当下更舒服，它不一定自由。</strong>邓煜的空客厅是前者，不开车也是前者。王虹不养狗不读书也是前者。
-  </div>
-</div>
-
-<div class="story-card">
-  <h3><span class="num" style="background:#fdcb6e">3</span> 自由不是没有约束，是选择你自己的约束</h3>
-  <p>邓煜最喜欢的诗是李商隐的《锦瑟》——格律诗。它有着最严格的形式：平仄、对仗、押韵、字数——全都不准错。但邓煜说：<strong>"这些约束本身是美的一部分。能在约束下说出那么多东西，是另一种层次的美。"</strong></p>
-  <p>这是他做数学的哲学：PDE 是最严格的结构——它们必须遵守物理定律。但你可以在其中引入概率（随机性），在严格的规则下创造意外的空间。自由不是"没有规则"——自由是"选择规则并在这个规则下发挥到极致"。</p>
-</div>
-
-<div class="story-card">
-  <h3><span class="num" style="background:#fdcb6e">4</span> 独立的选择需要"安全网"</h3>
-  <p>王虹的父母从没给她压力。邓煜的父母带他去海边但允许他回来就继续读书。两个人的家庭都给了同样的东西：<strong>一个"失败了不会被责备"的安全空间</strong>。</p>
-  <p>王虹从建筑转回数学时，没有人在她耳边说"浪费了半年"。邓煜围棋定段失败时，没有人说"你的人生完了"。</p>
-  <div class="fact">
-    💡 <strong>你不是一个人在做选择。独立不是孤立的同义词——它是知道该向谁求助、在什么时候求助的能力。</strong>王虹在 MIT 找了 Guth——一个能把最难的问题讲得清清楚楚的导师。邓煜在低谷时找了 Yue——一个也在迷茫中的人——一起做数学。
-  </div>
-</div>
-
-<div class="story-card">
-  <h3><span class="num" style="background:#fdcb6e">5</span> 两个问题，现在就可以问自己</h3>
-  <p><strong>第一问：我做的事情里，有多少是我真的想做的，有多少只是"别人都在做所以我也在做"？</strong></p>
-  <p>王虹在巴黎选了建筑——别人不会理解的，但她在确认自己的方向。邓煜在博后低谷时没有去金融公司——别人可能觉得"多好的机会啊"，但他知道那不是他要的。</p>
-  <p><strong>第二问：如果没有任何人知道，我还会做现在正在做的事吗？</strong></p>
-  <p>这是检验"独立选择"最有效的单一问题。王虹每天在办公室里做数学，没有人在边上看着——她仍然在做。邓煜一个人读 75 页论文，一周 8 小时一天，没有人逼他。如果一件事在没有人关注的时候你就不想做了，那它可能不是你的选择。</p>
-</div>
-
-<div class="insight-box" style="border-color:#fdcb6e">
+<div class="insight-box" style="border-color:#fdcb6e;margin-top:30px">
   <h3>🕊️ 给牧之的最后一句话</h3>
-  <p style="font-size:.95rem;color:#ddddee;margin-bottom:12px">王虹和邓煜的故事不是在说"你要努力成为菲尔兹奖得主"——那离你太远了，而且不是每个人都需要成为菲尔兹奖得主。</p>
+  <p style="font-size:.95rem;color:#ddddee;margin-bottom:12px">这些故事不是在说"你要努力成为菲尔兹奖得主"——那离你太远了，而且不是每个人都需要成为菲尔兹奖得主。</p>
   <p style="font-size:.95rem;color:#ddddee;margin-bottom:12px">这些故事在说更简单的事：</p>
   <p style="font-size:1rem;color:#fdcb6e;font-weight:500;margin-bottom:8px">"你可以在任何年龄、任何阶段停下来，问自己——我想走的路，是不是我自己选的。"</p>
-  <p style="font-size:.9rem;color:#a29bfe;margin-bottom:0">王虹转系、邓煜从围棋转数学、王虹去学建筑又回来、邓煜在最迷茫的时候选择了写诗而不是放弃——他们都在做同一件事：<strong>在每一个可能被别人推着走的路口，选择了自己走。</strong></p>
+  <p style="font-size:.9rem;color:#a29bfe">王虹转系、邓煜从围棋转数学、王虹去学建筑又回来、邓煜在最迷茫时选择写诗而不是放弃——他们都在做同一件事：<strong>在每一个可能被别人推着走的路口，选择了自己走。</strong></p>
 </div>
 </section>
 
 <div class="divider">✦ ✦ ✦</div>
 
-<!-- ══════════════════════════════════════ -->
-<!-- 信源 -->
-<!-- ══════════════════════════════════════ -->
+<!-- ═══════ SOURCES ═══════ -->
 <section class="section" id="sources">
 <div class="tag" style="color:#5555aa;border-color:#5555aa">📰 信源</div>
 <h2>一手信息来源</h2>
 <p style="font-size:.85rem;color:#7777aa">以下为 2026 年 7 月 23 日 Quanta Magazine 发布的 ICM 2026 专题系列报道。</p>
 
 <ul class="source-list">
-  <li>📖 <a href="https://www.quantamagazine.org/hong-wang-wins-2026-fields-medal-the-third-woman-ever-20260723/" target="_blank">Living Fully in the Math World Means Threading the Needle</a> — 王虹专题，Natalie Wolchover 报道</li>
-  <li>📖 <a href="https://www.quantamagazine.org/yu-deng-wins-the-fields-medal-2026-for-his-work-on-the-random-data-problem-20260723/" target="_blank">Amid Life's Chaos, a Meticulous Mathematician Finds Stability</a> — 邓煜专题，Jordana Cepelewicz 报道</li>
-  <li>📖 <a href="https://www.quantamagazine.org/jacob-tsimerman-wins-2026-fields-medal-for-andre-oort-conjecture-proof-20260723/" target="_blank">Sometimes Being First Means Seeing the End Before Anyone Else</a> — Tsimerman 专题，Kevin Hartnett 报道</li>
-  <li>📖 <a href="https://www.quantamagazine.org/john-pardon-wins-the-2026-fields-medal-for-work-in-symplectic-geometry-20260723/" target="_blank">The Quietest Mathematician Has Always Been Worth Listening To</a> — Pardon 专题，Konstantin Kakaes 报道</li>
-  <li>📖 <a href="https://www.quantamagazine.org/shayan-oveis-gharan-wins-2026-imu-abacus-medal-20260723/" target="_blank">A Master of the Traveling Salesperson Problem Finds His Own Path</a> — Abacus 奖，Ben Brubaker 报道</li>
+  <li>📖 <a href="https://www.quantamagazine.org/hong-wang-wins-2026-fields-medal-the-third-woman-ever-20260723/" target="_blank">Living Fully in the Math World Means Threading the Needle</a> — 王虹专题，Natalie Wolchover</li>
+  <li>📖 <a href="https://www.quantamagazine.org/yu-deng-wins-the-fields-medal-2026-for-his-work-on-the-random-data-problem-20260723/" target="_blank">Amid Life's Chaos, a Meticulous Mathematician Finds Stability</a> — 邓煜专题，Jordana Cepelewicz</li>
+  <li>📖 <a href="https://www.quantamagazine.org/jacob-tsimerman-wins-2026-fields-medal-for-andre-oort-conjecture-proof-20260723/" target="_blank">Sometimes Being First Means Seeing the End Before Anyone Else</a> — Tsimerman 专题，Kevin Hartnett</li>
+  <li>📖 <a href="https://www.quantamagazine.org/john-pardon-wins-the-2026-fields-medal-for-work-in-symplectic-geometry-20260723/" target="_blank">The Quietest Mathematician Has Always Been Worth Listening To</a> — Pardon 专题，Konstantin Kakaes</li>
+  <li>📖 <a href="https://www.quantamagazine.org/shayan-oveis-gharan-wins-2026-imu-abacus-medal-20260723/" target="_blank">A Master of the Traveling Salesperson Problem Finds His Own Path</a> — Abacus 奖，Ben Brubaker</li>
   <li>🌐 <a href="https://www.quantamagazine.org/series/fields-and-abacus-medals-2026/" target="_blank">专题系列主页：2026 Fields and Abacus Medals</a></li>
 </ul>
 
