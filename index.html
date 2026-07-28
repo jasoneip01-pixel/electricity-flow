@@ -7,91 +7,107 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#080c14;--surface:#0f1420;--surface2:#161c2e;--border:rgba(148,200,255,.08);
-  --text:#e2e8f0;--muted:#7888a8;--accent:#4dd0e1;--warm:#f0a050;
-  --karst:#4a8c3f;--basin:#c47030;--shudao:#7a5c3a;--loess:#c4a060;
-  --qilian:#5a8a5a;--forest:#2a5a2a;--flower:#d4a020;--snow:#c8d8e8;
-  --desert:#d4a060;--plain:#7a9a4a;--hill:#6b8e4a;--delta:#3a6a5a
+  --bg:#080c14;--surface:#0d1220;--surface2:#141c2e;--border:rgba(148,200,255,.07);
+  --text:#e2e8f0;--muted:#7888a8;--accent:#4dd0e1;--warm:#f0a050
 }
 html{scroll-behavior:smooth;overflow-x:clip}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;padding:0 env(safe-area-inset-right) 0 env(safe-area-inset-left)}
 
-/* Header */
-header{padding:24px 20px 12px;text-align:center;border-bottom:1px solid var(--border)}
-header h1{font-size:clamp(18px,4vw,28px);font-weight:800;letter-spacing:-.8px;margin-bottom:2px}
-header .sub{font-size:12px;color:var(--muted);margin-bottom:10px}
-.stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 16px;text-align:center;min-width:70px}
-.stat .big{font-size:clamp(14px,2.5vw,22px);font-weight:800;color:var(--accent);line-height:1.2}
-.stat .big.warm{color:var(--warm)}
-.stat .label{font-size:9px;color:var(--muted)}
+header{padding:20px 16px 10px;text-align:center;border-bottom:1px solid var(--border)}
+header h1{font-size:clamp(17px,4vw,26px);font-weight:800;letter-spacing:-.6px;margin-bottom:2px}
+header .sub{font-size:11px;color:var(--muted);margin-bottom:8px}
+.stats{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 12px;text-align:center;min-width:60px}
+.stat .big{font-size:clamp(13px,2.2vw,20px);font-weight:800;line-height:1.2}
+.stat .big.accent{color:var(--accent)}.stat .big.warm{color:var(--warm)}.stat .big.green{color:#4ade80}.stat .big.purple{color:#a78bfa}
+.stat .label{font-size:8px;color:var(--muted)}
 
-/* Layout */
-main{display:grid;grid-template-columns:1fr 360px;gap:0;min-height:420px;border-bottom:1px solid var(--border)}
-@media(max-width:860px){main{grid-template-columns:1fr}}
+/* Main layout: map + panel */
+main{display:grid;grid-template-columns:1fr 400px;min-height:420px;border-bottom:1px solid var(--border);position:relative}
+@media(max-width:860px){main{grid-template-columns:1fr;min-height:360px}}
 
-/* Map area */
-.map-area{position:relative;overflow:hidden;padding:16px 12px;display:flex;align-items:center;min-height:380px}
+.map-area{position:relative;overflow:hidden;padding:10px 8px;display:flex;align-items:center;min-height:380px}
+@media(max-width:860px){.map-area{min-height:290px;padding:8px 4px}}
 .map-area svg{width:100%;height:auto;display:block}
-@media(max-width:860px){.map-area{min-height:300px;padding:10px 6px}}
 
-/* Terrain legend within map */
-.terrain-label{font-size:8px;fill:rgba(255,255,255,.5);text-anchor:middle;font-weight:500}
+.terrain-label{font-size:7px;fill:rgba(255,255,255,.4);text-anchor:middle;font-weight:500}
 
-/* Waypoint dots */
 .wp-dot{cursor:pointer;transition:all .2s}
-.wp-dot:hover{filter:brightness(1.6)}
-.wp-dot.active{filter:brightness(1.8) drop-shadow(0 0 6px rgba(77,208,225,.6))}
+.wp-dot:hover{filter:brightness(1.8)}
+.wp-dot.active{filter:brightness(2) drop-shadow(0 0 8px rgba(77,208,225,.7))}
 
-/* Info Panel */
-.info-panel{padding:16px;background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;max-height:420px;transition:all .3s}
+/* Info panel */
+.info-panel{padding:16px;background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;max-height:640px;transition:all .3s}
 @media(max-width:860px){
-  .info-panel{position:fixed;bottom:0;left:0;right:0;z-index:50;max-height:50vh;border-left:none;border-top:1px solid var(--border);border-radius:16px 16px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,.4);transform:translateY(calc(100% - 44px))}
+  .info-panel{position:fixed;bottom:0;left:0;right:0;z-index:50;max-height:58vh;border-left:none;border-top:1px solid var(--border);border-radius:18px 18px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.5);transform:translateY(calc(100% - 48px));background:rgba(13,18,32,.97);backdrop-filter:blur(12px)}
   .info-panel.open{transform:translateY(0)}
-  .info-handle{display:flex;align-items:center;justify-content:center;padding:8px;cursor:pointer}
-  .info-handle::before{content:'';width:32px;height:4px;background:var(--muted);border-radius:2px;opacity:.4}
+  .info-handle{display:flex;align-items:center;justify-content:center;padding:10px;cursor:pointer}
+  .info-handle::before{content:'';width:36px;height:4px;background:var(--muted);border-radius:2px;opacity:.4}
 }
 @media(min-width:861px){.info-handle{display:none}}
 
-.info-panel h3{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px}
-.info-panel .day{font-size:10px;color:var(--accent);font-weight:600;margin-bottom:6px}
-.info-panel .elev{font-size:11px;color:var(--warm);margin-bottom:4px}
-.info-panel .terrain{display:inline-flex;gap:4px;align-items:center;padding:2px 8px;border-radius:12px;font-size:9px;font-weight:600;margin-bottom:8px}
+.info-panel h3{font-size:14px;font-weight:700;margin-bottom:3px;display:flex;align-items:center;gap:5px}
+.info-panel .day{font-size:9px;color:var(--accent);font-weight:600;margin-bottom:4px}
+.info-panel .meta-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.info-panel .elev{font-size:10px;color:var(--warm);font-weight:600}
+.info-panel .terrain-tag{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:10px;font-size:8px;font-weight:600}
 .info-panel .desc{font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:6px}
-.info-panel .geo{font-size:10px;font-style:italic;color:rgba(255,255,255,.25);padding:6px 0;border-top:1px solid var(--border);margin-top:6px}
-.info-hint{font-size:10px;color:var(--muted);text-align:center;padding:20px;opacity:.5}
+.info-panel .kb{font-size:10px;line-height:1.5;padding:7px 9px;border-radius:8px;margin-bottom:5px}
+.info-panel .kb-title{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;opacity:.6}
+.info-panel .fact{font-size:10px;font-style:italic;color:rgba(255,255,255,.2);padding:6px 0;border-top:1px solid var(--border);margin-top:5px}
 
-/* Elevation section */
-.elev-section{padding:16px 20px;border-bottom:1px solid var(--border)}
-.elev-section h2{font-size:13px;font-weight:600;margin-bottom:8px;color:var(--muted)}
-.elev-section svg{width:100%;height:auto;display:block}
+/* Sections below map */
+section{padding:14px 16px;border-bottom:1px solid var(--border)}
+section h2{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px}
 
-/* Terrain legend */
-.legend{padding:16px 20px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
-.legend-item{display:flex;align-items:center;gap:4px;font-size:9px;color:var(--muted);padding:3px 8px;background:var(--surface);border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:all .15s;white-space:nowrap}
+/* Elevation chart */
+#elevChart svg{width:100%;height:auto;display:block}
+
+/* Knowledge cards grid */
+.knowledge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
+.kcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;transition:all .15s;cursor:pointer}
+.kcard:hover{border-color:rgba(255,255,255,.15)}
+.kcard-header{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.kcard-header .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.kcard-header .name{font-size:11px;font-weight:600}
+.kcard-header .tag{font-size:8px;color:var(--muted)}
+.kcard .oneliner{font-size:10px;color:var(--muted);line-height:1.4}
+.kcard .info-row{display:flex;gap:10px;margin-top:4px;font-size:8px;color:rgba(255,255,255,.2)}
+
+/* Legend */
+.legend{padding:12px 14px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.legend-item{display:flex;align-items:center;gap:3px;font-size:8px;color:var(--muted);padding:2px 7px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:5px;cursor:pointer;transition:all .12s}
 .legend-item:hover{border-color:rgba(255,255,255,.2);color:var(--text)}
-.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.legend-count{font-size:8px;color:rgba(255,255,255,.15);margin-left:2px}
+.legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
-footer{padding:12px;text-align:center;font-size:9px;color:rgba(255,255,255,.08)}
+footer{padding:10px;text-align:center;font-size:7px;color:rgba(255,255,255,.06)}
 footer a{color:inherit}
 
-/* Tooltip for map hover */
-.map-tooltip{position:absolute;pointer-events:none;background:rgba(7,11,20,.94);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:10px;color:var(--text);z-index:20;opacity:0;transition:opacity .15s;white-space:nowrap}
+/* Tooltip */
+.map-tooltip{position:absolute;pointer-events:none;background:rgba(7,11,20,.96);border:1px solid var(--border);border-radius:6px;padding:5px 9px;font-size:9px;color:var(--text);z-index:20;opacity:0;transition:opacity .12s;white-space:nowrap}
 .map-tooltip.show{opacity:1}
+
+/* Tab bar */
+.tab-bar{display:flex;gap:2px;margin-bottom:6px}
+.tab-btn{font-size:9px;padding:4px 10px;border-radius:5px;cursor:pointer;border:1px solid transparent;background:none;color:var(--muted);transition:all .12s;font-family:inherit}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{background:rgba(77,208,225,.1);border-color:rgba(77,208,225,.2);color:var(--accent)}
+.tab-content{display:none}
+.tab-content.active{display:block}
 </style>
 </head>
 <body>
 
 <header>
   <h1>🗺️ 5,600km 地貌之旅</h1>
-  <div class="sub">2026暑假 · 广州→西北→广州 · 15天环形穿越</div>
+  <div class="sub">2026暑假 · 广州→西北→广州 · 15天环形穿越 · 牧之 & 牧童</div>
   <div class="stats">
-    <div class="stat"><div class="big">15</div><div class="label">天</div></div>
+    <div class="stat"><div class="big accent">15</div><div class="label">天</div></div>
     <div class="stat"><div class="big warm">5,600</div><div class="label">公里</div></div>
-    <div class="stat"><div class="big">14</div><div class="label">站</div></div>
-    <div class="stat"><div class="big warm">12</div><div class="label">地貌</div></div>
-    <div class="stat"><div class="big">3,800</div><div class="label">最高海拔(m)</div></div>
+    <div class="stat"><div class="big green">16</div><div class="label">站</div></div>
+    <div class="stat"><div class="big purple">12</div><div class="label">地貌</div></div>
+    <div class="stat"><div class="big warm">3,600</div><div class="label">最高 m</div></div>
+    <div class="stat"><div class="big accent">3</div><div class="label">气候带</div></div>
   </div>
 </header>
 
@@ -100,326 +116,294 @@ footer a{color:inherit}
     <div class="map-tooltip" id="tooltip"></div>
     <svg id="routeMap" viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" style="font-family:'SF Mono','Fira Code',monospace">
       <defs>
-        <filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <filter id="glowStrong"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glow"><feGaussianBlur stdDeviation="2"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <filter id="glowStrong"><feGaussianBlur stdDeviation="3"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
         <linearGradient id="routeGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#4a8c3f"/><stop offset="25%" stop-color="#c47030"/>
-          <stop offset="45%" stop-color="#7a5c3a"/><stop offset="60%" stop-color="#5a8a5a"/>
-          <stop offset="75%" stop-color="#d4a060"/><stop offset="90%" stop-color="#7a9a4a"/>
-          <stop offset="100%" stop-color="#3a6a5a"/>
+          <stop offset="0%" stop-color="#3a6a5a"/><stop offset="10%" stop-color="#4a8c3f"/>
+          <stop offset="22%" stop-color="#c47030"/><stop offset="38%" stop-color="#7a5c3a"/>
+          <stop offset="52%" stop-color="#c4a060"/><stop offset="62%" stop-color="#5a8a5a"/>
+          <stop offset="74%" stop-color="#d4a020"/><stop offset="82%" stop-color="#c8d8e8"/>
+          <stop offset="90%" stop-color="#7a9a4a"/><stop offset="100%" stop-color="#3a6a5a"/>
         </linearGradient>
       </defs>
 
-      <!-- Terrain background bands -->
-      <rect x="0" y="0" width="150" height="340" fill="#1e3318" opacity=".4"/>
-      <rect x="150" y="0" width="120" height="340" fill="#2e1a0e" opacity=".4"/>
-      <rect x="270" y="0" width="130" height="340" fill="#2a1a10" opacity=".4"/>
-      <rect x="400" y="0" width="80" height="340" fill="#1e1810" opacity=".4"/>
-      <rect x="480" y="0" width="100" height="340" fill="#3a2a18" opacity=".4"/>
-      <rect x="580" y="0" width="150" height="340" fill="#1e2e1e" opacity=".4"/>
-      <rect x="730" y="0" width="120" height="340" fill="#3e3018" opacity=".4"/>
-      <rect x="850" y="0" width="100" height="340" fill="#2a3a1e" opacity=".4"/>
-      <rect x="950" y="0" width="120" height="340" fill="#2e2010" opacity=".4"/>
-      <rect x="1070" y="0" width="130" height="340" fill="#1e2e18" opacity=".4"/>
+      <!-- Terrain bands -->
+      <rect x="0" y="0" width="110" height="340" fill="#2a3a20" opacity=".3"/>
+      <rect x="110" y="0" width="90" height="340" fill="#1e2818" opacity=".3"/>
+      <rect x="200" y="0" width="140" height="340" fill="#2e1a0e" opacity=".3"/>
+      <rect x="340" y="0" width="160" height="340" fill="#2a1a10" opacity=".3"/>
+      <rect x="500" y="0" width="130" height="340" fill="#3a2a18" opacity=".3"/>
+      <rect x="630" y="0" width="120" height="340" fill="#1e2e1e" opacity=".3"/>
+      <rect x="750" y="0" width="100" height="340" fill="#3e3018" opacity=".3"/>
+      <rect x="850" y="0" width="110" height="340" fill="#2a3a1e" opacity=".3"/>
+      <rect x="960" y="0" width="130" height="340" fill="#2e2010" opacity=".3"/>
+      <rect x="1090" y="0" width="110" height="340" fill="#1e2e18" opacity=".3"/>
 
-      <!-- Mountain silhouettes top -->
-      <path d="M0,120 Q30,80 60,120 Q90,70 120,110 Q150,85 180,115 Q210,75 240,108 Q270,90 300,112 Q330,60 360,100 Q390,70 420,105 Q450,55 480,95 Q510,65 540,90 Q570,40 600,70 Q630,50 660,75 Q690,30 720,65 Q750,40 780,60 Q810,25 840,55 Q870,35 900,50 Q930,20 960,45 Q990,30 1020,50 Q1050,38 1080,52 Q1110,42 1140,55 Q1170,48 1200,55"
-            fill="none" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
-      <path d="M0,135 Q40,100 80,125 Q120,95 160,120 Q200,88 240,115 Q280,102 320,120 Q360,80 400,108 Q440,92 480,105 Q520,70 560,95 Q600,60 640,80 Q680,50 720,70 Q760,45 800,65 Q840,35 880,55 Q920,45 960,55 Q1000,38 1040,52 Q1080,45 1120,55 Q1160,50 1200,58"
-            fill="none" stroke="rgba(255,255,255,.02)" stroke-width=".8"/>
+      <!-- Mountains -->
+      <path d="M0,120 Q40,80 80,115 Q120,70 160,108 Q200,85 240,112 Q280,60 320,100 Q360,70 400,105 Q440,55 480,95 Q520,65 560,90 Q600,40 640,70 Q680,50 720,65 Q760,30 800,55 Q840,35 880,50 Q920,20 960,45 Q1000,38 1040,55 Q1080,48 1120,58 Q1160,50 1200,60"
+            fill="none" stroke="rgba(255,255,255,.03)" stroke-width="1"/>
+      <!-- Dunes -->
+      <path d="M920,250 Q940,225 960,250 Q980,230 1000,250" fill="none" stroke="rgba(212,160,96,.06)" stroke-width="1.2"/>
 
-      <!-- Desert dunes -->
-      <path d="M850,250 Q870,220 890,250 Q910,225 930,250 Q950,230 970,250"
-            fill="none" stroke="rgba(212,160,96,.08)" stroke-width="1.5"/>
+      <!-- Route path -->
+      <path id="routePath"
+        d="M30,260 C45,245 55,210 85,215 C115,220 125,190 150,200 C175,210 190,230 210,220 C230,210 250,160 270,175 C290,190 300,210 320,200 C340,190 355,170 375,165 C395,160 410,150 425,155 C440,160 450,130 470,120 C490,110 510,95 540,105 C565,115 585,90 615,75 C645,60 665,55 695,68 C720,80 740,95 760,115 C775,130 790,120 810,140 C830,160 850,170 870,175 C890,180 910,165 930,180 C950,195 970,200 990,210 C1010,220 1030,225 1050,220 C1070,215 1090,200 1115,210 C1135,218 1160,225 1185,240"
+        fill="none" stroke="url(#routeGrad)" stroke-width="2.5" stroke-linecap="round" opacity=".85"/>
+      <path d="M30,260 C45,245 55,210 85,215 C115,220 125,190 150,200 C175,210 190,230 210,220 C230,210 250,160 270,175 C290,190 300,210 320,200 C340,190 355,170 375,165 C395,160 410,150 425,155 C440,160 450,130 470,120 C490,110 510,95 540,105 C565,115 585,90 615,75 C645,60 665,55 695,68 C720,80 740,95 760,115 C775,130 790,120 810,140 C830,160 850,170 870,175 C890,180 910,165 930,180 C950,195 970,200 990,210 C1010,220 1030,225 1050,220 C1070,215 1090,200 1115,210 C1135,218 1160,225 1185,240"
+        fill="none" stroke="rgba(77,208,225,.2)" stroke-width="7" stroke-linecap="round" filter="url(#glow)"/>
 
-      <!-- Route line -->
-      <path id="routePath" d="
-        M30,260 C40,240 60,200 90,210 C120,220 140,180 160,200
-        C180,220 200,240 220,220 C240,200 260,150 280,170
-        C300,190 310,210 330,200 C350,190 370,160 390,170
-        C410,180 420,160 440,170 C460,180 470,140 490,130
-        C510,120 530,90 560,100 C590,110 610,85 640,70
-        C670,55 690,40 720,55 C750,70 770,90 790,110
-        C810,130 820,120 840,140 C860,160 880,180 900,190
-        C920,200 940,180 960,200 C980,220 1000,210 1020,220
-        C1040,230 1060,240 1080,230 C1100,220 1120,200 1150,210
-        C1170,215 1180,225 1190,240"
-        fill="none" stroke="url(#routeGrad)" stroke-width="3" stroke-linecap="round" opacity=".8"/>
-      <path d="M30,260 C40,240 60,200 90,210 C120,220 140,180 160,200 C180,220 200,240 220,220 C240,200 260,150 280,170 C300,190 310,210 330,200 C350,190 370,160 390,170 C410,180 420,160 440,170 C460,180 470,140 490,130 C510,120 530,90 560,100 C590,110 610,85 640,70 C670,55 690,40 720,55 C750,70 770,90 790,110 C810,130 820,120 840,140 C860,160 880,180 900,190 C920,200 940,180 960,200 C980,220 1000,210 1020,220 C1040,230 1060,240 1080,230 C1100,220 1120,200 1150,210 C1170,215 1180,225 1190,240" fill="none" stroke="rgba(77,208,225,.3)" stroke-width="8" stroke-linecap="round" filter="url(#glow)"/>
+      <!-- Start/End -->
+      <circle cx="30" cy="260" r="7" fill="var(--accent)" opacity=".9" filter="url(#glow)"/>
+      <text x="30" y="280" text-anchor="middle" fill="var(--accent)" font-size="7" font-weight="700">广州 D1</text>
+      <circle cx="1185" cy="240" r="7" fill="#4ade80" opacity=".9" filter="url(#glow)"/>
+      <text x="1185" y="260" text-anchor="middle" fill="#4ade80" font-size="7" font-weight="700">广州 D15</text>
 
-      <!-- Start/End markers -->
-      <circle cx="30" cy="260" r="8" fill="var(--accent)" opacity=".9" filter="url(#glow)"/>
-      <text x="30" y="282" text-anchor="middle" fill="var(--accent)" font-size="8" font-weight="700">广州</text>
-      <circle cx="1190" cy="240" r="8" fill="#4ade80" opacity=".9" filter="url(#glow)"/>
-      <text x="1190" y="262" text-anchor="middle" fill="#4ade80" font-size="8" font-weight="700">广州</text>
+      <!-- Waypoint dots -->
 
-      <!-- Waypoints -->
-      <!-- WP0: 广州 -->
-      <circle cx="30" cy="260" r="5" class="wp-dot active" fill="var(--accent)" filter="url(#glowStrong)"
-              data-id="0" data-name="广州" data-day="D1" data-elev="~20m" data-terrain="珠江三角洲 / 亚热带丘陵"
-              data-color="#3a6a5a" data-desc="出发。从珠江口开始，穿过亚热带的绿色丘陵和稻田。"
-              data-geo="珠江三角洲是中国最密集的城市群之一，由东/西/北三江冲积而成。"/>
-      <!-- WP1: 兴平 -->
-      <circle cx="120" cy="215" r="5" class="wp-dot" fill="#4a8c3f" filter="url(#glow)"
-              data-id="1" data-name="兴平古镇" data-day="D1" data-elev="~150m" data-terrain="喀斯特峰林"
-              data-color="#4a8c3f" data-desc="漓江边的千年古镇。石灰岩峰林从稻田里拔地而起，像桂林山水的浓缩版。"
-              data-geo="喀斯特地貌——石灰岩被雨水溶蚀数百万年，形成独立的塔状峰林。"/>
-      <!-- WP2: 遵义 -->
-      <circle cx="230" cy="225" r="5" class="wp-dot" fill="#c47030"
-              data-id="2" data-name="遵义会议会址" data-day="D2" data-elev="~900m" data-terrain="云贵高原红色盆地"
-              data-color="#c47030" data-desc="从这里开始爬升。红色土壤铺满山丘，是中国革命的转折点。"
-              data-geo="云贵高原是中国四大高原之一，红色土壤富含铁铝氧化物——湿热气候长期风化的结果。"/>
-      <!-- WP3: 重庆 -->
-      <circle cx="310" cy="195" r="5" class="wp-dot" fill="#c47030"
-              data-id="3" data-name="重庆" data-day="D3" data-elev="~250m" data-terrain="四川盆地"
-              data-color="#c47030" data-desc="山城、雾都、火锅。嘉陵江和长江在这里交汇，城市建在山坡上。"
-              data-geo="四川盆地是中国四大盆地之一，四周高山环绕，内部低矮丘陵。"/>
-      <!-- WP4: 安岳 -->
-      <circle cx="370" cy="172" r="5" class="wp-dot" fill="#7a5c3a"
-              data-id="4" data-name="安岳石刻" data-day="D4" data-elev="~350m" data-terrain="丘陵石刻群"
-              data-color="#7a5c3a" data-desc="毗卢洞的紫竹观音——北宋。漫不经心地美了一千年。茗山寺的风蚀护法神——黑神话虎先锋的扫描原型。"
-              data-geo="安岳石刻早于大足，盛唐至宋，是中国石窟艺术从北方向南方迁移的关键节点。"/>
-      <!-- WP5: 广元 -->
-      <circle cx="420" cy="165" r="5" class="wp-dot" fill="#7a5c3a"
-              data-id="5" data-name="广元" data-day="D5" data-elev="~500m" data-terrain="盆地边缘 / 嘉陵江峡谷"
-              data-color="#7a5c3a" data-desc="四川盆地的北大门。过了广元，就进入古代的"蜀道难"地带。"
-              data-geo="广元是中国南北地理分界线上的城市——秦岭以南的最后一个盆地城市。"/>
-      <!-- WP6: 剑门关 -->
-      <circle cx="470" cy="140" r="5" class="wp-dot" fill="#7a5c3a"
-              data-id="6" data-name="剑门关" data-day="D5" data-elev="~900m" data-terrain="蜀道天险"
-              data-color="#7a5c3a" data-desc="一夫当关，万夫莫开。站在剑门关上，脚下是上千米的垂直断崖。"
-              data-geo="剑门关是龙门山脉的断裂带——地壳挤压把山体劈开了一条缝，成了天然的关隘。"/>
-      <!-- WP7: 兰州 -->
-      <circle cx="550" cy="100" r="5" class="wp-dot" fill="#c4a060"
-              data-id="7" data-name="兰州" data-day="D6" data-elev="~1,520m" data-terrain="黄土高原 / 黄河谷地"
-              data-color="#c4a060" data-desc="黄河穿城而过。中山桥、白塔山、牛肉面的故乡。从这里开始，绿色越来越少。"
-              data-geo="兰州坐落在黄河上游峡谷中，是青藏高原和黄土高原的过渡带。"/>
-      <!-- WP8: 乌鞘岭 -->
-      <circle cx="620" cy="78" r="5" class="wp-dot" fill="#5a8a5a"
-              data-id="8" data-name="乌鞘岭" data-day="D7" data-elev="~3,000m" data-terrain="祁连山高山草甸"
-              data-color="#5a8a5a" data-desc="进入祁连山的门槛。翻过乌鞘岭，气温骤降，窗外从荒漠变成草原。"
-              data-geo="乌鞘岭是祁连山东段起点，也是中国季风区和非季风区的分界线——翻过它，就进入了干旱区。"/>
-      <!-- WP9: 武威 -->
-      <circle cx="680" cy="105" r="5" class="wp-dot" fill="#c4a060"
-              data-id="9" data-name="武威" data-day="D7" data-elev="~1,500m" data-terrain="河西走廊绿洲"
-              data-color="#c4a060" data-desc="鸠摩罗什寺——千古译经第一人的道场。雷台汉墓——马踏飞燕出土地。"
-              data-geo="武威是河西走廊第一站，丝绸之路的咽喉。马踏飞燕是汉代青铜艺术的巅峰。"/>
-      <!-- WP10: 仙米 -->
-      <circle cx="740" cy="60" r="5" class="wp-dot" fill="#2a5a2a"
-              data-id="10" data-name="仙米国家森林公园" data-day="D8" data-elev="~2,700m" data-terrain="原始云杉林"
-              data-color="#2a5a2a" data-desc="墨绿色的云杉遮天蔽日，大通河清澈见底。下车踩了十分钟冰凉的溪水。"
-              data-geo="仙米是中国海拔最高的原始云杉林之一。云杉能在海拔3,000m以上存活，靠的是极慢的生长速度——年轮密到数不清。"/>
-      <!-- WP11: 门源 -->
-      <circle cx="790" cy="48" r="5" class="wp-dot" fill="#d4a020"
-              data-id="11" data-name="门源香卡村" data-day="D8" data-elev="~2,800m" data-terrain="高原油菜花海"
-              data-color="#d4a020" data-desc="60万亩油菜花盛开。岗什卡雪山站在花海的尽头——金色地毯配白色雪山。"
-              data-geo="门源油菜花是中国最大的高原油菜花海。海拔高、昼夜温差大，让花期比平原晚了两个月——7月才是它的春天。"/>
-      <!-- WP12: 祁连山穿越 -->
-      <circle cx="860" cy="55" r="5" class="wp-dot" fill="#c8d8e8"
-              data-id="12" data-name="穿越祁连山" data-day="D9" data-elev="~3,600m" data-terrain="雪山垭口"
-              data-color="#c8d8e8" data-desc="全程最高点。车窗外的雪线近在咫尺。从雪山下到沙漠，同一天两个极端。"
-              data-geo="祁连山是青藏高原的北缘，山顶冰川是河西走廊的生命水源——没有祁连山的雪，就没有敦煌的绿洲。"/>
-      <!-- WP13: 中卫沙坡头 -->
-      <circle cx="940" cy="190" r="5" class="wp-dot" fill="#d4a060"
-              data-id="13" data-name="中卫沙坡头" data-day="D9" data-elev="~1,200m" data-terrain="腾格里沙漠 + 黄河"
-              data-color="#d4a060" data-desc="黄河在这里拐了一个大弯，沙漠直接冲向河岸。骑骆驼、滑沙、羊皮筏子。"
-              data-geo="沙坡头是腾格里沙漠和黄河的交汇点——中国唯一一处沙漠紧贴大河的地方。黄河在这里把沙漠拦在了北岸。"/>
-      <!-- WP14: 西安 -->
-      <circle cx="1020" cy="215" r="5" class="wp-dot" fill="#7a9a4a"
-              data-id="14" data-name="西安" data-day="D10-12" data-elev="~400m" data-terrain="关中平原"
-              data-color="#7a9a4a" data-desc="碑林、昭陵六骏、城墙、大慈恩寺、大雁塔。玄奘在这里译经——真人才是最牛的。"
-              data-geo="关中平原是渭河冲积而成，八百里秦川。十三朝古都选址在此，因为四面关隘环抱、易守难攻。"/>
-      <!-- WP15: 衡阳 -->
-      <circle cx="1100" cy="230" r="5" class="wp-dot" fill="#6b8e4a"
-              data-id="15" data-name="衡阳" data-day="D14" data-elev="~60m" data-terrain="湘中南丘陵"
-              data-color="#6b8e4a" data-desc="石鼓书院——中国四大书院之一。回程路上的最后一站，从黄土回到绿水。"
-              data-geo="石鼓书院建于唐代，是湖湘文化的源头。衡阳位于南岳衡山脚下，是中国南北气候的分界城市之一。"/>
+      <circle cx="30" cy="260" r="4.5" class="wp-dot active" fill="#3a6a5a" filter="url(#glowStrong)"
+              data-id="0"/>
+      <circle cx="120" cy="215" r="4.5" class="wp-dot" fill="#4a8c3f" filter="url(#glow)"
+              data-id="1"/>
+      <circle cx="230" cy="225" r="4.5" class="wp-dot" fill="#c47030" filter="url(#glow)"
+              data-id="2"/>
+      <circle cx="310" cy="195" r="4.5" class="wp-dot" fill="#c47030" filter="url(#glow)"
+              data-id="3"/>
+      <circle cx="370" cy="172" r="4.5" class="wp-dot" fill="#7a5c3a" filter="url(#glow)"
+              data-id="4"/>
+      <circle cx="420" cy="165" r="4.5" class="wp-dot" fill="#7a5c3a" filter="url(#glow)"
+              data-id="5"/>
+      <circle cx="470" cy="140" r="4.5" class="wp-dot" fill="#7a5c3a" filter="url(#glow)"
+              data-id="6"/>
+      <circle cx="550" cy="100" r="4.5" class="wp-dot" fill="#c4a060" filter="url(#glow)"
+              data-id="7"/>
+      <circle cx="620" cy="78" r="4.5" class="wp-dot" fill="#5a8a5a" filter="url(#glow)"
+              data-id="8"/>
+      <circle cx="680" cy="105" r="4.5" class="wp-dot" fill="#c4a060" filter="url(#glow)"
+              data-id="9"/>
+      <circle cx="740" cy="60" r="4.5" class="wp-dot" fill="#2a5a2a" filter="url(#glow)"
+              data-id="10"/>
+      <circle cx="790" cy="48" r="4.5" class="wp-dot" fill="#d4a020" filter="url(#glow)"
+              data-id="11"/>
+      <circle cx="860" cy="55" r="4.5" class="wp-dot" fill="#c8d8e8" filter="url(#glow)"
+              data-id="12"/>
+      <circle cx="940" cy="190" r="4.5" class="wp-dot" fill="#d4a060" filter="url(#glow)"
+              data-id="13"/>
+      <circle cx="1020" cy="215" r="4.5" class="wp-dot" fill="#7a9a4a" filter="url(#glow)"
+              data-id="14"/>
+      <circle cx="1100" cy="230" r="4.5" class="wp-dot" fill="#6b8e4a" filter="url(#glow)"
+              data-id="15"/>
 
-      <!-- Terrain labels at top -->
-      <text x="75" y="18" class="terrain-label">🌿 珠江三角洲</text>
-      <text x="200" y="18" class="terrain-label">🏔️ 喀斯特</text>
-      <text x="330" y="18" class="terrain-label">⛰️ 云贵高原</text>
-      <text x="460" y="18" class="terrain-label">🗡️ 蜀道</text>
-      <text x="570" y="18" class="terrain-label">🏜️ 黄土高原</text>
-      <text x="680" y="18" class="terrain-label">🏔️ 祁连山</text>
-      <text x="800" y="18" class="terrain-label">🌲 原始森林</text>
-      <text x="900" y="18" class="terrain-label">🏜️ 沙漠</text>
-      <text x="1030" y="18" class="terrain-label">🏛️ 关中平原</text>
-      <text x="1145" y="18" class="terrain-label">🌳 湘中丘陵</text>
-
-      <!-- Direction arrow indicator -->
-      <text x="30" y="300" fill="rgba(255,255,255,.06)" font-size="7">← 环形路线 →</text>
+      <!-- Terrain labels -->
+      <text x="55" y="16" class="terrain-label">🌿 珠江三角洲</text>
+      <text x="160" y="16" class="terrain-label">🏔️ 喀斯特</text>
+      <text x="270" y="16" class="terrain-label">⛰️ 云贵高原</text>
+      <text x="420" y="16" class="terrain-label">🗡️ 蜀道</text>
+      <text x="565" y="16" class="terrain-label">🏜️ 黄土高原</text>
+      <text x="690" y="16" class="terrain-label">🏔️ 祁连山</text>
+      <text x="800" y="16" class="terrain-label">🌲 森林</text>
+      <text x="910" y="16" class="terrain-label">🏜️ 沙漠</text>
+      <text x="1030" y="16" class="terrain-label">🏛️ 关中</text>
+      <text x="1140" y="16" class="terrain-label">🌳 湘中</text>
     </svg>
   </div>
 
   <aside class="info-panel" id="infoPanel">
-    <div class="info-handle" id="infoHandle"><span></span></div>
-    <div id="infoContent">
-      <h3>👆 点击一个地点</h3>
-      <div class="day">开始在路线上探索</div>
-      <p class="desc">选择路线上的圆点，查看每一站的详细信息。</p>
-    </div>
+    <div class="info-handle" id="infoHandle"></div>
+    <div id="infoContent"></div>
   </aside>
 </main>
 
-<!-- Elevation Profile -->
-<section class="elev-section">
-  <h2>📈 海拔剖面图</h2>
-  <svg viewBox="0 0 1200 160" xmlns="http://www.w3.org/2000/svg">
+<!-- Elevation -->
+<section id="elevChart">
+  <h2>📈 海拔剖面图 · 广州→祁连山→广州</h2>
+  <svg viewBox="0 0 1200 140" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="elevGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="rgba(77,208,225,.15)"/><stop offset="100%" stop-color="rgba(77,208,225,0)"/>
+        <stop offset="0%" stop-color="rgba(77,208,225,.12)"/><stop offset="100%" stop-color="rgba(77,208,225,0)"/>
       </linearGradient>
     </defs>
-    <!-- Grid lines -->
-    <line x1="0" y1="40" x2="1200" y2="40" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-    <line x1="0" y1="80" x2="1200" y2="80" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-    <line x1="0" y1="120" x2="1200" y2="120" stroke="rgba(255,255,255,.04)" stroke-width=".5"/>
-    <text x="5" y="36" fill="rgba(255,255,255,.12)" font-size="8">3,000m</text>
-    <text x="5" y="76" fill="rgba(255,255,255,.12)" font-size="8">2,000m</text>
-    <text x="5" y="116" fill="rgba(255,255,255,.12)" font-size="8">1,000m</text>
-    <text x="5" y="150" fill="rgba(255,255,255,.12)" font-size="8">0m</text>
+    <line x1="0" y1="33" x2="1200" y2="33" stroke="rgba(255,255,255,.03)" stroke-width=".5"/>
+    <line x1="0" y1="66" x2="1200" y2="66" stroke="rgba(255,255,255,.03)" stroke-width=".5"/>
+    <line x1="0" y1="99" x2="1200" y2="99" stroke="rgba(255,255,255,.03)" stroke-width=".5"/>
+    <text x="4" y="30" fill="rgba(255,255,255,.1)" font-size="7">3,000m</text>
+    <text x="4" y="63" fill="rgba(255,255,255,.1)" font-size="7">2,000m</text>
+    <text x="4" y="96" fill="rgba(255,255,255,.1)" font-size="7">1,000m</text>
+    <text x="4" y="128" fill="rgba(255,255,255,.1)" font-size="7">0m</text>
 
-    <!-- Elevation fill -->
-    <path d="M0,150 L0,130 C40,128 60,125 90,120 L90,120 C120,115 140,125 160,120 L160,120 C180,115 200,105 220,110 L220,110 C240,115 260,120 280,118 L280,118 C300,116 310,105 330,108 L330,108 C350,111 370,100 390,95 L390,95 C410,90 420,80 440,78 L440,78 C460,76 470,60 490,55 L490,55 C510,50 530,35 560,45 L560,45 C590,55 610,40 640,30 L640,30 C670,20 690,18 720,25 L720,25 C750,32 770,45 790,60 L790,60 C810,70 820,65 840,75 L840,75 C860,85 880,90 900,95 L900,95 C920,100 940,105 960,100 L960,100 C980,95 1000,80 1020,85 L1020,85 C1040,90 1060,100 1080,95 L1080,95 C1100,90 1120,110 1150,105 L1150,105 C1180,100 1190,110 1200,115 L1200,150 Z"
+    <path d="M0,125 C30,123 45,120 70,118 C110,115 120,122 145,118 C175,113 190,110 215,115 C245,120 255,118 275,116 C295,114 310,108 330,112 C350,115 370,105 390,102 C410,98 425,90 445,88 C465,86 475,75 495,70 C515,65 535,55 555,62 C580,68 600,52 625,42 C650,32 670,30 700,40 C730,48 745,55 765,72 C785,85 800,80 820,95 C840,108 855,112 875,118 C900,125 920,115 940,120 C960,125 980,130 1000,125 C1020,120 1035,108 1055,112 C1075,115 1095,120 1120,115 C1145,110 1170,115 1195,122 L1195,130 L0,130 Z"
           fill="url(#elevGrad)"/>
-    <!-- Elevation line -->
-    <path d="M0,130 C40,128 60,125 90,120 C120,115 140,125 160,120 C180,115 200,105 220,110 C240,115 260,120 280,118 C300,116 310,105 330,108 C350,111 370,100 390,95 C410,90 420,80 440,78 C460,76 470,60 490,55 C510,50 530,35 560,45 C590,55 610,40 640,30 C670,20 690,18 720,25 C750,32 770,45 790,60 C810,70 820,65 840,75 C860,85 880,90 900,95 C920,100 940,105 960,100 C980,95 1000,80 1020,85 C1040,90 1060,100 1080,95 C1100,90 1120,110 1150,105 C1180,100 1190,110 1200,115"
-          fill="none" stroke="#4dd0e1" stroke-width="2" stroke-linecap="round" filter="url(#glow)"/>
+    <path d="M0,125 C30,123 45,120 70,118 C110,115 120,122 145,118 C175,113 190,110 215,115 C245,120 255,118 275,116 C295,114 310,108 330,112 C350,115 370,105 390,102 C410,98 425,90 445,88 C465,86 475,75 495,70 C515,65 535,55 555,62 C580,68 600,52 625,42 C650,32 670,30 700,40 C730,48 745,55 765,72 C785,85 800,80 820,95 C840,108 855,112 875,118 C900,125 920,115 940,120 C960,125 980,130 1000,125 C1020,120 1035,108 1055,112 C1075,115 1095,120 1120,115 C1145,110 1170,115 1195,122"
+          fill="none" stroke="#4dd0e1" stroke-width="1.8" stroke-linecap="round" filter="url(#glow)"/>
 
-    <!-- Peak labels -->
-    <circle cx="640" cy="30" r="3" fill="#c8d8e8"/>
-    <text x="640" y="22" text-anchor="middle" fill="#c8d8e8" font-size="8" font-weight="700">祁连山垭口 ~3,600m</text>
-    <circle cx="90" cy="120" r="2.5" fill="#4a8c3f"/>
-    <text x="90" y="116" text-anchor="middle" fill="rgba(255,255,255,.25)" font-size="6">广州</text>
-    <circle cx="1150" cy="105" r="2.5" fill="#4a8c3f"/>
-    <text x="1150" y="101" text-anchor="middle" fill="rgba(255,255,255,.25)" font-size="6">广州</text>
+    <circle cx="625" cy="42" r="3" fill="#c8d8e8"/>
+    <text x="625" y="33" text-anchor="middle" fill="#c8d8e8" font-size="7" font-weight="700">祁连山 ~3,600m</text>
+    <circle cx="70" cy="118" r="2" fill="#3a6a5a"/>
+    <circle cx="1195" cy="122" r="2" fill="#3a6a5a"/>
   </svg>
 </section>
 
-<!-- Terrain Legend -->
+<!-- Geography Knowledge Cards -->
+<section>
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="all">全部</button>
+    <button class="tab-btn" data-tab="geo">🏔️ 地理地貌</button>
+    <button class="tab-btn" data-tab="climate">🌦️ 气候条件</button>
+    <button class="tab-btn" data-tab="funfact">💡 趣味知识</button>
+  </div>
+
+  <div class="tab-content active" id="tab-all">
+    <div class="knowledge-grid" id="cardGrid"></div>
+  </div>
+  <div class="tab-content" id="tab-geo">
+    <div class="knowledge-grid" id="cardGridGeo"></div>
+  </div>
+  <div class="tab-content" id="tab-climate">
+    <div class="knowledge-grid" id="cardGridClimate"></div>
+  </div>
+  <div class="tab-content" id="tab-funfact">
+    <div class="knowledge-grid" id="cardGridFun"></div>
+  </div>
+</section>
+
+<!-- Legend -->
 <section class="legend" id="legend">
-  <div class="legend-item"><span class="legend-dot" style="background:#3a6a5a"></span>珠江三角洲<span class="legend-count">D1</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#4a8c3f"></span>喀斯特峰林<span class="legend-count">D1</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#c47030"></span>云贵高原·红盆地<span class="legend-count">D2-3</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#7a5c3a"></span>蜀道天险·石刻<span class="legend-count">D4-5</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#c4a060"></span>黄土高原<span class="legend-count">D6</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#5a8a5a"></span>祁连山草甸<span class="legend-count">D7</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#2a5a2a"></span>原始云杉林<span class="legend-count">D8</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#d4a020"></span>高原油菜花海<span class="legend-count">D8</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#c8d8e8"></span>雪山垭口<span class="legend-count">D9</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#d4a060"></span>沙漠+黄河<span class="legend-count">D9</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#7a9a4a"></span>关中平原<span class="legend-count">D10-12</span></div>
-  <div class="legend-item"><span class="legend-dot" style="background:#6b8e4a"></span>湘中南丘陵<span class="legend-count">D14</span></div>
+<div class="legend-item"><span class="legend-dot" style="background:#3a6a5a"></span>广州</div><div class="legend-item"><span class="legend-dot" style="background:#4a8c3f"></span>兴平古镇</div><div class="legend-item"><span class="legend-dot" style="background:#c47030"></span>遵义会议会址</div><div class="legend-item"><span class="legend-dot" style="background:#c47030"></span>重庆</div><div class="legend-item"><span class="legend-dot" style="background:#7a5c3a"></span>安岳石刻</div><div class="legend-item"><span class="legend-dot" style="background:#7a5c3a"></span>广元</div><div class="legend-item"><span class="legend-dot" style="background:#7a5c3a"></span>剑门关</div><div class="legend-item"><span class="legend-dot" style="background:#c4a060"></span>兰州</div><div class="legend-item"><span class="legend-dot" style="background:#5a8a5a"></span>乌鞘岭</div><div class="legend-item"><span class="legend-dot" style="background:#c4a060"></span>武威</div><div class="legend-item"><span class="legend-dot" style="background:#2a5a2a"></span>仙米国家森林公园</div><div class="legend-item"><span class="legend-dot" style="background:#d4a020"></span>门源香卡村</div><div class="legend-item"><span class="legend-dot" style="background:#c8d8e8"></span>穿越祁连山</div><div class="legend-item"><span class="legend-dot" style="background:#d4a060"></span>中卫沙坡头</div><div class="legend-item"><span class="legend-dot" style="background:#7a9a4a"></span>西安</div><div class="legend-item"><span class="legend-dot" style="background:#6b8e4a"></span>衡阳</div>
 </section>
 
 <footer>
-  <a href="https://github.com/jasoneip01-pixel/electricity-flow" target="_blank">jasoneip01-pixel/electricity-flow</a>
-  · 2026暑假 · 牧之 & 牧童
+  <a href="https://github.com/jasoneip01-pixel/electricity-flow" target="_blank">jasoneip01-pixel/electricity-flow</a> · 2026暑假 · 牧之 & 牧童
 </footer>
 
 <script>
-(function(){
-  var dots = document.querySelectorAll('.wp-dot');
-  var panel = document.getElementById('infoPanel');
-  var content = document.getElementById('infoContent');
-  var handle = document.getElementById('infoHandle');
-  var tooltip = document.getElementById('tooltip');
-  var mapArea = document.getElementById('mapArea');
-  var isMobile = window.innerWidth <= 860;
+// === Data ===
+var WAYPOINTS = [{"id": 0, "name": "广州", "day": "D1", "elev": "~20m", "terrain": "珠江三角洲 · 冲积平原", "color": "#3a6a5a", "desc": "出发。从珠江口开始，穿过亚热带的绿色丘陵和稻田。", "climate": "南亚热带季风气候 · 年均 22°C · 年降水 1,800mm · 夏季湿热、冬季温和。全年无霜，四季常绿。", "geo": "珠江三角洲是西江/北江/东江三条河流冲积而成的平原，面积约11,000km²。是中国最密集的城市群之一。土壤以水稻土和赤红壤为主，适宜热带水果种植。", "fact": "珠江三角洲每平方公里承载约1,500人——是全球人口密度最高的河口三角洲之一。", "cx": 30, "cy": 260}, {"id": 1, "name": "兴平古镇", "day": "D1", "elev": "~150m", "terrain": "喀斯特峰林", "color": "#4a8c3f", "desc": "漓江边的千年古镇。石灰岩峰林从稻田里拔地而起，像桂林山水的浓缩版。", "climate": "中亚热带湿润季风气候 · 年均 19°C · 年降水 1,900mm · 雨季4-8月占全年降水70%。", "geo": "喀斯特（Karst）地貌：石灰岩（CaCO₃）被含碳酸的雨水溶蚀数百万年，形成独立的塔状峰林。桂林-阳朔一带是中国最典型的峰林地貌，世界自然遗产。化学方程式：CaCO₃ + H₂CO₃ → Ca(HCO₃)₂（可溶）。", "fact": "桂林山水在徐霞客笔下被称为「碧莲玉笋世界」——他在1637年走了整个桂林地区，是第一个系统记录喀斯特地貌的人。", "cx": 120, "cy": 215}, {"id": 2, "name": "遵义会议会址", "day": "D2", "elev": "~900m", "terrain": "云贵高原 · 红色盆地", "color": "#c47030", "desc": "从这里开始爬升。红色土壤铺满山丘，是中国革命的转折点。", "climate": "亚热带高原季风气候 · 年均 15°C · 年降水 1,100mm · 冬无严寒、夏无酷暑。海拔每升高100m气温降0.6°C。", "geo": "云贵高原是中国四大高原之一，海拔1,000-2,000m。红色土壤富含铁铝氧化物（Fe₂O₃、Al₂O₃）——湿热气候长期风化的结果。这种「红壤」酸性强、肥力低，但适合种茶和马铃薯。", "fact": "遵义的红层地貌形成于侏罗纪-白垩纪（约1.5亿年前），那时这里还是湖泊，红色来自沉积物中的氧化铁。", "cx": 230, "cy": 225}, {"id": 3, "name": "重庆", "day": "D3", "elev": "~250m", "terrain": "四川盆地 · 山城", "color": "#c47030", "desc": "山城、雾都、火锅。嘉陵江和长江在这里交汇，城市建在山坡上。", "climate": "中亚热带湿润季风气候 · 年均 18°C · 年降水 1,100mm · 冬季多雾（年均104天雾日）· 夏季酷热（曾达44.5°C），是中国「火炉」之一。", "geo": "四川盆地是中国四大盆地之一，面积约26万km²。四周高山环绕（北秦岭、西横断山脉、南云贵高原、东巫山），内部是低矮的紫红色丘陵。盆地形成于印度板块挤压欧亚板块的造山运动中。", "fact": "重庆是「建在侏罗纪岩层上的城市」——朝天门码头的基岩是1.6亿年前的砂岩，上面还留着恐龙时代的波纹痕迹。", "cx": 310, "cy": 195}, {"id": 4, "name": "安岳石刻", "day": "D4", "elev": "~350m", "terrain": "丘陵 · 唐宋摩崖石刻群", "color": "#7a5c3a", "desc": "毗卢洞的紫竹观音——北宋。漫不经心地美了一千年。茗山寺的风蚀护法神——黑神话虎先锋的扫描原型。", "climate": "中亚热带湿润季风气候 · 年均 17°C · 年降水 1,000mm。砂岩易风化，千年风雨在护法神像上刻出了刀刃般的纹理。", "geo": "安岳石刻开凿于盛唐至南宋，以红砂岩为载体。砂岩较石灰岩软，易于雕刻但易风化。茗山寺的护法神暴露在露天，千年风雨把岩石中的软层侵蚀掉，硬的石英颗粒留了下来——形成了黑神话中惊艳的「原生风蚀纹理」。", "fact": "安岳全县有200+处石刻，但大部分散布在田间地头。紫竹观音所在的毗卢洞，管理员常因下田种地而锁门——去之前必须打电话确认。", "cx": 370, "cy": 172}, {"id": 5, "name": "广元", "day": "D5", "elev": "~500m", "terrain": "盆地北缘 · 嘉陵江峡谷", "color": "#7a5c3a", "desc": "四川盆地的北大门。过了广元，进入古代的「蜀道难」地带。", "climate": "北亚热带湿润季风气候 · 年均 16°C · 年降水 1,000mm。处于中国南北气候分界线的南侧。", "geo": "广元位于龙门山断裂带前缘——2008年汶川地震就在这里释放了巨大的构造应力。嘉陵江在这里切穿了秦岭余脉，形成了天然的南北通道。", "fact": "广元是中国唯一的女皇帝武则天（624-705年）的出生地。她在位时期，佛教石窟艺术达到了唐代的最高峰——安岳石刻的开端与她推动佛教有关。", "cx": 420, "cy": 165}, {"id": 6, "name": "剑门关", "day": "D5", "elev": "~900m", "terrain": "蜀道天险 · 断层峡谷", "color": "#7a5c3a", "desc": "一夫当关，万夫莫开。站在剑门关上，脚下是上千米的垂直断崖。", "climate": "山地气候 · 山顶年均 14°C · 峡谷风力强劲。冬天有积雪，夏季凉爽。南北两侧气候差异巨大。", "geo": "剑门关是龙门山脉的断裂带——印度板块推挤欧亚板块时，地壳被「挤断」，形成了一条天然的垂直裂缝。裂缝宽仅30-50米，两侧是数百米高的绝壁。三国时期，诸葛亮在此筑关。李白写「剑阁峥嵘而崔嵬，一夫当关，万夫莫开」。", "fact": "剑门关的岩石是白垩纪（约1亿年前）的砾岩——由远古河流冲刷下来的卵石胶结而成。站在关下可以看到岩壁里嵌满了拳头大的鹅卵石。", "cx": 470, "cy": 140}, {"id": 7, "name": "兰州", "day": "D6", "elev": "~1,520m", "terrain": "黄土高原 · 黄河谷地", "color": "#c4a060", "desc": "黄河穿城而过。中山桥、白塔山、牛肉面的故乡。从这里开始，绿色越来越少。", "climate": "温带半干旱大陆性气候 · 年均 10°C · 年降水 320mm（仅广州的1/6！）。昼夜温差可达15°C。", "geo": "兰州坐落在黄河上游峡谷中，是青藏高原和黄土高原的过渡带。黄土高原的黄土是200万年来从中亚沙漠吹来的风积物，厚度可达100-300米——地球上最厚的黄土堆积。黄河在这里携带大量泥沙，每立方米河水含沙量约3kg。", "fact": "正宗的兰州牛肉面讲究「一清二白三红四绿五黄」——汤清、萝卜白、辣椒红、蒜苗绿、面条黄。出了兰州，水的硬度变了，面就拉不出同样的筋道。", "cx": 550, "cy": 100}, {"id": 8, "name": "乌鞘岭", "day": "D7", "elev": "~3,000m", "terrain": "祁连山高山草甸", "color": "#5a8a5a", "desc": "进入祁连山的门槛。翻过乌鞘岭，气温骤降，窗外从荒漠变成草原。", "climate": "高原大陆性气候 · 年均 0°C · 年降水 400mm · 7月最高仅20°C。这里是季风区和非季风区的分界线。", "geo": "乌鞘岭是祁连山东段起点，也是中国三大自然区（东部季风区、西北干旱区、青藏高寒区）的交汇点。翻过它，意味着告别了太平洋季风的势力范围——从湿润区进入干旱区。", "fact": "乌鞘岭是亚洲内陆流域和太平洋流域的分水岭。岭东的雨水最终流向太平洋，岭西的雨水蒸发或渗入戈壁——一滴都到不了海。", "cx": 620, "cy": 78}, {"id": 9, "name": "武威", "day": "D7", "elev": "~1,500m", "terrain": "河西走廊绿洲", "color": "#c4a060", "desc": "鸠摩罗什寺——千古译经第一人的道场。雷台汉墓——马踏飞燕出土地。", "climate": "温带干旱大陆性气候 · 年均 8°C · 年降水 160mm · 全年日照超3,000小时。水来自祁连山冰川融水，不是雨水。", "geo": "武威是河西走廊第一站。河西走廊是一条长1,000km、宽仅10-100km的狭窄通道，夹在祁连山和巴丹吉林沙漠之间。所有城市（武威/张掖/酒泉/敦煌）都建在祁连山融水形成的绿洲上——没有祁连山的雪，就没有河西走廊。", "fact": "马踏飞燕（铜奔马）1969年出土于武威雷台汉墓。高34.5cm，重7.15kg，一足踏燕三足腾空——汉代工匠把力学平衡做到了极致：整匹马的重心恰好落在踏燕的足尖上。", "cx": 680, "cy": 105}, {"id": 10, "name": "仙米国家森林公园", "day": "D8", "elev": "~2,700m", "terrain": "原始云杉林", "color": "#2a5a2a", "desc": "墨绿色的云杉遮天蔽日，大通河清澈见底。下车踩了十分钟冰凉的溪水。", "climate": "高山寒温带湿润气候 · 年均 -1°C · 年降水 500mm · 7月均温仅12°C。夏季是全年唯一不降雪的季节。", "geo": "仙米是中国海拔最高的原始云杉林之一。祁连圆柏和青海云杉是优势树种，能在海拔3,000m以上存活靠的是极慢的生长速度——年轮密到用放大镜才能看清。一棵碗口粗的云杉可能已生长了300年。", "fact": "仙米的云杉林是祁连山的「天然水库」——树冠截留降雪，落叶层像海绵一样蓄水，慢释放到大通河中。保护这片森林就是保护河西走廊的水源。", "cx": 740, "cy": 60}, {"id": 11, "name": "门源香卡村", "day": "D8", "elev": "~2,800m", "terrain": "高原油菜花海", "color": "#d4a020", "desc": "60万亩油菜花盛开。岗什卡雪山站在花海的尽头——金色地毯配白色雪山。", "climate": "高原大陆性气候 · 年均 1°C · 年降水 520mm · 7月均温12-15°C。高海拔让油菜花期比平原晚了三个月——7月才是它的春天。", "geo": "门源油菜花是中国最大的高原油菜花海。高海拔（2,800m）+ 长日照（每天14h）+ 大温差（昼夜15°C）→ 油菜籽含油率比平原高2-3个百分点。岗什卡雪山（5,254m）是祁连山东段最高峰，山顶终年积雪。", "fact": "门源油菜花的最佳观赏窗口只有2-3周（7月中旬到8月初）。错过了就得等一年——高原上的春天不是钟表，是瞬移。", "cx": 790, "cy": 48}, {"id": 12, "name": "穿越祁连山", "day": "D9", "elev": "~3,600m", "terrain": "雪山垭口 · 冰缘地貌", "color": "#c8d8e8", "desc": "全程最高点。车窗外的雪线近在咫尺。从雪山下到沙漠，同一天两个极端。", "climate": "高山冰缘气候 · 年均 -5°C · 年降水 600-800mm（以降雪为主）· 7月垭口气温5-10°C。全年积雪期8个月以上。", "geo": "祁连山是青藏高原的北缘，东西长800km。山顶发育了现代冰川（总共2,683条），每年融化出约10亿m³的水——相当于70个西湖。这是河西走廊和柴达木盆地的唯一水源。地质构造上，祁连山是印度板块挤压形成的褶皱带，岩石年龄从10亿年（前寒武纪）到1亿年（白垩纪）都有。", "fact": "从祁连山垭口下到中卫沙坡头，同一天内海拔下降2,400m——相当于从雪山山顶直接降到海平面以下。这一天经历了地球上垂直落差最大的公路穿越之一。", "cx": 860, "cy": 55}, {"id": 13, "name": "中卫沙坡头", "day": "D9", "elev": "~1,200m", "terrain": "腾格里沙漠 · 黄河交汇", "color": "#d4a060", "desc": "黄河在这里拐了一个大弯，沙漠直接冲向河岸。骑骆驼、滑沙、羊皮筏子。", "climate": "温带干旱沙漠气候 · 年均 9°C · 年降水仅 186mm · 年蒸发量高达2,000mm（降水vs蒸发=1:11！）。夏季最高温可达40°C。", "geo": "沙坡头是腾格里沙漠和黄河的交汇点——中国唯一一处沙漠紧贴大河的地方。腾格里沙漠面积4.27万km²，是中国第四大沙漠。黄河在这里被沙丘逼着拐了一个近乎90°的大弯。1958年包兰铁路通车时，工程人员发明了「麦草方格」固沙法——用麦草扎成1m×1m的方格埋进沙里，至今仍是全球治沙的经典方案。", "fact": "羊皮筏子是黄河上游独有的交通工具——将整张羊皮剥下充气，十几只绑在一起。一张皮筏能载一吨货，用了两千年。", "cx": 940, "cy": 190}, {"id": 14, "name": "西安", "day": "D10-12", "elev": "~400m", "terrain": "关中平原 · 渭河冲积", "color": "#7a9a4a", "desc": "碑林、昭陵六骏、城墙、大慈恩寺、大雁塔。玄奘在这里译经——真人才是最牛的。", "climate": "暖温带半湿润大陆性季风气候 · 年均 14°C · 年降水 570mm · 四季分明。冬季干燥寒冷，夏季炎热多雨。", "geo": "关中平原是渭河冲积而成的断陷盆地，东西长300km，面积约3.4万km²。八百里秦川。十三朝古都选址在此因为四面关隘环抱（东函谷、南武关、西散关、北萧关）——易守难攻。地下水位高，土壤肥沃（黄土层深达100m+），是「天府之国」的原意。", "fact": "大雁塔是玄奘（602-664年）为存放从印度带回的657部佛经而建。他在大慈恩寺住了19年，译出1,335卷佛经——如果按字数算，相当于每天翻译约3,000字的专业文献，连续19年无休。", "cx": 1020, "cy": 215}, {"id": 15, "name": "衡阳", "day": "D14", "elev": "~60m", "terrain": "湘中南丘陵 · 南岳山麓", "color": "#6b8e4a", "desc": "石鼓书院——中国四大书院之一。回程路上的最后一站，从黄土回到绿水。", "climate": "中亚热带湿润季风气候 · 年均 18°C · 年降水 1,350mm。处于中国南北气候分界线（南岭-衡山一线）的南侧，自此以南便是绵绵不绝的亚热带绿意。", "geo": "衡阳位于南岳衡山（1,300m）脚下。衡山是中国五岳之一，花岗岩岩体。石鼓书院建于唐代（810年），朱熹、王阳明曾在此讲学——是「湖湘文化」的发源地。从衡阳开始，窗外从黄土回到绿水，从北方回到南方。", "fact": "石鼓书院名字来自于一块天然巨石——它立在蒸水和湘江交汇处，形如石鼓。涨水时江水拍石，「声如鼓鸣」。", "cx": 1100, "cy": 230}];
 
-  // Default show first waypoint
-  selectWaypoint(dots[0]);
+// === DOM ===
+var dots = document.querySelectorAll('.wp-dot');
+var panel = document.getElementById('infoPanel');
+var content = document.getElementById('infoContent');
+var handle = document.getElementById('infoHandle');
+var tooltip = document.getElementById('tooltip');
+var mapArea = document.getElementById('mapArea');
+var isMobile = window.innerWidth <= 860;
 
-  dots.forEach(function(d){
-    d.addEventListener('click', function(e){
-      e.stopPropagation();
-      selectWaypoint(d);
-      if(isMobile) panel.classList.add('open');
-    });
-    d.addEventListener('mouseenter', function(e){
-      var name = d.dataset.name;
-      var day = d.dataset.day;
-      tooltip.textContent = day + ' · ' + name;
-      tooltip.classList.add('show');
-    });
-    d.addEventListener('mousemove', function(e){
-      var rect = mapArea.getBoundingClientRect();
-      tooltip.style.left = (e.clientX - rect.left + 16) + 'px';
-      tooltip.style.top = (e.clientY - rect.top - 36) + 'px';
-    });
-    d.addEventListener('mouseleave', function(){
-      tooltip.classList.remove('show');
-    });
+// Select waypoint
+function selectWP(data){
+  dots.forEach(function(x){ x.classList.remove('active'); });
+  document.querySelector('[data-id="'+data.id+'"]').classList.add('active');
+
+  content.innerHTML =
+    '<h3>📍 ' + data.name + '</h3>' +
+    '<div class="day">' + data.day + '</div>' +
+    '<div class="meta-row">' +
+    '<span class="elev">⬆ ' + data.elev + '</span>' +
+    '<span class="terrain-tag" style="background:rgba(' + hexRgba(data.color,.15) + ');color:' + data.color + '">' + data.terrain + '</span>' +
+    '</div>' +
+    '<p class="desc">' + data.desc + '</p>' +
+    '<div class="kb" style="background:rgba(77,208,225,.05)">' +
+    '<div class="kb-title">🌦️ 气候条件</div>' +
+    data.climate +
+    '</div>' +
+    '<div class="kb" style="background:rgba(167,139,250,.05)">' +
+    '<div class="kb-title">🏔️ 地理地貌</div>' +
+    data.geo +
+    '</div>' +
+    '<div class="fact">💡 ' + data.fact + '</div>';
+}
+
+// === Initialize dots ===
+dots.forEach(function(d){
+  d.addEventListener('click', function(e){
+    e.stopPropagation();
+    var wp = WAYPOINTS.find(function(w){ return w.id == d.dataset.id; });
+    if(wp) selectWP(wp);
+    if(isMobile) panel.classList.add('open');
   });
+  d.addEventListener('mouseenter', function(e){
+    var wp = WAYPOINTS.find(function(w){ return w.id == d.dataset.id; });
+    tooltip.textContent = (wp ? wp.day + ' · ' + wp.name : '');
+    tooltip.classList.add('show');
+  });
+  d.addEventListener('mousemove', function(e){
+    var r = mapArea.getBoundingClientRect();
+    tooltip.style.left = (e.clientX - r.left + 14) + 'px';
+    tooltip.style.top = (e.clientY - r.top - 32) + 'px';
+  });
+  d.addEventListener('mouseleave', function(){ tooltip.classList.remove('show'); });
+});
 
-  // Handle mobile panel toggle
-  if(handle){
-    handle.addEventListener('click', function(){
-      panel.classList.toggle('open');
-    });
+// Select first by default
+selectWP(WAYPOINTS[0]);
+
+// Mobile panel toggle
+if(handle){
+  handle.addEventListener('click', function(){ panel.classList.toggle('open'); });
+}
+mapArea.addEventListener('click', function(e){
+  if(e.target === mapArea || e.target.tagName === 'svg'){
+    if(isMobile) panel.classList.remove('open');
   }
+});
 
-  function selectWaypoint(d){
-    dots.forEach(function(x){ x.classList.remove('active'); });
-    d.classList.add('active');
+// === Knowledge Cards ===
+function buildCard(wp){
+  return '<div class="kcard" onclick="document.querySelector(\'[data-id=&quot;' + wp.id + '&quot;]\').click(); window.scrollTo({top:0,behavior:\'smooth\'})">' +
+    '<div class="kcard-header">' +
+    '<span class="dot" style="background:' + wp.color + '"></span>' +
+    '<span class="name">' + wp.name + '</span>' +
+    '<span class="tag">' + wp.day + '</span>' +
+    '</div>' +
+    '<div class="oneliner">' + wp.desc + '</div>' +
+    '<div class="info-row"><span>⬆ ' + wp.elev + '</span><span>' + wp.terrain + '</span></div>' +
+    '</div>';
+}
+function buildGeoCard(wp){
+  return '<div class="kcard" onclick="document.querySelector(\'[data-id=&quot;' + wp.id + '&quot;]\').click(); window.scrollTo({top:0,behavior:\'smooth\'})">' +
+    '<div class="kcard-header"><span class="dot" style="background:' + wp.color + '"></span><span class="name">' + wp.name + '</span></div>' +
+    '<div class="oneliner">' + wp.geo + '</div></div>';
+}
+function buildClimateCard(wp){
+  return '<div class="kcard" onclick="document.querySelector(\'[data-id=&quot;' + wp.id + '&quot;]\').click(); window.scrollTo({top:0,behavior:\'smooth\'})">' +
+    '<div class="kcard-header"><span class="dot" style="background:' + wp.color + '"></span><span class="name">' + wp.name + '</span></div>' +
+    '<div class="oneliner">' + wp.climate + '</div></div>';
+}
+function buildFunCard(wp){
+  return '<div class="kcard" onclick="document.querySelector(\'[data-id=&quot;' + wp.id + '&quot;]\').click(); window.scrollTo({top:0,behavior:\'smooth\'})">' +
+    '<div class="kcard-header"><span class="dot" style="background:' + wp.color + '"></span><span class="name">' + wp.name + '</span></div>' +
+    '<div class="oneliner">💡 ' + wp.fact + '</div></div>';
+}
 
-    var name = d.dataset.name;
-    var day = d.dataset.day;
-    var elev = d.dataset.elev;
-    var terrain = d.dataset.terrain;
-    var color = d.dataset.color;
-    var desc = d.dataset.desc;
-    var geo = d.dataset.geo;
+document.getElementById('cardGrid').innerHTML = WAYPOINTS.map(buildCard).join('');
+document.getElementById('cardGridGeo').innerHTML = WAYPOINTS.map(buildGeoCard).join('');
+document.getElementById('cardGridClimate').innerHTML = WAYPOINTS.map(buildClimateCard).join('');
+document.getElementById('cardGridFun').innerHTML = WAYPOINTS.map(buildFunCard).join('');
 
-    content.innerHTML =
-      '<h3>📍 ' + name + '</h3>' +
-      '<div class="day">' + day + '</div>' +
-      '<div class="elev">⬆ ' + elev + '</div>' +
-      '<div class="terrain" style="background:rgba(' + hexToRgba(color, .15) + ');color:' + color + '">' + terrain + '</div>' +
-      '<p class="desc">' + desc + '</p>' +
-      '<div class="geo">🔬 ' + geo + '</div>';
-  }
-
-  function hexToRgba(hex, alpha){
-    var r = parseInt(hex.slice(1,3), 16);
-    var g = parseInt(hex.slice(3,5), 16);
-    var b = parseInt(hex.slice(5,7), 16);
-    return r + ',' + g + ',' + b + ',' + alpha;
-  }
-
-  // Legend click - find waypoints with matching terrain
-  document.querySelectorAll('.legend-item').forEach(function(item){
-    item.addEventListener('click', function(){
-      var label = item.textContent.replace(/D\d+(-\d+)?/,'').trim();
-      // Find a matching waypoint
-      var found = null;
-      dots.forEach(function(d){
-        if(!found && d.dataset.terrain && d.dataset.terrain.includes(label.slice(0,4))){
-          found = d;
-        }
-      });
-      if(found){
-        selectWaypoint(found);
-        if(isMobile) panel.classList.add('open');
-        // Scroll to the waypoint on the map
-        found.scrollIntoView({behavior:'smooth',block:'center'});
-      }
-    });
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(function(t){ t.classList.remove('active'); });
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
   });
+});
 
-  // Resize handler
-  window.addEventListener('resize', function(){
-    isMobile = window.innerWidth <= 860;
+// Legend click
+document.querySelectorAll('.legend-item').forEach(function(item, i){
+  item.addEventListener('click', function(){
+    if(WAYPOINTS[i]) selectWP(WAYPOINTS[i]);
+    if(isMobile) panel.classList.add('open');
+    window.scrollTo({top:0,behavior:'smooth'});
   });
+});
 
-  // Click on map area to close mobile panel
-  mapArea.addEventListener('click', function(e){
-    if(e.target === mapArea || e.target.tagName === 'svg'){
-      if(isMobile) panel.classList.remove('open');
-    }
-  });
-})();
+// Resize
+window.addEventListener('resize', function(){ isMobile = window.innerWidth <= 860; });
+
+function hexRgba(hex, a){
+  var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return r+','+g+','+b+','+a;
+}
 </script>
 </body>
 </html>
